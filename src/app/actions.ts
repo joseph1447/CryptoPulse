@@ -1,7 +1,9 @@
+
 "use server";
 
 import { analyzeCryptoData } from "@/ai/flows/analyze-crypto-data";
 import { generateTradeSignals, type GenerateTradeSignalsInput, type GenerateTradeSignalsOutput } from "@/ai/flows/generate-trade-signals";
+import { testBinanceConnection } from "@/services/binance-service";
 
 export async function getTradeSignalsAction(input: GenerateTradeSignalsInput): Promise<{
     success: boolean;
@@ -17,13 +19,13 @@ export async function getTradeSignalsAction(input: GenerateTradeSignalsInput): P
     }
 }
 
-export async function getBinanceConnectionStatus(): Promise<{ connected: boolean }> {
+export async function getBinanceConnectionStatus(): Promise<{ connected: boolean, error?: string }> {
     const apiKey = process.env.BINANCE_API_KEY;
     const apiSecret = process.env.BINANCE_API_SECRET;
     
-    // In a real app, you might want to make a test call to Binance to verify the keys.
-    // For this simulation, we'll just check for their existence.
-    const connected = !!(apiKey && apiSecret);
-    
-    return { connected };
+    if (!apiKey || !apiSecret) {
+        return { connected: false };
+    }
+
+    return await testBinanceConnection(apiKey, apiSecret);
 }

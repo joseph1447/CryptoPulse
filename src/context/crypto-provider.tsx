@@ -20,12 +20,16 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
   const [currency, setCurrencyState] = useState<Currency>('USD');
   const [exchangeRate, setExchangeRate] = useState(1);
   const [binanceConnected, setBinanceConnected] = useState(false);
+  const [binanceConnectionError, setBinanceConnectionError] = useState<string | null>(null);
 
   // Check Binance connection status on mount
   useEffect(() => {
     async function checkConnection() {
-      const { connected } = await getBinanceConnectionStatus();
+      const { connected, error } = await getBinanceConnectionStatus();
       setBinanceConnected(connected);
+      if (error) {
+        setBinanceConnectionError(error);
+      }
     }
     checkConnection();
   }, []);
@@ -167,7 +171,8 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
     currency,
     setCurrency,
     exchangeRate,
-    binanceConnected
+    binanceConnected,
+    binanceConnectionError
   };
 
   return (

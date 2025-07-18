@@ -31,6 +31,7 @@ export interface CryptoContextType {
   setCurrency: (currency: Currency) => void;
   exchangeRate: number; // USD to CRC
   binanceConnected: boolean;
+  binanceConnectionError: string | null;
 }
 
 // i18n Types
