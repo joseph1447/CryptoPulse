@@ -16,7 +16,7 @@ import { Label } from "@/components/ui/label";
 type ViewMode = "buy" | "sell";
 
 export default function DashboardPage() {
-  const { cryptos, initialized, binanceConnected, binanceConnectionError } = useCrypto();
+  const { cryptos, initialized, binanceConnectionError } = useCrypto();
   const { t } = useI18n();
   const [showWarning, setShowWarning] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>("buy");
@@ -83,20 +83,20 @@ export default function DashboardPage() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <h1 className="text-3xl font-bold font-headline">{t('dashboard.title')}</h1>
         <div className="flex items-center space-x-2">
-            <Label htmlFor="view-mode" className={viewMode === 'buy' ? 'text-primary' : ''}>{t('dashboard.top10Buy')}</Label>
+            <Label htmlFor="view-mode" className={viewMode === 'buy' ? 'text-primary' : ''}>{t('dashboard.top10BuyLabel')}</Label>
             <Switch
                 id="view-mode"
                 checked={viewMode === 'sell'}
                 onCheckedChange={(checked) => setViewMode(checked ? 'sell' : 'buy')}
             />
-            <Label htmlFor="view-mode" className={viewMode === 'sell' ? 'text-primary' : ''}>{t('dashboard.top10Sell')}</Label>
+            <Label htmlFor="view-mode" className={viewMode === 'sell' ? 'text-primary' : ''}>{t('dashboard.top10SellLabel')}</Label>
         </div>
       </div>
 
       <Card>
         <CardHeader>
           <CardTitle>
-            {viewMode === 'buy' ? t('dashboard.top10ShortTermBuy') : t('dashboard.top10ShortTermSell')}
+            {t('dashboard.top10ShortTerm')}
           </CardTitle>
         </CardHeader>
         <CardContent>
