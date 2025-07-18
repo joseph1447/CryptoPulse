@@ -1,42 +1,34 @@
+
 {
   "header": {
-    "appName": "CryptoPulse",
-    "dashboard": "Panel",
+    "appName": "CryptoPulso",
+    "dashboard": "Tablero",
     "simulator": "Simulador",
-    "settings": "Configuración",
+    "binanceConnected": "Binance Conectado",
+    "binanceDisconnected": "Binance Desconectado",
+    "settings": "Ajustes",
     "theme": "Tema",
     "light": "Claro",
     "dark": "Oscuro",
     "language": "Idioma",
-    "currency": "Moneda",
-    "binanceConnected": "Binance Conectado",
-    "binanceDisconnected": "Binance Desconectado"
-  },
-  "dashboard": {
-    "title": "Panel de Criptomonedas",
-    "top10ShortTerm": "Top 10 Oportunidades a Corto Plazo (por RSI)",
-    "warning": {
-      "title": "Modo de Simulación Activo",
-      "description": "No estás conectado a Binance. Todos los datos de mercado son simulados y no reales.",
-      "dismiss": "Descartar"
-    },
-    "error": {
-      "title": "Error de Conexión con Binance",
-      "description": "No se pudo conectar a la API de Binance con las claves proporcionadas. Por favor, revisa tu archivo .env y asegúrate de que las claves tengan los permisos correctos."
-    }
-  },
-  "simulator": {
-    "title": "Simulador de Trading"
-  },
-  "policies": {
-    "title": "Políticas de la Aplicación",
-    "subtitle": "Descargo de Responsabilidad",
-    "p1": "Esta aplicación, CryptoPulse, está diseñada únicamente con fines educativos y de capacitación. Es un simulador y no implica transacciones financieras reales.",
-    "p2": "Los datos presentados pueden ser simulados o estar retrasados y no deben utilizarse para tomar decisiones de trading en el mundo real. Las señales de trading generadas por IA son para fines ilustrativos y no constituyen asesoramiento financiero. Existe una alta probabilidad de errores y fallos.",
-    "p3": "Utilice esta aplicación bajo su propia discreción. Los creadores no se hacen responsables de ninguna decisión tomada en base a la información aquí proporcionada."
+    "currency": "Moneda"
   },
   "footer": {
     "policies": "Políticas"
+  },
+  "dashboard": {
+    "title": "Tablero de Criptomonedas",
+    "top10ShortTermBuy": "Top 10 Oportunidades de Compra a Corto Plazo (por RSI)",
+    "top10ShortTermSell": "Top 10 Oportunidades de Venta a Corto Plazo (por RSI)",
+    "top10BuyLabel": "Top Compra",
+    "top10SellLabel": "Top Venta",
+    "error": {
+      "title": "Error de Conexión con Binance",
+      "description": "No se pudieron obtener los datos en vivo de Binance. El simulador usará datos de prueba. El error de Binance es:"
+    },
+    "warning": {
+      "dismiss": "Descartar"
+    }
   },
   "cryptoTable": {
     "name": "Nombre",
@@ -44,42 +36,15 @@
     "change24h": "% 24h",
     "volume24h": "Volumen 24h",
     "marketCap": "Cap. de Mercado",
-    "rsi": "RSI (14)",
+    "rsi": "RSI",
     "action": "Acción",
-    "expandRow": "Expandir Fila"
-  },
-  "tradeDialog": {
-    "buy": "Comprar",
-    "sell": "Vender",
-    "title": "Transaccionar {{name}} ({{symbol}})",
-    "currentPrice": "Precio Actual",
-    "balance": "Balance",
-    "amountToSpend": "Monto a gastar ({{stablecoin}})",
-    "amountToReceive": "Recibirás (aprox.)",
-    "amountToReceiveIn": "Recibirás (aprox. en {{stablecoin}})",
-    "amountToSell": "Monto a vender",
-    "purchaseSuccessTitle": "Compra Exitosa",
-    "purchaseSuccessDescription": "Compraste {{amount}} {{symbol}}.",
-    "purchaseFailTitle": "Falló la Compra",
-    "purchaseFailDescription": "No se pudo completar la transacción.",
-    "saleSuccessTitle": "Venta Exitosa",
-    "saleSuccessDescription": "Vendiste {{amount}} {{symbol}}.",
-    "saleFailTitle": "Falló la Venta",
-    "saleFailDescription": "No se pudo completar la transacción.",
-    "validation": {
-      "positive": "El monto debe ser positivo.",
-      "insufficientGUSD": "Balance de {{stablecoin}} insuficiente.",
-      "insufficientCrypto": "Balance de criptomoneda insuficiente."
-    }
-  },
-  "rsi": {
-    "label": "RSI: {{value}}",
-    "oversold": "Sobrevendido (potencial compra)",
-    "overbought": "Sobrecomprado (potencial venta)"
+    "expandRow": "Expandir fila para detalles",
+    "loading": "Obteniendo datos del mercado en vivo...",
+    "noData": "No hay datos de criptomonedas disponibles."
   },
   "cryptoDetail": {
-    "priceChartTitle": "Gráfico de Precios de {{name}} (30d)",
-    "aiAnalysis": "Análisis IA",
+    "priceChartTitle": "Gráfico de Precios de 7 Días de {{name}}",
+    "aiAnalysis": "Análisis con IA",
     "aiAnalysisDescription": "Obtén señales de trading con IA.",
     "analyzeButton": "Analizar Ahora",
     "analysisFailed": "Análisis Fallido",
@@ -88,11 +53,43 @@
     "longTermSignal": "Señal a Largo Plazo",
     "explanation": "Explicación"
   },
+  "rsi": {
+    "label": "RSI: {{value}}",
+    "oversold": "Sobreventa (< 30)",
+    "overbought": "Sobrecompra (> 70)"
+  },
+  "tradeDialog": {
+    "title": "Transar {{name}} ({{symbol}})",
+    "buy": "Comprar",
+    "sell": "Vender",
+    "balance": "Saldo",
+    "currentPrice": "Precio Actual",
+    "amountToSpend": "Monto a gastar ({{stablecoin}})",
+    "amountToReceive": "Recibirás",
+    "amountToReceiveIn": "Recibirás ({{stablecoin}})",
+    "amountToSell": "Monto a vender",
+    "validation": {
+      "positive": "El monto debe ser positivo.",
+      "insufficientGUSD": "Saldo de {{stablecoin}} insuficiente.",
+      "insufficientCrypto": "Saldo de criptomoneda insuficiente."
+    },
+    "purchaseSuccessTitle": "Compra Exitosa",
+    "purchaseSuccessDescription": "Compraste {{amount}} {{symbol}}.",
+    "purchaseFailTitle": "Compra Fallida",
+    "purchaseFailDescription": "La transacción no pudo ser completada.",
+    "saleSuccessTitle": "Venta Exitosa",
+    "saleSuccessDescription": "Vendiste {{amount}} {{symbol}}.",
+    "saleFailTitle": "Venta Fallida",
+    "saleFailDescription": "La transacción no pudo ser completada."
+  },
+  "simulator": {
+    "title": "Simulador de Trading"
+  },
   "walletSummary": {
     "title": "Resumen de Billetera",
-    "cashBalance": "Balance en Efectivo ({{stablecoin}})",
+    "cashBalance": "Saldo en Efectivo ({{stablecoin}})",
     "cryptoHoldings": "Valor de Criptomonedas",
-    "totalPL": "G/P Total"
+    "totalPL": "Ganancia/Pérdida Total"
   },
   "holdingsTable": {
     "title": "Mis Activos",
@@ -102,6 +99,13 @@
     "currentValue": "Valor Actual",
     "pl": "G/P",
     "action": "Acción",
-    "noHoldings": "Aún no tienes criptomonedas."
+    "noHoldings": "No posees ninguna criptomoneda."
+  },
+  "policies": {
+    "title": "Políticas",
+    "subtitle": "Nuestro Compromiso Contigo",
+    "p1": "Esta es una aplicación de simulación. Todos los datos son solo para fines educativos y de entretenimiento.",
+    "p2": "No se utiliza dinero real. Todas las transacciones utilizan una moneda simulada llamada GUSD (Genesis USD).",
+    "p3": "No nos hacemos responsables de las decisiones financieras tomadas en base a la información proporcionada en esta aplicación."
   }
 }

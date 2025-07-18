@@ -65,7 +65,7 @@ export default function DashboardPage() {
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>{t('dashboard.error.title')}</AlertTitle>
             <AlertDescription>
-                {t('dashboard.error.description')}
+                <div className="break-all">{t('dashboard.error.description')}</div>
                 <pre className="mt-2 text-xs bg-black/20 p-2 rounded-md font-mono whitespace-pre-wrap break-words">{binanceConnectionError}</pre>
             </AlertDescription>
              <Button
