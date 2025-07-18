@@ -88,11 +88,14 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
                 const newPrice = Math.max(0.01, lastPrice * (1 + changePercent));
                 const newPriceHistory = [...crypto.priceHistory.slice(1), newPrice];
                 
+                const yesterdayPrice = newPriceHistory[newPriceHistory.length - 2];
+                const priceChange24h = yesterdayPrice ? ((newPrice - yesterdayPrice) / yesterdayPrice) * 100 : 0;
+                
                 return {
                     ...crypto,
                     currentPrice: parseFloat(newPrice.toFixed(2)),
                     priceHistory: newPriceHistory,
-                    priceChange24h: ((newPrice - newPriceHistory[newPriceHistory.length-2]) / newPriceHistory[new-2]) * 100,
+                    priceChange24h: priceChange24h,
                     rsi: calculateRSI(newPriceHistory),
                     volume24h: crypto.volume24h * (1 + (Math.random() - 0.5) * 0.05)
                 };
