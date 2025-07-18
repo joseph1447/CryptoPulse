@@ -28,17 +28,17 @@ export default function RootLayout({
   params: { locale: Locale };
 }>) {
   return (
-    <I18nProvider locale={params.locale}>
-      <html lang={params.locale || 'en'} suppressHydrationWarning>
-        <head>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-            rel="stylesheet"
-          />
-        </head>
-        <body className="font-body antialiased min-h-screen bg-background flex flex-col">
+    <html lang={params.locale || 'en'} suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="font-body antialiased min-h-screen bg-background flex flex-col">
+        <I18nProvider locale={params.locale}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -56,8 +56,8 @@ export default function RootLayout({
               </div>
             </CryptoProvider>
           </ThemeProvider>
-        </body>
-      </html>
-    </I18nProvider>
+        </I18nProvider>
+      </body>
+    </html>
   );
 }
