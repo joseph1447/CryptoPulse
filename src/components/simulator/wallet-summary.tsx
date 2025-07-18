@@ -4,11 +4,13 @@ import { useCrypto } from "@/hooks/use-crypto";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign, Briefcase, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useI18n } from "@/hooks/use-i18n";
 
 const INITIAL_GUSD_BALANCE = 10000;
 
 export function WalletSummary() {
   const { gusdBalance, portfolioValue, holdings } = useCrypto();
+  const { t } = useI18n();
 
   const totalValue = gusdBalance + portfolioValue;
   
@@ -20,23 +22,23 @@ export function WalletSummary() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Portfolio Overview</CardTitle>
+        <CardTitle>{t('walletSummary.title')}</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <StatCard
-          title="Cash Balance (GUSD)"
+          title={t('walletSummary.cashBalance')}
           value={gusdBalance}
           icon={DollarSign}
           isCurrency
         />
         <StatCard
-          title="Crypto Holdings Value"
+          title={t('walletSummary.cryptoHoldings')}
           value={portfolioValue}
           icon={Briefcase}
           isCurrency
         />
         <StatCard
-          title="Total P/L"
+          title={t('walletSummary.totalPL')}
           value={totalPNL}
           icon={TrendingUp}
           isCurrency

@@ -20,20 +20,22 @@ import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { Terminal } from "lucide-react";
+import { useI18n } from "@/hooks/use-i18n";
 
 interface ApiKeyModalProps {
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
 }
 
-const formSchema = z.object({
-  key: z.string().min(1, "API Key is required."),
-  secret: z.string().min(1, "API Secret is required."),
-});
-
 export function ApiKeyModal({ isOpen, onOpenChange }: ApiKeyModalProps) {
   const { apiKeys, setApiKeys } = useCrypto();
   const { toast } = useToast();
+  const { t } = useI18n();
+
+  const formSchema = z.object({
+    key: z.string().min(1, t('apiKeyModal.validation.keyRequired')),
+    secret: z.string().min(1, t('apiKeyModal.validation.secretRequired')),
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -49,12 +51,18 @@ export function ApiKeyModal({ isOpen, onOpenChange }: ApiKeyModalProps) {
     }
   }, [apiKeys, form]);
 
+  useEffect(() => {
+    if (isOpen) {
+      form.reset(apiKeys || { key: "", secret: "" });
+    }
+  }, [isOpen, apiKeys, form]);
+
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     setApiKeys(values);
     toast({
-      title: "API Keys Saved",
-      description: "Your Binance API keys have been saved locally.",
+      title: t('apiKeyModal.saveSuccessTitle'),
+      description: t('apiKeyModal.saveSuccessDescription'),
     });
     onOpenChange(false);
   };
@@ -63,16 +71,16 @@ export function ApiKeyModal({ isOpen, onOpenChange }: ApiKeyModalProps) {
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Binance API Integration</DialogTitle>
+          <DialogTitle>{t('apiKeyModal.title')}</DialogTitle>
           <DialogDescription>
-            Enter your Binance API keys to fetch market data.
+            {t('apiKeyModal.description')}
           </DialogDescription>
         </DialogHeader>
         <Alert>
           <Terminal className="h-4 w-4" />
-          <AlertTitle>Security Notice</AlertTitle>
+          <AlertTitle>{t('apiKeyModal.securityTitle')}</AlertTitle>
           <AlertDescription>
-            Your keys are stored only in your browser's local storage and are never sent to our servers.
+            {t('apiKeyModal.securityDescription')}
           </AlertDescription>
         </Alert>
         <Form {...form}>
@@ -82,9 +90,9 @@ export function ApiKeyModal({ isOpen, onOpenChange }: ApiKeyModalProps) {
               name="key"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>API Key</FormLabel>
+                  <FormLabel>{t('apiKeyModal.apiKeyLabel')}</FormLabel>
                   <FormControl>
-                    <Input placeholder="Your API Key" {...field} />
+                    <Input placeholder={t('apiKeyModal.apiKeyPlaceholder')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -95,16 +103,16 @@ export function ApiKeyModal({ isOpen, onOpenChange }: ApiKeyModalProps) {
               name="secret"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>API Secret</FormLabel>
+                  <FormLabel>{t('apiKeyModal.apiSecretLabel')}</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="Your API Secret" {...field} />
+                    <Input type="password" placeholder={t('apiKeyModal.apiSecretPlaceholder')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <DialogFooter>
-              <Button type="submit">Save Keys</Button>
+              <Button type="submit">{t('apiKeyModal.saveButton')}</Button>
             </DialogFooter>
           </form>
         </Form>

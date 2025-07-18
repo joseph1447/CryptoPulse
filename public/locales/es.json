@@ -1,0 +1,97 @@
+{
+  "header": {
+    "appName": "CriptoPulso",
+    "dashboard": "Panel",
+    "simulator": "Simulador",
+    "settings": "Configuración"
+  },
+  "dashboard": {
+    "title": "Panel",
+    "top10ShortTerm": "Top 10 Oportunidades a Corto Plazo"
+  },
+  "simulator": {
+    "title": "Simulador de Trading"
+  },
+  "cryptoDetail": {
+    "priceChartTitle": "Gráfico de Precios de {{name}} (30d)",
+    "aiAnalysis": "Análisis con IA",
+    "aiAnalysisDescription": "Obtén señales de trading con IA.",
+    "analysisFailed": "Falló el Análisis",
+    "analysisError": "No se pudieron generar las señales de trading.",
+    "shortTermSignal": "Señal a Corto Plazo",
+    "longTermSignal": "Señal a Largo Plazo",
+    "explanation": "Explicación",
+    "analyzeButton": "Analizar con IA"
+  },
+  "cryptoTable": {
+    "expandRow": "Expandir fila",
+    "name": "Nombre",
+    "price": "Precio",
+    "change24h": "% 24h",
+    "volume24h": "Volumen (24h)",
+    "marketCap": "Cap. de Mercado",
+    "rsi": "RSI",
+    "action": "Acción"
+  },
+  "rsi": {
+    "label": "RSI: {{value}}",
+    "oversold": "Estado: Potencialmente Sobre-vendido",
+    "overbought": "Estado: Potencialmente Sobre-comprado"
+  },
+  "tradeDialog": {
+    "title": "Operar {{name}} ({{symbol}})",
+    "currentPrice": "Precio Actual",
+    "buy": "Comprar",
+    "sell": "Vender",
+    "purchaseSuccessTitle": "Compra Exitosa",
+    "purchaseSuccessDescription": "Compraste {{amount}} {{symbol}}",
+    "purchaseFailTitle": "Falló la Compra",
+    "purchaseFailDescription": "No se pudo completar la transacción.",
+    "saleSuccessTitle": "Venta Exitosa",
+    "saleSuccessDescription": "Vendiste {{amount}} {{symbol}}",
+    "saleFailTitle": "Falló la Venta",
+    "saleFailDescription": "No se pudo completar la transacción.",
+    "balance": "Saldo",
+    "amountToSpend": "Monto a Gastar",
+    "amountToReceive": "Monto a Recibir",
+    "amountToSell": "Monto a Vender",
+    "validation": {
+      "positive": "El monto debe ser positivo",
+      "insufficientGUSD": "Saldo de GUSD insuficiente",
+      "insufficientCrypto": "Saldo de cripto insuficiente"
+    }
+  },
+  "apiKeyModal": {
+    "title": "Integración de API de Binance",
+    "description": "Ingresa tus claves de API de Binance para obtener datos del mercado.",
+    "securityTitle": "Aviso de Seguridad",
+    "securityDescription": "Tus claves se guardan solo en el almacenamiento local de tu navegador y nunca se envían a nuestros servidores.",
+    "apiKeyLabel": "Clave de API",
+    "apiKeyPlaceholder": "Tu Clave de API",
+    "apiSecretLabel": "Secreto de API",
+    "apiSecretPlaceholder": "Tu Secreto de API",
+    "saveButton": "Guardar Claves",
+    "saveSuccessTitle": "Claves de API Guardadas",
+    "saveSuccessDescription": "Tus claves de API de Binance se han guardado localmente.",
+    "validation": {
+      "keyRequired": "La Clave de API es requerida.",
+      "secretRequired": "El Secreto de API es requerido."
+    }
+  },
+  "holdingsTable": {
+    "title": "Mis Activos",
+    "asset": "Activo",
+    "quantity": "Cantidad",
+    "avgBuyPrice": "Precio Prom. de Compra",
+    "currentValue": "Valor Actual",
+    "pl": "G/P",
+    "action": "Acción",
+    "noHoldings": "No tienes criptoactivos. Empieza comprando desde el panel."
+  },
+  "walletSummary": {
+    "title": "Resumen de la Cartera",
+    "cashBalance": "Saldo en Efectivo (GUSD)",
+    "cryptoHoldings": "Valor de Criptoactivos",
+    "totalPL": "G/P Total"
+  }
+}

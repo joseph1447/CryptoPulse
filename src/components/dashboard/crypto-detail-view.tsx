@@ -10,11 +10,13 @@ import { Badge } from "../ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { PriceChart } from "./price-chart";
 import type { GenerateTradeSignalsOutput } from "@/ai/flows/generate-trade-signals";
+import { useI18n } from "@/hooks/use-i18n";
 
 export function CryptoDetailView({ crypto }: { crypto: Crypto }) {
   const [isPending, startTransition] = useTransition();
   const [analysis, setAnalysis] = useState<GenerateTradeSignalsOutput | null>(null);
   const { toast } = useToast();
+  const { t } = useI18n();
 
   const handleAnalysis = () => {
     startTransition(async () => {
@@ -31,8 +33,8 @@ export function CryptoDetailView({ crypto }: { crypto: Crypto }) {
       } else {
         toast({
           variant: "destructive",
-          title: "Analysis Failed",
-          description: result.error || "Could not generate trade signals.",
+          title: t('cryptoDetail.analysisFailed'),
+          description: result.error || t('cryptoDetail.analysisError'),
         });
       }
     });
@@ -50,7 +52,7 @@ export function CryptoDetailView({ crypto }: { crypto: Crypto }) {
   return (
     <div className="bg-card/50 p-4 rounded-md grid grid-cols-1 md:grid-cols-3 gap-6">
       <div className="md:col-span-2">
-        <h3 className="text-lg font-semibold mb-2">{crypto.name} Price Chart (30d)</h3>
+        <h3 className="text-lg font-semibold mb-2">{t('cryptoDetail.priceChartTitle', { name: crypto.name })}</h3>
         <div className="h-[250px]">
           <PriceChart data={crypto.priceHistory} />
         </div>
@@ -60,9 +62,9 @@ export function CryptoDetailView({ crypto }: { crypto: Crypto }) {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Zap className="text-primary h-5 w-5" />
-              AI-Powered Analysis
+              {t('cryptoDetail.aiAnalysis')}
             </CardTitle>
-            <CardDescription>Get AI-driven trade signals.</CardDescription>
+            <CardDescription>{t('cryptoDetail.aiAnalysisDescription')}</CardDescription>
           </CardHeader>
           <CardContent>
             {isPending ? (
@@ -72,15 +74,15 @@ export function CryptoDetailView({ crypto }: { crypto: Crypto }) {
             ) : analysis ? (
               <div className="space-y-4">
                 <div>
-                  <h4 className="font-semibold text-sm mb-1">Short-Term Signal</h4>
+                  <h4 className="font-semibold text-sm mb-1">{t('cryptoDetail.shortTermSignal')}</h4>
                   <Badge variant={getBadgeVariant(analysis.shortTermSignal)}>{analysis.shortTermSignal}</Badge>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-sm mb-1">Long-Term Signal</h4>
+                  <h4 className="font-semibold text-sm mb-1">{t('cryptoDetail.longTermSignal')}</h4>
                   <Badge variant={getBadgeVariant(analysis.longTermSignal)}>{analysis.longTermSignal}</Badge>
                 </div>
                  <div>
-                  <h4 className="font-semibold text-sm mb-1">Explanation</h4>
+                  <h4 className="font-semibold text-sm mb-1">{t('cryptoDetail.explanation')}</h4>
                   <p className="text-xs text-muted-foreground">{analysis.explanation}</p>
                 </div>
               </div>
@@ -88,7 +90,7 @@ export function CryptoDetailView({ crypto }: { crypto: Crypto }) {
                 <div className="flex items-center justify-center h-40">
                     <Button onClick={handleAnalysis} disabled={isPending}>
                         {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Zap className="mr-2 h-4 w-4" />}
-                        Analyze with AI
+                        {t('cryptoDetail.analyzeButton')}
                     </Button>
                 </div>
             )}

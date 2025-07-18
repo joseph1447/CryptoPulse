@@ -5,9 +5,11 @@ import { useCrypto } from "@/hooks/use-crypto";
 import { CryptoTable } from "@/components/dashboard/crypto-table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useI18n } from "@/hooks/use-i18n";
 
 export default function DashboardPage() {
   const { cryptos, initialized } = useCrypto();
+  const { t } = useI18n();
 
   const top10Cryptos = useMemo(() => {
     if (!cryptos) return [];
@@ -19,10 +21,10 @@ export default function DashboardPage() {
   if (!initialized) {
     return (
       <div className="space-y-8">
-        <h1 className="text-3xl font-bold font-headline">Dashboard</h1>
+        <h1 className="text-3xl font-bold font-headline">{t('dashboard.title')}</h1>
         <Card>
           <CardHeader>
-            <CardTitle>Top 10 Short-Term Opportunities</CardTitle>
+            <CardTitle>{t('dashboard.top10ShortTerm')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -38,10 +40,10 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-3xl font-bold font-headline">Dashboard</h1>
+      <h1 className="text-3xl font-bold font-headline">{t('dashboard.title')}</h1>
       <Card>
         <CardHeader>
-          <CardTitle>Top 10 Short-Term Opportunities</CardTitle>
+          <CardTitle>{t('dashboard.top10ShortTerm')}</CardTitle>
         </CardHeader>
         <CardContent>
           <CryptoTable cryptos={top10Cryptos} />

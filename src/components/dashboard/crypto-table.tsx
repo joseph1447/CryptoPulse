@@ -17,10 +17,12 @@ import { CryptoLogo } from "../icons/crypto-logos";
 import { TradeDialog } from "./trade-dialog";
 import { ChevronDown } from "lucide-react";
 import { CryptoDetailView } from "./crypto-detail-view";
+import { useI18n } from "@/hooks/use-i18n";
 
 export function CryptoTable({ cryptos }: { cryptos: Crypto[] }) {
   const [selectedCrypto, setSelectedCrypto] = useState<Crypto | null>(null);
   const [openCollapsible, setOpenCollapsible] = useState<string | null>(null);
+  const { t } = useI18n();
 
   const handleBuyClick = (crypto: Crypto) => {
     setSelectedCrypto(crypto);
@@ -41,13 +43,13 @@ export function CryptoTable({ cryptos }: { cryptos: Crypto[] }) {
           <TableHeader>
             <TableRow>
               <TableHead className="w-12"></TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead className="text-right">Price</TableHead>
-              <TableHead className="text-right">24h %</TableHead>
-              <TableHead className="hidden md:table-cell text-right">Volume (24h)</TableHead>
-              <TableHead className="hidden lg:table-cell text-right">Market Cap</TableHead>
-              <TableHead className="w-[120px] text-center">RSI</TableHead>
-              <TableHead className="text-right">Action</TableHead>
+              <TableHead>{t('cryptoTable.name')}</TableHead>
+              <TableHead className="text-right">{t('cryptoTable.price')}</TableHead>
+              <TableHead className="text-right">{t('cryptoTable.change24h')}</TableHead>
+              <TableHead className="hidden md:table-cell text-right">{t('cryptoTable.volume24h')}</TableHead>
+              <TableHead className="hidden lg:table-cell text-right">{t('cryptoTable.marketCap')}</TableHead>
+              <TableHead className="w-[120px] text-center">{t('cryptoTable.rsi')}</TableHead>
+              <TableHead className="text-right">{t('cryptoTable.action')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -55,7 +57,7 @@ export function CryptoTable({ cryptos }: { cryptos: Crypto[] }) {
               <Fragment key={crypto.id}>
                   <TableRow className="cursor-pointer" onClick={() => toggleCollapsible(crypto.id)}>
                     <TableCell>
-                      <Button variant="ghost" size="sm" className="w-9 p-0" aria-label="Expand row">
+                      <Button variant="ghost" size="sm" className="w-9 p-0" aria-label={t('cryptoTable.expandRow')}>
                          <ChevronDown className={cn("h-4 w-4 transition-transform", openCollapsible === crypto.id && "rotate-180")} />
                       </Button>
                     </TableCell>
@@ -81,7 +83,7 @@ export function CryptoTable({ cryptos }: { cryptos: Crypto[] }) {
                     </TableCell>
                     <TableCell className="text-right">
                       <Button size="sm" onClick={(e) => { e.stopPropagation(); handleBuyClick(crypto); }}>
-                        Buy
+                        {t('tradeDialog.buy')}
                       </Button>
                     </TableCell>
                   </TableRow>

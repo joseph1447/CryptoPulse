@@ -1,9 +1,11 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import { useI18n } from "@/hooks/use-i18n";
 
 export function RSIIndicator({ value }: { value: number }) {
   const position = Math.min(100, Math.max(0, value));
+  const { t } = useI18n();
   const color =
     position < 30
       ? "bg-green-500"
@@ -26,9 +28,9 @@ export function RSIIndicator({ value }: { value: number }) {
           </div>
         </TooltipTrigger>
         <TooltipContent>
-          <p>RSI: {value.toFixed(2)}</p>
-          {position < 30 && <p>Status: Potentially Oversold</p>}
-          {position > 70 && <p>Status: Potentially Overbought</p>}
+          <p>{t('rsi.label', { value: value.toFixed(2) })}</p>
+          {position < 30 && <p>{t('rsi.oversold')}</p>}
+          {position > 70 && <p>{t('rsi.overbought')}</p>}
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

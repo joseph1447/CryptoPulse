@@ -27,3 +27,16 @@ export interface CryptoContextType {
   apiKeys: { key: string; secret: string };
   setApiKeys: (keys: { key: string; secret: string }) => void;
 }
+
+// i18n Types
+export type Locale = 'en' | 'es';
+
+export type Translations = {
+  [key: string]: string | Translations;
+};
+
+export interface I18nContextType {
+  locale: Locale;
+  setLocale: (locale: Locale) => void;
+  t: (key: string, replacements?: Record<string, string | number>) => string;
+}

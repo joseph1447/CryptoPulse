@@ -26,6 +26,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CryptoLogo } from "../icons/crypto-logos";
+import { useI18n } from "@/hooks/use-i18n";
 
 interface TradeDialogProps {
   crypto: Crypto;
@@ -38,6 +39,7 @@ export function TradeDialog({ crypto, isOpen, onClose, defaultTab = 'buy' }: Tra
   const { cryptos, gusdBalance, holdings, buyCrypto, sellCrypto } = useCrypto();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState(defaultTab);
+  const { t } = useI18n();
   
   const liveCryptoData = cryptos.find(c => c.id === crypto.id) || crypto;
   const holding = holdings.find((h) => h.cryptoId === crypto.id);
@@ -45,8 +47,8 @@ export function TradeDialog({ crypto, isOpen, onClose, defaultTab = 'buy' }: Tra
   const buySchema = z.object({
     gusdAmount: z.coerce
       .number()
-      .min(0.01, "Amount must be positive")
-      .max(gusdBalance, "Insufficient GUSD balance"),
+      .min(0.01, t('tradeDialog.validation.positive'))
+      .max(gusdBalance, t('tradeDialog.validation.insufficientGUSD')),
     cryptoAmount: z.coerce.number(),
   });
 
@@ -54,8 +56,8 @@ export function TradeDialog({ crypto, isOpen, onClose, defaultTab = 'buy' }: Tra
     gusdAmount: z.coerce.number(),
     cryptoAmount: z.coerce
       .number()
-      .min(1e-6, "Amount must be positive")
-      .max(holding?.quantity || 0, "Insufficient crypto balance"),
+      .min(1e-6, t('tradeDialog.validation.positive'))
+      .max(holding?.quantity || 0, t('tradeDialog.validation.insufficientCrypto')),
   });
   
   const formSchema = activeTab === 'buy' ? buySchema : sellSchema;
@@ -70,7 +72,12 @@ export function TradeDialog({ crypto, isOpen, onClose, defaultTab = 'buy' }: Tra
 
   useEffect(() => {
     form.reset({ gusdAmount: 0, cryptoAmount: 0 });
+    form.clearErrors();
   }, [activeTab, crypto, form]);
+  
+  useEffect(() => {
+    form.reset({ gusdAmount: 0, cryptoAmount: 0 });
+  }, [isOpen, form]);
 
   const handleGusdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const gusdVal = parseFloat(e.target.value);
@@ -91,16 +98,16 @@ export function TradeDialog({ crypto, isOpen, onClose, defaultTab = 'buy' }: Tra
     if (activeTab === "buy") {
       success = buyCrypto(crypto.id, values.gusdAmount);
       if (success) {
-        toast({ title: "Purchase Successful", description: `You bought ${values.cryptoAmount.toFixed(6)} ${crypto.symbol}` });
+        toast({ title: t('tradeDialog.purchaseSuccessTitle'), description: t('tradeDialog.purchaseSuccessDescription', { amount: values.cryptoAmount.toFixed(6), symbol: crypto.symbol }) });
       } else {
-        toast({ variant: "destructive", title: "Purchase Failed", description: `Could not complete the transaction.` });
+        toast({ variant: "destructive", title: t('tradeDialog.purchaseFailTitle'), description: t('tradeDialog.purchaseFailDescription') });
       }
     } else {
       success = sellCrypto(crypto.id, values.cryptoAmount);
       if (success) {
-        toast({ title: "Sale Successful", description: `You sold ${values.cryptoAmount.toFixed(6)} ${crypto.symbol}` });
+        toast({ title: t('tradeDialog.saleSuccessTitle'), description: t('tradeDialog.saleSuccessDescription', { amount: values.cryptoAmount.toFixed(6), symbol: crypto.symbol }) });
       } else {
-        toast({ variant: "destructive", title: "Sale Failed", description: `Could not complete the transaction.` });
+        toast({ variant: "destructive", title: t('tradeDialog.saleFailTitle'), description: t('tradeDialog.saleFailDescription') });
       }
     }
     if (success) onClose();
@@ -112,29 +119,29 @@ export function TradeDialog({ crypto, isOpen, onClose, defaultTab = 'buy' }: Tra
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <CryptoLogo symbol={crypto.symbol} className="h-6 w-6" />
-            Trade {crypto.name} ({crypto.symbol})
+            {t('tradeDialog.title', { name: crypto.name, symbol: crypto.symbol })}
           </DialogTitle>
         </DialogHeader>
         <p className="text-sm text-muted-foreground">
-            Current Price: <span className="font-mono text-primary">${liveCryptoData.currentPrice.toLocaleString()}</span>
+            {t('tradeDialog.currentPrice')}: <span className="font-mono text-primary">${liveCryptoData.currentPrice.toLocaleString()}</span>
         </p>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="buy">Buy</TabsTrigger>
-            <TabsTrigger value="sell">Sell</TabsTrigger>
+            <TabsTrigger value="buy">{t('tradeDialog.buy')}</TabsTrigger>
+            <TabsTrigger value="sell">{t('tradeDialog.sell')}</TabsTrigger>
           </TabsList>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <TabsContent value="buy">
                 <div className="space-y-4 py-4">
-                  <div className="text-sm text-right">Balance: <span className="font-mono text-primary">{gusdBalance.toFixed(2)} GUSD</span></div>
+                  <div className="text-sm text-right">{t('tradeDialog.balance')}: <span className="font-mono text-primary">{gusdBalance.toFixed(2)} GUSD</span></div>
                    <FormField
                       control={form.control}
                       name="gusdAmount"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Amount to Spend</FormLabel>
+                          <FormLabel>{t('tradeDialog.amountToSpend')}</FormLabel>
                           <FormControl>
                             <Input {...field} type="number" step="0.01" onChange={handleGusdChange} placeholder="0.00 GUSD" />
                           </FormControl>
@@ -147,7 +154,7 @@ export function TradeDialog({ crypto, isOpen, onClose, defaultTab = 'buy' }: Tra
                       name="cryptoAmount"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Amount to Receive</FormLabel>
+                          <FormLabel>{t('tradeDialog.amountToReceive')}</FormLabel>
                           <FormControl>
                             <Input {...field} type="number" step="any" onChange={handleCryptoChange} placeholder={`0.00 ${crypto.symbol}`} />
                           </FormControl>
@@ -157,18 +164,18 @@ export function TradeDialog({ crypto, isOpen, onClose, defaultTab = 'buy' }: Tra
                     />
                 </div>
                  <DialogFooter>
-                    <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>Buy {crypto.symbol}</Button>
+                    <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>{t('tradeDialog.buy')} {crypto.symbol}</Button>
                 </DialogFooter>
               </TabsContent>
               <TabsContent value="sell">
                 <div className="space-y-4 py-4">
-                    <div className="text-sm text-right">Balance: <span className="font-mono text-primary">{(holding?.quantity || 0).toFixed(6)} {crypto.symbol}</span></div>
+                    <div className="text-sm text-right">{t('tradeDialog.balance')}: <span className="font-mono text-primary">{(holding?.quantity || 0).toFixed(6)} {crypto.symbol}</span></div>
                     <FormField
                       control={form.control}
                       name="cryptoAmount"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Amount to Sell</FormLabel>
+                          <FormLabel>{t('tradeDialog.amountToSell')}</FormLabel>
                           <FormControl>
                             <Input {...field} type="number" step="any" onChange={handleCryptoChange} placeholder={`0.00 ${crypto.symbol}`} />
                           </FormControl>
@@ -181,7 +188,7 @@ export function TradeDialog({ crypto, isOpen, onClose, defaultTab = 'buy' }: Tra
                       name="gusdAmount"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Amount to Receive</FormLabel>
+                          <FormLabel>{t('tradeDialog.amountToReceive')}</FormLabel>
                           <FormControl>
                             <Input {...field} type="number" step="0.01" onChange={handleGusdChange} placeholder="0.00 GUSD" readOnly />
                           </FormControl>
@@ -191,7 +198,7 @@ export function TradeDialog({ crypto, isOpen, onClose, defaultTab = 'buy' }: Tra
                     />
                 </div>
                  <DialogFooter>
-                    <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>Sell {crypto.symbol}</Button>
+                    <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>{t('tradeDialog.sell')} {crypto.symbol}</Button>
                 </DialogFooter>
               </TabsContent>
             </form>

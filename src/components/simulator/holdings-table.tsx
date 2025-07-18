@@ -16,10 +16,12 @@ import { CryptoLogo } from "../icons/crypto-logos";
 import { cn } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { TradeDialog } from "../dashboard/trade-dialog";
+import { useI18n } from "@/hooks/use-i18n";
 
 export function HoldingsTable() {
   const { holdings, cryptos } = useCrypto();
   const [selectedCrypto, setSelectedCrypto] = useState<Crypto | null>(null);
+  const { t } = useI18n();
 
   const handleSellClick = (crypto: Crypto) => {
     setSelectedCrypto(crypto);
@@ -36,7 +38,7 @@ export function HoldingsTable() {
 
       const currentValue = holding.quantity * crypto.currentPrice;
       const pnl = currentValue - (holding.quantity * holding.avgBuyPrice);
-      const pnlPercent = (pnl / (holding.quantity * holding.avgBuyPrice)) * 100;
+      const pnlPercent = (holding.quantity * holding.avgBuyPrice) === 0 ? 0 : (pnl / (holding.quantity * holding.avgBuyPrice)) * 100;
 
       return {
         ...holding,
@@ -52,19 +54,19 @@ export function HoldingsTable() {
     <>
       <Card>
         <CardHeader>
-          <CardTitle>My Holdings</CardTitle>
+          <CardTitle>{t('holdingsTable.title')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="rounded-md border">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Asset</TableHead>
-                  <TableHead className="text-right">Quantity</TableHead>
-                  <TableHead className="hidden md:table-cell text-right">Avg. Buy Price</TableHead>
-                  <TableHead className="text-right">Current Value</TableHead>
-                  <TableHead className="text-right">P/L</TableHead>
-                  <TableHead className="text-right">Action</TableHead>
+                  <TableHead>{t('holdingsTable.asset')}</TableHead>
+                  <TableHead className="text-right">{t('holdingsTable.quantity')}</TableHead>
+                  <TableHead className="hidden md:table-cell text-right">{t('holdingsTable.avgBuyPrice')}</TableHead>
+                  <TableHead className="text-right">{t('holdingsTable.currentValue')}</TableHead>
+                  <TableHead className="text-right">{t('holdingsTable.pl')}</TableHead>
+                  <TableHead className="text-right">{t('holdingsTable.action')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -89,7 +91,7 @@ export function HoldingsTable() {
                         </TableCell>
                         <TableCell className="text-right">
                           <Button size="sm" onClick={() => handleSellClick(holding.crypto)}>
-                            Sell
+                            {t('tradeDialog.sell')}
                           </Button>
                         </TableCell>
                       </TableRow>
@@ -98,7 +100,7 @@ export function HoldingsTable() {
                 ) : (
                   <TableRow>
                     <TableCell colSpan={6} className="text-center h-24 text-muted-foreground">
-                      You have no crypto holdings. Start by buying from the dashboard.
+                      {t('holdingsTable.noHoldings')}
                     </TableCell>
                   </TableRow>
                 )}
