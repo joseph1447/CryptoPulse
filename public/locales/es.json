@@ -1,113 +1,114 @@
 
 {
-  "header": {
-    "appName": "CryptoPulse",
-    "dashboard": "Dashboard",
-    "simulator": "Simulador",
-    "docs": "Documentación",
-    "binanceConnected": "Binance Conectado",
-    "binanceDisconnected": "Binance Desconectado",
-    "settings": "Ajustes",
-    "theme": "Tema",
-    "light": "Claro",
-    "dark": "Oscuro",
-    "language": "Idioma",
-    "currency": "Moneda"
-  },
-  "footer": {
-    "policies": "Políticas"
-  },
-  "dashboard": {
-    "title": "Dashboard de Criptomonedas",
-    "top10ShortTerm": "Top 10 Oportunidades a Corto Plazo (por RSI)",
-    "top10ShortTermBuy": "Top 10 Oportunidades de Compra (por RSI)",
-    "top10ShortTermSell": "Top 10 Oportunidades de Venta (por RSI)",
-    "top10BuyLabel": "Mejores para Comprar",
-    "top10SellLabel": "Mejores para Vender",
-    "error": {
-        "title": "Error de Conexión con la API de Binance",
-        "description": "No se pudo conectar a Binance o cargar datos en tiempo real. Asegúrese de que sus claves de API en el archivo .env.local sean correctas y que no se encuentre en una región restringida. Es posible que necesite usar una VPN."
+    "header": {
+        "appName": "CryptoPulse",
+        "dashboard": "Dashboard",
+        "simulator": "Simulador",
+        "docs": "Documentación",
+        "settings": "Configuración",
+        "theme": "Tema",
+        "light": "Claro",
+        "dark": "Oscuro",
+        "language": "Idioma",
+        "currency": "Moneda",
+        "binanceConnected": "Binance Conectado",
+        "binanceDisconnected": "Binance Desconectado"
     },
-    "warning": {
-        "dismiss": "Descartar"
+    "footer": {
+        "policies": "Políticas"
+    },
+    "dashboard": {
+        "title": "Dashboard de Criptomonedas",
+        "top10ShortTerm": "Top 10 Oportunidades a Corto Plazo (por RSI)",
+        "top10ShortTermBuy": "Top 10 Oportunidades de Compra",
+        "top10ShortTermSell": "Top 10 Oportunidades de Venta",
+        "top10BuyLabel": "Top para Comprar",
+        "top10SellLabel": "Top para Vender",
+        "refreshButton": "Actualizar",
+        "error": {
+            "title": "Error de Conexión con Binance",
+            "description": "No se pudo conectar a la API de Binance. Asegúrese de que sus claves de API estén configuradas correctamente en el archivo .env.local y tengan los permisos necesarios. La aplicación utilizará datos simulados hasta que la conexión sea exitosa."
+        },
+        "warning": {
+            "dismiss": "Descartar"
+        }
+    },
+    "cryptoTable": {
+        "name": "Nombre",
+        "price": "Precio",
+        "change24h": "Cambio 24h",
+        "volume24h": "Volumen 24h",
+        "marketCap": "Cap. de Mercado",
+        "rsi": "RSI",
+        "action": "Acción",
+        "expandRow": "Expandir fila",
+        "noData": "No hay datos disponibles.",
+        "loading": "Cargando datos de criptomonedas en tiempo real..."
+    },
+    "rsi": {
+        "label": "RSI: {value}",
+        "oversold": "Sobrevendido (<30)",
+        "overbought": "Sobrecomprado (>70)"
+    },
+    "cryptoDetail": {
+        "priceChartTitle": "Historial de Precios de {name} (30d)",
+        "aiAnalysis": "Análisis IA",
+        "aiAnalysisDescription": "Genera señales de trading basadas en datos en tiempo real.",
+        "analyzeButton": "Analizar Ahora",
+        "analysisFailed": "Análisis Fallido",
+        "analysisError": "Ocurrió un error inesperado al generar el análisis.",
+        "shortTermSignal": "Señal a Corto Plazo",
+        "longTermSignal": "Señal a Largo Plazo",
+        "explanation": "Explicación"
+    },
+    "tradeDialog": {
+        "title": "Operar {name} ({symbol})",
+        "buy": "Comprar",
+        "sell": "Vender",
+        "currentPrice": "Precio Actual",
+        "balance": "Saldo",
+        "amountToSpend": "Monto a gastar ({stablecoin})",
+        "amountToReceive": "Monto a recibir",
+        "amountToSell": "Monto a vender",
+        "amountToReceiveIn": "Monto a recibir ({stablecoin})",
+        "purchaseSuccessTitle": "Compra Exitosa",
+        "purchaseSuccessDescription": "Compraste {amount} {symbol}.",
+        "purchaseFailTitle": "Compra Fallida",
+        "purchaseFailDescription": "La transacción no pudo ser completada.",
+        "saleSuccessTitle": "Venta Exitosa",
+        "saleSuccessDescription": "Vendiste {amount} {symbol}.",
+        "saleFailTitle": "Venta Fallida",
+        "saleFailDescription": "La transacción no pudo ser completada.",
+        "validation": {
+            "positive": "El monto debe ser positivo.",
+            "insufficientGUSD": "Saldo insuficiente de {stablecoin}.",
+            "insufficientCrypto": "Saldo insuficiente de criptomoneda."
+        }
+    },
+    "simulator": {
+        "title": "Simulador de Trading"
+    },
+    "walletSummary": {
+        "title": "Resumen de Billetera",
+        "cashBalance": "Saldo en Efectivo ({stablecoin})",
+        "cryptoHoldings": "Valor de Criptoactivos",
+        "totalPL": "Ganancia/Pérdida Total"
+    },
+    "holdingsTable": {
+        "title": "Mis Activos",
+        "asset": "Activo",
+        "quantity": "Cantidad",
+        "avgBuyPrice": "Precio Prom. Compra",
+        "currentValue": "Valor Actual",
+        "pl": "G/P",
+        "action": "Acción",
+        "noHoldings": "No tienes activos. ¡Compra alguna criptomoneda desde el dashboard!"
+    },
+    "policies": {
+        "title": "Políticas de Privacidad",
+        "subtitle": "Tus Datos, Tu Control",
+        "p1": "Esta aplicación está diseñada con tu privacidad y seguridad como máxima prioridad. No recopilamos, almacenamos ni transmitimos ninguno de tus datos personales, incluidas tus claves de API.",
+        "p2": "Tus claves de API de Binance se almacenan exclusivamente en el entorno local de tu navegador. Nunca se envían a ningún servidor, incluido el nuestro. Esto significa que solo tú tienes acceso a ellas, directamente desde tu propia máquina. Las claves se utilizan únicamente para realizar solicitudes directas de solo lectura a la API de Binance desde tu navegador para obtener datos de mercado.",
+        "p3": "Todos los datos de simulación de trading, como tu saldo virtual y tus activos, también se almacenan localmente en tu navegador. Limpiar el almacenamiento de tu navegador restablecerá la simulación."
     }
-  },
-  "cryptoTable": {
-    "name": "Nombre",
-    "price": "Precio",
-    "change24h": "% 24h",
-    "volume24h": "Volumen (24h)",
-    "marketCap": "Cap. de Mercado",
-    "rsi": "RSI",
-    "action": "Acción",
-    "expandRow": "Expandir Fila",
-    "noData": "No hay datos de criptomonedas disponibles. Esto puede deberse a un problema de conexión con la API de Binance.",
-    "loading": "Cargando datos de cripto en tiempo real..."
-  },
-  "cryptoDetail": {
-    "priceChartTitle": "Gráfico de Precios de {name} (30 Días)",
-    "aiAnalysis": "Análisis con IA",
-    "aiAnalysisDescription": "Generar señales de trading con IA.",
-    "analyzeButton": "Analizar Ahora",
-    "analysisFailed": "Análisis Fallido",
-    "analysisError": "Ocurrió un error al generar el análisis de IA.",
-    "shortTermSignal": "Señal a Corto Plazo",
-    "longTermSignal": "Señal a Largo Plazo",
-    "explanation": "Explicación"
-  },
-  "rsi": {
-    "label": "RSI: {value}",
-    "oversold": "Sobreventa (< 30)",
-    "overbought": "Sobrecompra (> 70)"
-  },
-  "tradeDialog": {
-    "buy": "Comprar",
-    "sell": "Vender",
-    "title": "Transaccionar {name} ({symbol})",
-    "currentPrice": "Precio Actual",
-    "balance": "Balance",
-    "amountToSpend": "Monto a gastar ({stablecoin})",
-    "amountToReceive": "Recibirás",
-    "amountToSell": "Monto a vender",
-    "amountToReceiveIn": "Recibirás ({stablecoin})",
-    "purchaseSuccessTitle": "Compra Exitosa",
-    "purchaseSuccessDescription": "Compraste {amount} {symbol}.",
-    "purchaseFailTitle": "Falló la Compra",
-    "purchaseFailDescription": "La transacción no pudo ser completada. Revisa tu balance.",
-    "saleSuccessTitle": "Venta Exitosa",
-    "saleSuccessDescription": "Vendiste {amount} {symbol}.",
-    "saleFailTitle": "Falló la Venta",
-    "saleFailDescription": "La transacción no pudo ser completada. Revisa tus tenencias.",
-    "validation": {
-        "positive": "El monto debe ser positivo.",
-        "insufficientGUSD": "Balance de {stablecoin} insuficiente.",
-        "insufficientCrypto": "Balance de cripto insuficiente."
-    }
-  },
-  "simulator": {
-    "title": "Simulador de Trading"
-  },
-  "walletSummary": {
-    "title": "Resumen de Billetera",
-    "cashBalance": "Balance en Efectivo ({stablecoin})",
-    "cryptoHoldings": "Valor de Tenencias Cripto",
-    "totalPL": "G/P Total"
-  },
-  "holdingsTable": {
-    "title": "Mis Tenencias",
-    "asset": "Activo",
-    "quantity": "Cantidad",
-    "avgBuyPrice": "Precio Prom. Compra",
-    "currentValue": "Valor Actual",
-    "pl": "G/P",
-    "action": "Acción",
-    "noHoldings": "Aún no tienes tenencias. ¡Compra alguna criptomoneda desde el dashboard!"
-  },
-  "policies": {
-    "title": "Privacidad y Políticas",
-    "subtitle": "Tus Datos se Quedan Contigo",
-    "p1": "CryptoPulse está diseñado con tu privacidad y seguridad como máxima prioridad. No recopilamos, almacenamos ni transmitimos ninguno de tus datos personales, incluidas tus claves de API.",
-    "p2": "Tus claves de API de Binance se almacenan exclusivamente en el entorno local de tu navegador utilizando un archivo `.env.local`. Solo se utilizan para comunicarse directamente entre tu navegador y la API de Binance para obtener datos en tiempo real. Nunca se envían a ningún servidor o servicio de terceros.",
-    "p3": "Todos tus datos de trading virtual, incluido el saldo de tu portafolio y el historial de transacciones, se almacenan localmente en el localStorage de tu navegador. Estos datos no son rastreados ni monitoreados por nosotros de ninguna manera. Limpiar los datos de tu navegador restablecerá tu simulación."
-  }
 }

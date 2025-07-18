@@ -25,7 +25,7 @@ export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) 
   const [selectedCrypto, setSelectedCrypto] = useState<Crypto | null>(null);
   const [openCollapsible, setOpenCollapsible] = useState<string | null>(null);
   const { t, locale } = useI18n();
-  const { currency, exchangeRate, initialized, loading } = useCrypto();
+  const { currency, exchangeRate, loading } = useCrypto();
 
   const handleBuyClick = (crypto: Crypto) => {
     setSelectedCrypto(crypto);
@@ -77,7 +77,7 @@ export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) 
             </TableRow>
           </TableHeader>
           <TableBody>
-            {loading ? (
+            {loading && initialCryptos.length === 0 ? (
                  <TableRow>
                     <TableCell colSpan={8} className="h-48 text-center">
                         <div className="flex justify-center items-center gap-2">
