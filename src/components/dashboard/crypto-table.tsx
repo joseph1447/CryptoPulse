@@ -77,7 +77,7 @@ export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) 
             </TableRow>
           </TableHeader>
           <TableBody>
-            {cryptos.map((crypto) => (
+            {initialCryptos.map((crypto) => (
               <Fragment key={crypto.id}>
                   <TableRow className="cursor-pointer" onClick={() => toggleCollapsible(crypto.id)}>
                     <TableCell>

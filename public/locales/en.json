@@ -1,99 +1,105 @@
-
 {
     "header": {
-      "appName": "CryptoPulse",
-      "dashboard": "Dashboard",
-      "simulator": "Simulator",
-      "settings": "Settings",
-      "toggleTheme": "Toggle theme",
-      "theme": "Theme",
-      "light": "Light",
-      "dark": "Dark",
-      "language": "Language",
-      "currency": "Currency"
+        "appName": "CryptoPulse",
+        "dashboard": "Dashboard",
+        "simulator": "Simulator",
+        "settings": "Settings",
+        "theme": "Theme",
+        "light": "Light",
+        "dark": "Dark",
+        "language": "Language",
+        "currency": "Currency",
+        "binanceConnected": "Live Data",
+        "binanceDisconnected": "Simulated Data"
     },
     "footer": {
-      "policies": "Policies"
-    },
-    "dashboard": {
-      "title": "Crypto Dashboard",
-      "top10ShortTerm": "Top 10 Short-Term Opportunities (Low RSI)"
-    },
-    "simulator": {
-      "title": "Trading Simulator"
+        "policies": "Policies"
     },
     "policies": {
-      "title": "Application Policies",
-      "subtitle": "Disclaimer",
-      "p1": "This application, CryptoPulse, is developed for educational and training purposes only. It simulates cryptocurrency trading but does not involve real money or actual financial transactions.",
-      "p2": "The data presented, including prices, volumes, and analysis, is simulated and may not reflect real market conditions. The AI-generated trading signals are for illustrative purposes and should not be considered financial advice.",
-      "p3": "Use this application with discretion. The developers are not responsible for any decisions made based on the information provided herein. All use of this application is at your own risk."
+        "title": "Application Policies",
+        "subtitle": "Disclaimer",
+        "p1": "CryptoPulse is a tool designed for educational and training purposes only. It is intended to simulate cryptocurrency trading in a risk-free environment.",
+        "p2": "The data presented, including prices and trading signals, may be simulated or delayed and should not be considered as financial advice. The application may contain errors or inaccuracies.",
+        "p3": "Any decision made based on the information from this application is the sole responsibility of the user. The creators of CryptoPulse are not liable for any virtual or real financial losses. Please use with discretion."
+    },
+    "dashboard": {
+        "title": "Dashboard",
+        "top10ShortTerm": "Top 10 Short-Term Opportunities",
+        "warning": {
+            "title": "Simulated Data Active",
+            "description": "You are not connected to a live data source. All market data is simulated and not suitable for real trading decisions.",
+            "dismiss": "Dismiss"
+        }
     },
     "cryptoTable": {
-      "expandRow": "Expand Row",
-      "name": "Name",
-      "price": "Price",
-      "change24h": "24h %",
-      "volume24h": "24h Volume",
-      "marketCap": "Market Cap",
-      "rsi": "RSI (14)",
-      "action": "Action"
-    },
-    "rsi": {
-      "label": "RSI: {{value}}",
-      "oversold": "Oversold (< 30)",
-      "overbought": "Overbought (> 70)"
-    },
-    "cryptoDetail": {
-      "priceChartTitle": "{{name}} Price Chart",
-      "aiAnalysis": "AI Analysis",
-      "aiAnalysisDescription": "Get AI-powered trade signals.",
-      "analyzeButton": "Analyze Now",
-      "analysisFailed": "Analysis Failed",
-      "analysisError": "Could not retrieve AI analysis.",
-      "shortTermSignal": "Short-term Signal",
-      "longTermSignal": "Long-term Signal",
-      "explanation": "Explanation"
+        "name": "Name",
+        "price": "Price",
+        "change24h": "24h Change",
+        "volume24h": "24h Volume",
+        "marketCap": "Market Cap",
+        "rsi": "RSI (14)",
+        "action": "Action",
+        "expandRow": "Expand row"
     },
     "tradeDialog": {
-      "buy": "Buy",
-      "sell": "Sell",
-      "title": "Trade {{name}} ({{symbol}})",
-      "currentPrice": "Current Price",
-      "balance": "Balance",
-      "amountToSpend": "Amount to spend ({{stablecoin}})",
-      "amountToReceive": "Amount to receive",
-      "amountToSell": "Amount to sell",
-      "amountToReceiveIn": "Amount to receive ({{stablecoin}})",
-      "validation": {
-        "positive": "Amount must be positive.",
-        "insufficientGUSD": "Insufficient {{stablecoin}} balance.",
-        "insufficientCrypto": "Insufficient crypto balance."
-      },
-      "purchaseSuccessTitle": "Purchase Successful",
-      "purchaseSuccessDescription": "You bought {{amount}} {{symbol}}.",
-      "purchaseFailTitle": "Purchase Failed",
-      "purchaseFailDescription": "The transaction could not be completed.",
-      "saleSuccessTitle": "Sale Successful",
-      "saleSuccessDescription": "You sold {{amount}} {{symbol}}.",
-      "saleFailTitle": "Sale Failed",
-      "saleFailDescription": "The transaction could not be completed."
+        "buy": "Buy",
+        "sell": "Sell",
+        "title": "Trade {{name}} ({{symbol}})",
+        "currentPrice": "Current Price",
+        "balance": "Balance",
+        "amountToSpend": "Amount to spend ({{stablecoin}})",
+        "amountToReceive": "Amount to receive",
+        "amountToSell": "Amount to sell",
+        "amountToReceiveIn": "Amount to receive ({{stablecoin}})",
+        "buySymbol": "Buy {{symbol}}",
+        "sellSymbol": "Sell {{symbol}}",
+        "purchaseSuccessTitle": "Purchase Successful",
+        "purchaseSuccessDescription": "You purchased {{amount}} {{symbol}}.",
+        "purchaseFailTitle": "Purchase Failed",
+        "purchaseFailDescription": "There was an error with your purchase.",
+        "saleSuccessTitle": "Sale Successful",
+        "saleSuccessDescription": "You sold {{amount}} {{symbol}}.",
+        "saleFailTitle": "Sale Failed",
+        "saleFailDescription": "There was an error with your sale.",
+        "validation": {
+            "positive": "Amount must be positive.",
+            "insufficientGUSD": "Insufficient {{stablecoin}} balance.",
+            "insufficientCrypto": "Insufficient crypto balance."
+        }
     },
-    "holdingsTable": {
-      "title": "My Holdings",
-      "asset": "Asset",
-      "quantity": "Quantity",
-      "avgBuyPrice": "Avg. Buy Price",
-      "currentValue": "Current Value",
-      "pl": "P&L",
-      "action": "Action",
-      "noHoldings": "You do not have any holdings yet."
+    "rsi": {
+        "label": "RSI: {{value}}",
+        "oversold": "Oversold (<30)",
+        "overbought": "Overbought (>70)"
+    },
+    "cryptoDetail": {
+        "priceChartTitle": "{{name}} Price Chart",
+        "aiAnalysis": "AI Analysis",
+        "aiAnalysisDescription": "Get AI-powered trade signals.",
+        "shortTermSignal": "Short-Term Signal",
+        "longTermSignal": "Long-Term Signal",
+        "explanation": "Explanation",
+        "analyzeButton": "Analyze Now",
+        "analysisFailed": "Analysis Failed",
+        "analysisError": "Could not retrieve AI analysis."
+    },
+    "simulator": {
+        "title": "Trading Simulator"
     },
     "walletSummary": {
-      "title": "Wallet Summary",
-      "cashBalance": "Cash Balance ({{stablecoin}})",
-      "cryptoHoldings": "Crypto Holdings Value",
-      "totalPL": "Total P&L"
+        "title": "Virtual Wallet Summary",
+        "cashBalance": "Cash Balance ({{stablecoin}})",
+        "cryptoHoldings": "Crypto Holdings Value",
+        "totalPL": "Total P&L"
+    },
+    "holdingsTable": {
+        "title": "My Holdings",
+        "asset": "Asset",
+        "quantity": "Quantity",
+        "avgBuyPrice": "Avg. Buy Price",
+        "currentValue": "Current Value",
+        "pl": "P&L",
+        "action": "Action",
+        "noHoldings": "You do not have any holdings yet."
     }
-  }
-  
+}

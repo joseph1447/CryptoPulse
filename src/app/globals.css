@@ -35,24 +35,24 @@ body {
     --radius: 0.5rem;
   }
   .dark {
-    --background: 195 20% 16%; /* Deep charcoal */
+    --background: 215 28% 17%;
     --foreground: 210 40% 98%;
-    --card: 195 20% 20%;
+    --card: 215 28% 17%;
     --card-foreground: 210 40% 98%;
-    --popover: 195 20% 16%;
+    --popover: 222.2 47.4% 11.2%;
     --popover-foreground: 210 40% 98%;
     --primary: 181 100% 74%; /* Electric blue */
     --primary-foreground: 195 20% 10%;
-    --secondary: 195 20% 25%;
+    --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 195 20% 25%;
-    --muted-foreground: 195 20% 65%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
     --accent: 283 26% 67%; /* Subtle purple */
     --accent-foreground: 210 40% 98%;
-    --destructive: 0 63% 31%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 195 20% 25%;
-    --input: 195 20% 25%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
     --ring: 181 100% 74%;
     --chart-1: 181 100% 74%;
     --chart-2: 283 26% 67%;
@@ -70,4 +70,3 @@ body {
     @apply bg-background text-foreground;
   }
 }
-

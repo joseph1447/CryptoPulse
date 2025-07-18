@@ -1,99 +1,105 @@
-
 {
     "header": {
-      "appName": "CriptoPulso",
-      "dashboard": "Panel",
-      "simulator": "Simulador",
-      "settings": "Configuración",
-      "toggleTheme": "Cambiar tema",
-      "theme": "Tema",
-      "light": "Claro",
-      "dark": "Oscuro",
-      "language": "Idioma",
-      "currency": "Moneda"
+        "appName": "CryptoPulse",
+        "dashboard": "Panel",
+        "simulator": "Simulador",
+        "settings": "Ajustes",
+        "theme": "Tema",
+        "light": "Claro",
+        "dark": "Oscuro",
+        "language": "Idioma",
+        "currency": "Moneda",
+        "binanceConnected": "Datos en Vivo",
+        "binanceDisconnected": "Datos Simulados"
     },
     "footer": {
-      "policies": "Políticas"
-    },
-    "dashboard": {
-      "title": "Panel de Criptomonedas",
-      "top10ShortTerm": "Top 10 Oportunidades a Corto Plazo (RSI Bajo)"
-    },
-    "simulator": {
-      "title": "Simulador de Trading"
+        "policies": "Políticas"
     },
     "policies": {
-      "title": "Políticas de la Aplicación",
-      "subtitle": "Descargo de Responsabilidad",
-      "p1": "Esta aplicación, CriptoPulso, se desarrolla únicamente con fines educativos y de capacitación. Simula el comercio de criptomonedas pero no implica dinero real ni transacciones financieras reales.",
-      "p2": "Los datos presentados, incluidos precios, volúmenes y análisis, son simulados y pueden no reflejar las condiciones reales del mercado. Las señales de trading generadas por IA son para fines ilustrativos y no deben considerarse como asesoramiento financiero.",
-      "p3": "Utilice esta aplicación con discreción. Los desarrolladores no se hacen responsables de ninguna decisión tomada en base a la información aquí proporcionada. Todo uso de esta aplicación es bajo su propio riesgo."
+        "title": "Políticas de la Aplicación",
+        "subtitle": "Descargo de Responsabilidad",
+        "p1": "CryptoPulse es una herramienta diseñada únicamente con fines educativos y de entrenamiento. Su objetivo es simular el comercio de criptomonedas en un entorno libre de riesgos.",
+        "p2": "Los datos presentados, incluidos los precios y las señales de trading, pueden ser simulados o estar retrasados y no deben considerarse como asesoramiento financiero. La aplicación puede contener errores o inexactitudes.",
+        "p3": "Cualquier decisión tomada con base en la información de esta aplicación es responsabilidad exclusiva del usuario. Los creadores de CryptoPulse no se hacen responsables de ninguna pérdida financiera virtual o real. Por favor, úselo con discreción."
+    },
+    "dashboard": {
+        "title": "Panel de Control",
+        "top10ShortTerm": "Top 10 Oportunidades a Corto Plazo",
+        "warning": {
+            "title": "Datos Simulados Activos",
+            "description": "No está conectado a una fuente de datos en vivo. Todos los datos de mercado son simulados y no son adecuados para decisiones de trading reales.",
+            "dismiss": "Descartar"
+        }
     },
     "cryptoTable": {
-      "expandRow": "Expandir Fila",
-      "name": "Nombre",
-      "price": "Precio",
-      "change24h": "% 24h",
-      "volume24h": "Volumen 24h",
-      "marketCap": "Cap. de Mercado",
-      "rsi": "RSI (14)",
-      "action": "Acción"
+        "name": "Nombre",
+        "price": "Precio",
+        "change24h": "Cambio 24h",
+        "volume24h": "Volumen 24h",
+        "marketCap": "Cap. de Mercado",
+        "rsi": "RSI (14)",
+        "action": "Acción",
+        "expandRow": "Expandir fila"
+    },
+    "tradeDialog": {
+        "buy": "Comprar",
+        "sell": "Vender",
+        "title": "Transaccionar {{name}} ({{symbol}})",
+        "currentPrice": "Precio Actual",
+        "balance": "Saldo",
+        "amountToSpend": "Monto a gastar ({{stablecoin}})",
+        "amountToReceive": "Monto a recibir",
+        "amountToSell": "Monto a vender",
+        "amountToReceiveIn": "Monto a recibir ({{stablecoin}})",
+        "buySymbol": "Comprar {{symbol}}",
+        "sellSymbol": "Vender {{symbol}}",
+        "purchaseSuccessTitle": "Compra Exitosa",
+        "purchaseSuccessDescription": "Compraste {{amount}} {{symbol}}.",
+        "purchaseFailTitle": "Falló la Compra",
+        "purchaseFailDescription": "Hubo un error con tu compra.",
+        "saleSuccessTitle": "Venta Exitosa",
+        "saleSuccessDescription": "Vendiste {{amount}} {{symbol}}.",
+        "saleFailTitle": "Falló la Venta",
+        "saleFailDescription": "Hubo un error con tu venta.",
+        "validation": {
+            "positive": "El monto debe ser positivo.",
+            "insufficientGUSD": "Saldo de {{stablecoin}} insuficiente.",
+            "insufficientCrypto": "Saldo de criptomoneda insuficiente."
+        }
     },
     "rsi": {
         "label": "RSI: {{value}}",
-        "oversold": "Sobrevendido (< 30)",
-        "overbought": "Sobrecomprado (> 70)"
+        "oversold": "Sobrevendido (<30)",
+        "overbought": "Sobrecomprado (>70)"
     },
     "cryptoDetail": {
-      "priceChartTitle": "Gráfico de Precio de {{name}}",
-      "aiAnalysis": "Análisis IA",
-      "aiAnalysisDescription": "Obtén señales de trading con IA.",
-      "analyzeButton": "Analizar Ahora",
-      "analysisFailed": "Análisis Fallido",
-      "analysisError": "No se pudo obtener el análisis de la IA.",
-      "shortTermSignal": "Señal a Corto Plazo",
-      "longTermSignal": "Señal a Largo Plazo",
-      "explanation": "Explicación"
+        "priceChartTitle": "Gráfico de Precios de {{name}}",
+        "aiAnalysis": "Análisis con IA",
+        "aiAnalysisDescription": "Obtén señales de trading con IA.",
+        "shortTermSignal": "Señal a Corto Plazo",
+        "longTermSignal": "Señal a Largo Plazo",
+        "explanation": "Explicación",
+        "analyzeButton": "Analizar Ahora",
+        "analysisFailed": "Análisis Fallido",
+        "analysisError": "No se pudo obtener el análisis de la IA."
     },
-    "tradeDialog": {
-      "buy": "Comprar",
-      "sell": "Vender",
-      "title": "Transaccionar {{name}} ({{symbol}})",
-      "currentPrice": "Precio Actual",
-      "balance": "Saldo",
-      "amountToSpend": "Monto a gastar ({{stablecoin}})",
-      "amountToReceive": "Monto a recibir",
-      "amountToSell": "Monto a vender",
-      "amountToReceiveIn": "Monto a recibir ({{stablecoin}})",
-      "validation": {
-        "positive": "El monto debe ser positivo.",
-        "insufficientGUSD": "Saldo de {{stablecoin}} insuficiente.",
-        "insufficientCrypto": "Saldo de cripto insuficiente."
-      },
-      "purchaseSuccessTitle": "Compra Exitosa",
-      "purchaseSuccessDescription": "Compraste {{amount}} {{symbol}}.",
-      "purchaseFailTitle": "Compra Fallida",
-      "purchaseFailDescription": "La transacción no pudo completarse.",
-      "saleSuccessTitle": "Venta Exitosa",
-      "saleSuccessDescription": "Vendiste {{amount}} {{symbol}}.",
-      "saleFailTitle": "Venta Fallida",
-      "saleFailDescription": "La transacción no pudo completarse."
-    },
-    "holdingsTable": {
-      "title": "Mis Activos",
-      "asset": "Activo",
-      "quantity": "Cantidad",
-      "avgBuyPrice": "Precio Prom. Compra",
-      "currentValue": "Valor Actual",
-      "pl": "G/P",
-      "action": "Acción",
-      "noHoldings": "Aún no tienes activos."
+    "simulator": {
+        "title": "Simulador de Trading"
     },
     "walletSummary": {
-      "title": "Resumen de Billetera",
-      "cashBalance": "Saldo en Efectivo ({{stablecoin}})",
-      "cryptoHoldings": "Valor de Activos Cripto",
-      "totalPL": "G/P Total"
+        "title": "Resumen de Billetera Virtual",
+        "cashBalance": "Saldo en Efectivo ({{stablecoin}})",
+        "cryptoHoldings": "Valor de Criptoactivos",
+        "totalPL": "P&G Total"
+    },
+    "holdingsTable": {
+        "title": "Mis Activos",
+        "asset": "Activo",
+        "quantity": "Cantidad",
+        "avgBuyPrice": "Precio Prom. Compra",
+        "currentValue": "Valor Actual",
+        "pl": "P&G",
+        "action": "Acción",
+        "noHoldings": "Aún no tienes activos."
     }
-  }
-  
+}
