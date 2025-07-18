@@ -96,7 +96,7 @@ export default function DashboardPage() {
       <Card>
         <CardHeader>
           <CardTitle>
-            {t('dashboard.top10ShortTerm')}
+             {viewMode === 'buy' ? t('dashboard.top10ShortTermBuy') : t('dashboard.top10ShortTermSell')}
           </CardTitle>
         </CardHeader>
         <CardContent>
