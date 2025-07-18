@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 import { mockCryptos, simulatePriceUpdate } from "@/lib/crypto-data";
 import type { Crypto, Holding, CryptoContextType, Currency } from "@/lib/types";
 import { getExchangeRate } from "@/services/exchange-rate-service";
+import { getBinanceConnectionStatus } from "@/app/actions";
 
 export const CryptoContext = createContext<CryptoContextType | null>(null);
 
@@ -18,6 +19,16 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
   const [holdings, setHoldings] = useState<Holding[]>([]);
   const [currency, setCurrencyState] = useState<Currency>('USD');
   const [exchangeRate, setExchangeRate] = useState(1);
+  const [binanceConnected, setBinanceConnected] = useState(false);
+
+  // Check Binance connection status on mount
+  useEffect(() => {
+    async function checkConnection() {
+      const { connected } = await getBinanceConnectionStatus();
+      setBinanceConnected(connected);
+    }
+    checkConnection();
+  }, []);
 
   // Fetch exchange rate on mount and when currency changes to CRC
   useEffect(() => {
@@ -61,14 +72,16 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
 
   // Price simulation interval
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCryptos((prevCryptos) =>
-        prevCryptos.map((crypto) => simulatePriceUpdate(crypto))
-      );
-    }, 3000);
+    if (!binanceConnected) {
+        const interval = setInterval(() => {
+          setCryptos((prevCryptos) =>
+            prevCryptos.map((crypto) => simulatePriceUpdate(crypto))
+          );
+        }, 3000);
 
-    return () => clearInterval(interval);
-  }, []);
+        return () => clearInterval(interval);
+    }
+  }, [binanceConnected]);
 
   const portfolioValue = useMemo(() => {
     return holdings.reduce((total, holding) => {
@@ -153,7 +166,8 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
     initialized,
     currency,
     setCurrency,
-    exchangeRate
+    exchangeRate,
+    binanceConnected
   };
 
   return (

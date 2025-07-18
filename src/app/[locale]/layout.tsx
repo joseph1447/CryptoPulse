@@ -39,12 +39,14 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <CryptoProvider>
-              <Header />
-              <main className="flex-grow container mx-auto px-4 py-8">
-                {children}
-              </main>
-              <Footer />
-              <Toaster />
+              <div className="flex flex-col flex-1">
+                <Header />
+                <main className="flex-grow container mx-auto px-4 py-8">
+                  {children}
+                </main>
+                <Footer />
+                <Toaster />
+              </div>
             </CryptoProvider>
           </ThemeProvider>
         </body>

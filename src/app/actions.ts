@@ -16,3 +16,14 @@ export async function getTradeSignalsAction(input: GenerateTradeSignalsInput): P
         return { success: false, error: "Failed to generate trade signals from AI." };
     }
 }
+
+export async function getBinanceConnectionStatus(): Promise<{ connected: boolean }> {
+    const apiKey = process.env.BINANCE_API_KEY;
+    const apiSecret = process.env.BINANCE_API_SECRET;
+    
+    // In a real app, you might want to make a test call to Binance to verify the keys.
+    // For this simulation, we'll just check for their existence.
+    const connected = !!(apiKey && apiSecret);
+    
+    return { connected };
+}

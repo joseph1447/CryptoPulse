@@ -7,7 +7,7 @@ import { useCrypto } from "@/hooks/use-crypto";
 import { CryptoPulseLogo } from "@/components/icons/crypto-pulse-logo";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Wallet, Languages, Sun, Moon, Settings } from "lucide-react";
+import { Wallet, Sun, Moon, Settings } from "lucide-react";
 import { Skeleton } from "../ui/skeleton";
 import { useI18n } from "@/hooks/use-i18n";
 import {
@@ -19,6 +19,7 @@ import {
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "@/hooks/use-theme";
+import { Separator } from "../ui/separator";
 
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   const pathname = usePathname();
@@ -45,7 +46,8 @@ export default function Header() {
     initialized, 
     currency, 
     setCurrency, 
-    exchangeRate 
+    exchangeRate,
+    binanceConnected,
   } = useCrypto();
   const { t, setLocale, locale } = useI18n();
   const { theme, setTheme } = useTheme();
@@ -70,13 +72,23 @@ export default function Header() {
               <CryptoPulseLogo className="h-6 w-6" />
               <span className="font-bold font-headline">{t('header.appName')}</span>
             </Link>
-            <nav className="flex items-center space-x-6 text-sm font-medium">
+            <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
               <NavLink href="/">{t('header.dashboard')}</NavLink>
               <NavLink href="/simulator">{t('header.simulator')}</NavLink>
             </nav>
           </div>
 
           <div className="flex flex-1 items-center justify-end space-x-2">
+            
+            <div className="flex items-center gap-2 text-sm font-medium">
+               <div className={cn("h-2.5 w-2.5 rounded-full", binanceConnected ? 'bg-green-500' : 'bg-red-500')} />
+               <span className="text-muted-foreground hidden sm:inline">
+                 {binanceConnected ? t('header.binanceConnected') : t('header.binanceDisconnected')}
+               </span>
+            </div>
+            
+            <Separator orientation="vertical" className="h-6 mx-2" />
+
             <div className="flex items-center space-x-2 text-sm">
               <Wallet className="h-4 w-4 text-muted-foreground" />
               {initialized ? (
@@ -98,7 +110,7 @@ export default function Header() {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>{t('header.settings')}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuLabel className="text-xs font-normal text-muted-foreground">{t('header.theme')}</DropdownMenuLabel>
+                 <DropdownMenuLabel className="text-xs font-normal text-muted-foreground">{t('header.theme')}</DropdownMenuLabel>
                 <DropdownMenuItem onClick={() => setTheme('light')}>
                   <Sun className="mr-2 h-4 w-4" />
                   <span>{t('header.light')}</span>
