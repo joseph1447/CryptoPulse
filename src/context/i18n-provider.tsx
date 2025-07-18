@@ -17,6 +17,15 @@ export function I18nProvider({ children, params }: { children: ReactNode, params
   const router = useRouter();
   const pathname = usePathname();
 
+  const setLocale = useCallback((newLocale: Locale) => {
+    const date = new Date();
+    date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
+    document.cookie = `NEXT_LOCALE=${newLocale};expires=${date.toUTCString()};path=/`;
+
+    const newPath = pathname.replace(/^\/(en|es)/, `/${newLocale}`);
+    router.replace(newPath);
+  }, [pathname, router]);
+
   useEffect(() => {
     const loadTranslations = async (loc: Locale) => {
       try {
@@ -28,28 +37,23 @@ export function I18nProvider({ children, params }: { children: ReactNode, params
         setTranslations(data);
       } catch (error) {
         console.error(error);
-        // Fallback to English if the desired locale fails
         if (loc !== 'en') {
+          // If the desired locale fails, switch to English
           setLocale('en');
         } else {
-          setTranslations({}); // Avoid infinite loops if English fails
+          // If even English fails, set empty translations to avoid loops.
+          setTranslations({});
         }
       }
     };
+    
+    // Only load translations if locale is defined
+    if (params.locale) {
+        loadTranslations(params.locale);
+        setLocaleState(params.locale);
+    }
 
-    loadTranslations(params.locale);
-    setLocaleState(params.locale);
-
-  }, [params.locale]);
-
-  const setLocale = useCallback((newLocale: Locale) => {
-    const date = new Date();
-    date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
-    document.cookie = `NEXT_LOCALE=${newLocale};expires=${date.toUTCString()};path=/`;
-
-    const newPath = pathname.replace(/^\/(en|es)/, `/${newLocale}`);
-    router.replace(newPath);
-  }, [pathname, router]);
+  }, [params.locale, setLocale]);
 
   const t = useCallback((key: string, replacements?: Record<string, string | number>) => {
     if (!translations) {
@@ -58,7 +62,7 @@ export function I18nProvider({ children, params }: { children: ReactNode, params
     
     const translation = getNestedValue(translations, key);
     
-    if (!translation) {
+    if (translation === undefined) {
       console.warn(`Translation not found for key: ${key} in locale: ${locale}`);
       return key; // Fallback to key if not found
     }
