@@ -15,7 +15,6 @@ import { cn } from "@/lib/utils";
 import { RSIIndicator } from "./rsi-indicator";
 import { CryptoLogo } from "../icons/crypto-logos";
 import { TradeDialog } from "./trade-dialog";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
 import { ChevronDown } from "lucide-react";
 import { CryptoDetailView } from "./crypto-detail-view";
 
@@ -53,15 +52,12 @@ export function CryptoTable({ cryptos }: { cryptos: Crypto[] }) {
           </TableHeader>
           <TableBody>
             {cryptos.map((crypto) => (
-              <Collapsible asChild key={crypto.id} open={openCollapsible === crypto.id} onOpenChange={() => toggleCollapsible(crypto.id)}>
-                <Fragment>
-                  <TableRow className="cursor-pointer">
+              <Fragment key={crypto.id}>
+                  <TableRow className="cursor-pointer" onClick={() => toggleCollapsible(crypto.id)}>
                     <TableCell>
-                      <CollapsibleTrigger asChild>
-                        <Button variant="ghost" size="sm" className="w-9 p-0">
-                           <ChevronDown className={cn("h-4 w-4 transition-transform", openCollapsible === crypto.id && "rotate-180")} />
-                        </Button>
-                      </CollapsibleTrigger>
+                      <Button variant="ghost" size="sm" className="w-9 p-0" aria-label="Expand row">
+                         <ChevronDown className={cn("h-4 w-4 transition-transform", openCollapsible === crypto.id && "rotate-180")} />
+                      </Button>
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-3">
@@ -84,20 +80,19 @@ export function CryptoTable({ cryptos }: { cryptos: Crypto[] }) {
                       <RSIIndicator value={crypto.rsi} />
                     </TableCell>
                     <TableCell className="text-right">
-                      <Button size="sm" onClick={() => handleBuyClick(crypto)}>
+                      <Button size="sm" onClick={(e) => { e.stopPropagation(); handleBuyClick(crypto); }}>
                         Buy
                       </Button>
                     </TableCell>
                   </TableRow>
-                  <CollapsibleContent asChild>
+                  {openCollapsible === crypto.id && (
                      <TableRow>
-                        <TableCell colSpan={8}>
+                        <TableCell colSpan={8} className="p-0">
                            <CryptoDetailView crypto={crypto} />
                         </TableCell>
                      </TableRow>
-                  </CollapsibleContent>
+                  )}
                 </Fragment>
-              </Collapsible>
             ))}
           </TableBody>
         </Table>
