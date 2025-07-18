@@ -1,7 +1,7 @@
 
 "use client";
 
-import { createContext, useState, useEffect, useCallback, type ReactNode } from "react";
+import { createContext, useState, useEffect, useCallback, type ReactNode, useMemo } from "react";
 import type { Locale, I18nContextType, Translations } from "@/lib/types";
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -67,11 +67,11 @@ export function I18nProvider({ children, locale: initialLocale }: { children: Re
     return translation;
   }, [translations, currentLocale]);
 
-  const contextValue = {
+  const contextValue = useMemo(() => ({
     locale: currentLocale,
     setLocale,
     t,
-  };
+  }), [currentLocale, setLocale, t]);
 
   // Render children only when translations have been loaded
   return (
