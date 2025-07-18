@@ -12,63 +12,54 @@ function getNestedValue(obj: any, path: string): string | undefined {
 }
 
 export function I18nProvider({ children, params }: { children: ReactNode, params: { locale: Locale } }) {
-  const { locale: initialLocale } = params;
-  const [locale, setLocaleState] = useState<Locale>(initialLocale);
-  const [translations, setTranslations] = useState<Translations>({});
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [locale, setLocaleState] = useState<Locale>(params.locale);
+  const [translations, setTranslations] = useState<Translations | null>(null);
   const router = useRouter();
   const pathname = usePathname();
 
-  const loadTranslations = useCallback(async (loc: Locale) => {
-    if (!loc) return;
-    try {
-      // Use a unique query parameter to prevent caching issues
-      const response = await fetch(`/locales/${loc}.json?v=${new Date().getTime()}`);
-      if (!response.ok) {
-        throw new Error(`Failed to load ${loc}.json`);
-      }
-      const data = await response.json();
-      setTranslations(data);
-      setIsLoaded(true);
-    } catch (error) {
-      console.error("Failed to load translations:", error);
-      if(loc !== 'en') {
-          // Fallback to English if the desired locale fails
-          setLocale('en'); 
-      }
-    }
-  }, []);
-
   useEffect(() => {
-    loadTranslations(locale);
-  }, [locale, loadTranslations]);
-  
+    const loadTranslations = async (loc: Locale) => {
+      try {
+        const response = await fetch(`/locales/${loc}.json`);
+        if (!response.ok) {
+          throw new Error(`Failed to load translations for ${loc}`);
+        }
+        const data = await response.json();
+        setTranslations(data);
+      } catch (error) {
+        console.error(error);
+        // Fallback to English if the desired locale fails
+        if (loc !== 'en') {
+          setLocale('en');
+        } else {
+          setTranslations({}); // Avoid infinite loops if English fails
+        }
+      }
+    };
+
+    loadTranslations(params.locale);
+    setLocaleState(params.locale);
+
+  }, [params.locale]);
+
   const setLocale = useCallback((newLocale: Locale) => {
-    // Set cookie for persistence
     const date = new Date();
     date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
     document.cookie = `NEXT_LOCALE=${newLocale};expires=${date.toUTCString()};path=/`;
-    
-    // update the URL
+
     const newPath = pathname.replace(/^\/(en|es)/, `/${newLocale}`);
     router.replace(newPath);
-    
-    // We don't call loadTranslations here because the useEffect above will handle it when the page reloads/remounts due to the URL change.
-    // However, we do update the state to reflect the change immediately.
-    setLocaleState(newLocale);
-    setIsLoaded(false);
-
   }, [pathname, router]);
 
   const t = useCallback((key: string, replacements?: Record<string, string | number>) => {
-    if (!isLoaded) {
-      return ""; // Return empty string or a loading indicator while translations are loading
+    if (!translations) {
+      return ""; // Return empty string or a loading indicator
     }
     
     const translation = getNestedValue(translations, key);
     
     if (!translation) {
-      console.warn(`Translation not found for key: ${key}`);
+      console.warn(`Translation not found for key: ${key} in locale: ${locale}`);
       return key; // Fallback to key if not found
     }
     
@@ -79,7 +70,7 @@ export function I18nProvider({ children, params }: { children: ReactNode, params
     }
 
     return translation;
-  }, [translations, isLoaded]);
+  }, [translations, locale]);
 
   const contextValue = {
     locale,
