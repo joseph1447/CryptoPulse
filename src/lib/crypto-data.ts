@@ -1,6 +1,6 @@
 import type { Crypto } from "./types";
 
-const cryptoNames = [
+export const cryptoNames = [
   { id: "bitcoin", name: "Bitcoin", symbol: "BTC" },
   { id: "ethereum", name: "Ethereum", symbol: "ETH" },
   { id: "binancecoin", name: "BNB", symbol: "BNB" },
@@ -28,7 +28,7 @@ const generatePriceHistory = (basePrice: number, length = 30): number[] => {
   return history.reverse();
 };
 
-const calculateRSI = (prices: number[], period = 14): number => {
+export const calculateRSI = (prices: number[], period = 14): number => {
     if (prices.length < period + 1) {
       return 50;
     }
@@ -73,20 +73,3 @@ export const mockCryptos: Crypto[] = cryptoNames.map((crypto) => {
     rsi: calculateRSI(priceHistory),
   };
 });
-
-export const simulatePriceUpdate = (crypto: Crypto): Crypto => {
-    const lastPrice = crypto.currentPrice;
-    const changePercent = (Math.random() - 0.49) * 0.05; // -2.5% to +2.5% change
-    const newPrice = Math.max(0.01, lastPrice * (1 + changePercent));
-    
-    const newPriceHistory = [...crypto.priceHistory.slice(1), newPrice];
-    
-    return {
-        ...crypto,
-        currentPrice: parseFloat(newPrice.toFixed(2)),
-        priceHistory: newPriceHistory,
-        priceChange24h: ((newPrice - newPriceHistory[newPriceHistory.length-2]) / newPriceHistory[newPriceHistory.length-2]) * 100,
-        rsi: calculateRSI(newPriceHistory),
-        volume24h: crypto.volume24h * (1 + (Math.random() - 0.5) * 0.05) // Fluctuate volume
-    };
-};

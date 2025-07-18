@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import "../globals.css";
 import { CryptoProvider } from "@/context/crypto-provider";
@@ -11,17 +12,24 @@ import Footer from "@/components/layout/footer";
 export const metadata: Metadata = {
   title: "CryptoPulse",
   description: "Real-Time Trading Simulator & Analyzer",
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '48x48', type: 'image/x-icon' },
+      { url: '/icon.svg', sizes: 'any', type: 'image/svg+xml' },
+    ],
+  },
 };
 
 export default function RootLayout({
   children,
-  params: { locale }
+  params,
 }: Readonly<{
   children: React.ReactNode;
   params: { locale: Locale };
 }>) {
+  const locale = params.locale;
   return (
-    <I18nProvider locale={locale}>
+    <I18nProvider params={params}>
       <html lang={locale} suppressHydrationWarning>
         <head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />

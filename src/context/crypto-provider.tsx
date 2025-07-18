@@ -3,10 +3,11 @@
 
 import { createContext, useState, useEffect, useMemo, useCallback } from "react";
 import type { ReactNode } from "react";
-import { mockCryptos, simulatePriceUpdate } from "@/lib/crypto-data";
+import { cryptoNames, mockCryptos, calculateRSI } from "@/lib/crypto-data";
 import type { Crypto, Holding, CryptoContextType, Currency } from "@/lib/types";
 import { getExchangeRate } from "@/services/exchange-rate-service";
 import { getBinanceConnectionStatus } from "@/app/actions";
+import { getKlines, getTickers } from "@/services/binance-service";
 
 export const CryptoContext = createContext<CryptoContextType | null>(null);
 
@@ -22,6 +23,42 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
   const [binanceConnected, setBinanceConnected] = useState(false);
   const [binanceConnectionError, setBinanceConnectionError] = useState<string | null>(null);
 
+  const fetchBinanceData = useCallback(async () => {
+    try {
+        const binanceSymbols = cryptoNames.map(c => `${c.symbol}USDT`);
+        const tickers = await getTickers(binanceSymbols);
+
+        const fetchedCryptos = await Promise.all(tickers.map(async (ticker: any) => {
+            const cryptoInfo = cryptoNames.find(c => `${c.symbol}USDT` === ticker.symbol);
+            if (!cryptoInfo) return null;
+
+            const klines = await getKlines(ticker.symbol, '1d', 30);
+            const priceHistory = klines.map((k: any) => parseFloat(k[4])); // Closing price
+
+            return {
+                id: cryptoInfo.id,
+                name: cryptoInfo.name,
+                symbol: cryptoInfo.symbol,
+                currentPrice: parseFloat(ticker.lastPrice),
+                priceHistory: priceHistory,
+                volume24h: parseFloat(ticker.volume),
+                marketCap: parseFloat(ticker.lastPrice) * parseFloat(ticker.weightedAvgPrice), // Note: A proper market cap isn't in this endpoint, this is an estimation.
+                priceChange24h: parseFloat(ticker.priceChangePercent),
+                rsi: calculateRSI(priceHistory),
+            };
+        }));
+        
+        setCryptos(fetchedCryptos.filter(Boolean) as Crypto[]);
+
+    } catch (error) {
+        console.error("Failed to fetch Binance data:", error);
+        if (error instanceof Error) {
+            setBinanceConnectionError(`Failed to fetch live data: ${error.message}. Displaying mock data.`);
+        }
+        setBinanceConnected(false); // Fallback to mock data on fetch error
+    }
+  }, []);
+
   // Check Binance connection status on mount
   useEffect(() => {
     async function checkConnection() {
@@ -33,6 +70,39 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
     }
     checkConnection();
   }, []);
+
+  // Price update interval
+  useEffect(() => {
+    if (binanceConnected) {
+      fetchBinanceData(); // Initial fetch
+      const interval = setInterval(fetchBinanceData, 10000); // Poll every 10 seconds
+      return () => clearInterval(interval);
+    } else {
+        // Fallback to mock data simulation if not connected
+        setCryptos(mockCryptos);
+        const interval = setInterval(() => {
+          setCryptos((prevCryptos) =>
+            prevCryptos.map((crypto) => {
+                const lastPrice = crypto.currentPrice;
+                const changePercent = (Math.random() - 0.49) * 0.05;
+                const newPrice = Math.max(0.01, lastPrice * (1 + changePercent));
+                const newPriceHistory = [...crypto.priceHistory.slice(1), newPrice];
+                
+                return {
+                    ...crypto,
+                    currentPrice: parseFloat(newPrice.toFixed(2)),
+                    priceHistory: newPriceHistory,
+                    priceChange24h: ((newPrice - newPriceHistory[newPriceHistory.length-2]) / newPriceHistory[new-2]) * 100,
+                    rsi: calculateRSI(newPriceHistory),
+                    volume24h: crypto.volume24h * (1 + (Math.random() - 0.5) * 0.05)
+                };
+            })
+          );
+        }, 5000); // Mock data updates slightly slower
+        return () => clearInterval(interval);
+    }
+  }, [binanceConnected, fetchBinanceData]);
+
 
   // Fetch exchange rate on mount and when currency changes to CRC
   useEffect(() => {
@@ -73,19 +143,6 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
       localStorage.setItem("currency", currency);
     }
   }, [gusdBalance, holdings, currency, initialized]);
-
-  // Price simulation interval
-  useEffect(() => {
-    if (!binanceConnected) {
-        const interval = setInterval(() => {
-          setCryptos((prevCryptos) =>
-            prevCryptos.map((crypto) => simulatePriceUpdate(crypto))
-          );
-        }, 3000);
-
-        return () => clearInterval(interval);
-    }
-  }, [binanceConnected]);
 
   const portfolioValue = useMemo(() => {
     return holdings.reduce((total, holding) => {

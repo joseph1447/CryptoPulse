@@ -11,7 +11,8 @@ function getNestedValue(obj: any, path: string): string | undefined {
   return path.split('.').reduce((acc, part) => acc && acc[part], obj);
 }
 
-export function I18nProvider({ children, locale: initialLocale }: { children: ReactNode, locale: Locale }) {
+export function I18nProvider({ children, params }: { children: ReactNode, params: { locale: Locale } }) {
+  const { locale: initialLocale } = params;
   const [locale, setLocaleState] = useState<Locale>(initialLocale);
   const [translations, setTranslations] = useState<Translations>({});
   const router = useRouter();

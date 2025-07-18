@@ -3,7 +3,7 @@
 
 import { analyzeCryptoData } from "@/ai/flows/analyze-crypto-data";
 import { generateTradeSignals, type GenerateTradeSignalsInput, type GenerateTradeSignalsOutput } from "@/ai/flows/generate-trade-signals";
-import { testBinanceConnection } from "@/services/binance-service";
+import { testBinanceConnection, getTickers, getKlines } from "@/services/binance-service";
 
 export async function getTradeSignalsAction(input: GenerateTradeSignalsInput): Promise<{
     success: boolean;
@@ -28,4 +28,13 @@ export async function getBinanceConnectionStatus(): Promise<{ connected: boolean
     }
 
     return await testBinanceConnection(apiKey, apiSecret);
+}
+
+// These functions are for client-side fetching as server actions
+export async function getTickersAction(symbols: string[]) {
+    return getTickers(symbols);
+}
+
+export async function getKlinesAction(symbol: string, interval: string, limit: number) {
+    return getKlines(symbol, interval, limit);
 }
