@@ -6,11 +6,11 @@ CryptoPulse is a powerful and intuitive web application designed for cryptocurre
 
 - **Real-Time Crypto Dashboard**: View a dynamic list of the top 50 cryptocurrencies on Binance, sorted by 24-hour volume. Toggle between the top 10 best opportunities to **Buy** (lowest RSI) and **Sell** (highest RSI).
 - **Detailed Crypto View**: Expand any cryptocurrency in the list to see a historical price chart and access AI-powered analysis.
-- **AI-Powered Trade Signals**: For any crypto, generate custom short-term and long-term trading signals (Buy/Sell/Hold) based on a combination of RSI, volume, and market cap data.
+- **AI-Powered Trade Signals**: For any crypto, generate custom short-term and long-term trading signals (Buy/Sell/Hold) based on a combination of RSI, volume, and market cap data using Google's Gemini AI.
 - **Virtual Wallet Simulator**: Start with a virtual balance of 10,000 GUSD (virtual US dollars) and trade any listed cryptocurrency. Your portfolio value and cash balance are tracked in real-time.
 - **Profit & Loss Tracking**: The simulator automatically calculates and displays your profit and loss for each individual holding and for your overall portfolio.
 - **Multi-Language & Multi-Currency**: The entire interface can be switched between English and Spanish. Display all monetary values in either USD or Costa Rican Colón (CRC) with real-time exchange rate conversion.
-- **Secure API Key Handling**: Your Binance API keys are stored exclusively in your local environment and are never sent to a server, ensuring they remain secure.
+- **Secure API Key Handling**: Your Binance and Google API keys are stored exclusively in your local environment and are never sent to a server, ensuring they remain secure.
 
 ## Getting Started
 
@@ -21,6 +21,7 @@ Follow these instructions to get the CryptoPulse application running on your loc
 - Node.js (v18 or later)
 - npm or yarn
 - A Binance account with API keys (read-only permissions are sufficient)
+- A Google AI API Key
 
 ### 1. Installation
 
@@ -34,17 +35,24 @@ npm install
 
 ### 2. Environment Configuration
 
-You need to provide your Binance API keys for the application to fetch live data.
+You need to provide your Binance and Google AI API keys for the application to function correctly.
 
 1.  Create a new file named `.env.local` in the root of the project directory.
-2.  Add your Binance API Key and Secret to this file:
+2.  Add your API keys to this file.
+
+    #### Binance API Key (for live market data)
+    - It is highly recommended to use API keys with **read-only** access for security. The application does not perform any real trades.
+
+    #### Google AI (Gemini) API Key (for AI trade signals)
+    - Go to [Google AI Studio](https://aistudio.google.com/app/apikey) to create an API key.
+
+    Your `.env.local` file should look like this:
 
     ```
     BINANCE_API_KEY=your_binance_api_key_here
     BINANCE_API_SECRET=your_binance_api_secret_here
+    GOOGLE_API_KEY=your_google_ai_api_key_here
     ```
-
-    **Note**: It is highly recommended to use API keys with **read-only** access for security. The application does not perform any real trades.
 
 ### 3. Running the Development Server
 
