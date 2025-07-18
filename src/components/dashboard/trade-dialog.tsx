@@ -1,3 +1,4 @@
+
 "use client";
 
 import type { Crypto } from "@/lib/types";
@@ -36,24 +37,27 @@ interface TradeDialogProps {
 }
 
 export function TradeDialog({ crypto, isOpen, onClose, defaultTab = 'buy' }: TradeDialogProps) {
-  const { cryptos, gusdBalance, holdings, buyCrypto, sellCrypto } = useCrypto();
+  const { cryptos, gusdBalance, holdings, buyCrypto, sellCrypto, currency, exchangeRate } = useCrypto();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState(defaultTab);
   const { t } = useI18n();
   
   const liveCryptoData = cryptos.find(c => c.id === crypto.id) || crypto;
   const holding = holdings.find((h) => h.cryptoId === crypto.id);
+  const stablecoinName = currency === 'CRC' ? 'GCNS' : 'GUSD';
+  const stablecoinBalance = currency === 'CRC' ? gusdBalance * exchangeRate : gusdBalance;
+  const livePriceInSelectedCurrency = currency === 'CRC' ? liveCryptoData.currentPrice * exchangeRate : liveCryptoData.currentPrice;
 
   const buySchema = z.object({
-    gusdAmount: z.coerce
+    stablecoinAmount: z.coerce
       .number()
       .min(0.01, t('tradeDialog.validation.positive'))
-      .max(gusdBalance, t('tradeDialog.validation.insufficientGUSD')),
+      .max(stablecoinBalance, t('tradeDialog.validation.insufficientGUSD', { stablecoin: stablecoinName })),
     cryptoAmount: z.coerce.number(),
   });
 
   const sellSchema = z.object({
-    gusdAmount: z.coerce.number(),
+    stablecoinAmount: z.coerce.number(),
     cryptoAmount: z.coerce
       .number()
       .min(1e-6, t('tradeDialog.validation.positive'))
@@ -65,38 +69,38 @@ export function TradeDialog({ crypto, isOpen, onClose, defaultTab = 'buy' }: Tra
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      gusdAmount: 0,
+      stablecoinAmount: 0,
       cryptoAmount: 0,
     },
   });
 
   useEffect(() => {
-    form.reset({ gusdAmount: 0, cryptoAmount: 0 });
+    form.reset({ stablecoinAmount: 0, cryptoAmount: 0 });
     form.clearErrors();
-  }, [activeTab, crypto, form]);
+  }, [activeTab, crypto, form, currency]);
   
   useEffect(() => {
-    form.reset({ gusdAmount: 0, cryptoAmount: 0 });
+    form.reset({ stablecoinAmount: 0, cryptoAmount: 0 });
   }, [isOpen, form]);
 
-  const handleGusdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const gusdVal = parseFloat(e.target.value);
-    form.setValue("gusdAmount", gusdVal);
-    if (liveCryptoData.currentPrice > 0) {
-      form.setValue("cryptoAmount", gusdVal / liveCryptoData.currentPrice);
+  const handleStablecoinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const stablecoinVal = parseFloat(e.target.value) || 0;
+    form.setValue("stablecoinAmount", stablecoinVal);
+    if (livePriceInSelectedCurrency > 0) {
+      form.setValue("cryptoAmount", stablecoinVal / livePriceInSelectedCurrency);
     }
   };
 
   const handleCryptoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const cryptoVal = parseFloat(e.target.value);
+    const cryptoVal = parseFloat(e.target.value) || 0;
     form.setValue("cryptoAmount", cryptoVal);
-    form.setValue("gusdAmount", cryptoVal * liveCryptoData.currentPrice);
+    form.setValue("stablecoinAmount", cryptoVal * livePriceInSelectedCurrency);
   };
 
   const onSubmit = (values: any) => {
     let success = false;
     if (activeTab === "buy") {
-      success = buyCrypto(crypto.id, values.gusdAmount);
+      success = buyCrypto(crypto.id, values.stablecoinAmount, 'stablecoin');
       if (success) {
         toast({ title: t('tradeDialog.purchaseSuccessTitle'), description: t('tradeDialog.purchaseSuccessDescription', { amount: values.cryptoAmount.toFixed(6), symbol: crypto.symbol }) });
       } else {
@@ -112,6 +116,14 @@ export function TradeDialog({ crypto, isOpen, onClose, defaultTab = 'buy' }: Tra
     }
     if (success) onClose();
   };
+  
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat(undefined, {
+      style: 'currency',
+      currency: currency,
+      currencyDisplay: 'symbol'
+    }).format(value);
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -123,10 +135,10 @@ export function TradeDialog({ crypto, isOpen, onClose, defaultTab = 'buy' }: Tra
           </DialogTitle>
         </DialogHeader>
         <p className="text-sm text-muted-foreground">
-            {t('tradeDialog.currentPrice')}: <span className="font-mono text-primary">${liveCryptoData.currentPrice.toLocaleString()}</span>
+            {t('tradeDialog.currentPrice')}: <span className="font-mono text-primary">{formatCurrency(livePriceInSelectedCurrency)}</span>
         </p>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <Tabs value={activeTab} onValueChange={(tab) => setActiveTab(tab as 'buy' | 'sell')} className="w-full">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="buy">{t('tradeDialog.buy')}</TabsTrigger>
             <TabsTrigger value="sell">{t('tradeDialog.sell')}</TabsTrigger>
@@ -135,15 +147,15 @@ export function TradeDialog({ crypto, isOpen, onClose, defaultTab = 'buy' }: Tra
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <TabsContent value="buy">
                 <div className="space-y-4 py-4">
-                  <div className="text-sm text-right">{t('tradeDialog.balance')}: <span className="font-mono text-primary">{gusdBalance.toFixed(2)} GUSD</span></div>
+                  <div className="text-sm text-right">{t('tradeDialog.balance')}: <span className="font-mono text-primary">{stablecoinBalance.toFixed(2)} {stablecoinName}</span></div>
                    <FormField
                       control={form.control}
-                      name="gusdAmount"
+                      name="stablecoinAmount"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{t('tradeDialog.amountToSpend')}</FormLabel>
+                          <FormLabel>{t('tradeDialog.amountToSpend', { stablecoin: stablecoinName })}</FormLabel>
                           <FormControl>
-                            <Input {...field} type="number" step="0.01" onChange={handleGusdChange} placeholder="0.00 GUSD" />
+                            <Input {...field} type="number" step="0.01" onChange={handleStablecoinChange} placeholder={`0.00 ${stablecoinName}`} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -185,12 +197,12 @@ export function TradeDialog({ crypto, isOpen, onClose, defaultTab = 'buy' }: Tra
                     />
                      <FormField
                       control={form.control}
-                      name="gusdAmount"
+                      name="stablecoinAmount"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{t('tradeDialog.amountToReceive')}</FormLabel>
+                          <FormLabel>{t('tradeDialog.amountToReceiveIn', { stablecoin: stablecoinName })}</FormLabel>
                           <FormControl>
-                            <Input {...field} type="number" step="0.01" onChange={handleGusdChange} placeholder="0.00 GUSD" readOnly />
+                            <Input {...field} type="number" step="0.01" onChange={handleStablecoinChange} placeholder={`0.00 ${stablecoinName}`} readOnly />
                           </FormControl>
                           <FormMessage />
                         </FormItem>

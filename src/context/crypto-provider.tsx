@@ -1,9 +1,11 @@
+
 "use client";
 
 import { createContext, useState, useEffect, useMemo, useCallback } from "react";
 import type { ReactNode } from "react";
 import { mockCryptos, simulatePriceUpdate } from "@/lib/crypto-data";
-import type { Crypto, Holding, CryptoContextType } from "@/lib/types";
+import type { Crypto, Holding, CryptoContextType, Currency } from "@/lib/types";
+import { getExchangeRate } from "@/services/exchange-rate-service";
 
 export const CryptoContext = createContext<CryptoContextType | null>(null);
 
@@ -15,44 +17,54 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
   const [gusdBalance, setGusdBalance] = useState<number>(INITIAL_GUSD_BALANCE);
   const [holdings, setHoldings] = useState<Holding[]>([]);
   const [apiKeys, setApiKeysState] = useState({ key: "", secret: "" });
+  const [currency, setCurrencyState] = useState<Currency>('USD');
+  const [exchangeRate, setExchangeRate] = useState(1);
 
+  // Fetch exchange rate on mount and when currency changes to CRC
+  useEffect(() => {
+    async function fetchRate() {
+      const rate = await getExchangeRate('USD', 'CRC');
+      setExchangeRate(rate);
+    }
+    fetchRate();
+  }, []);
+
+  // Load from local storage
   useEffect(() => {
     try {
       const storedBalance = localStorage.getItem("gusdBalance");
       const storedHoldings = localStorage.getItem("holdings");
       const storedApiKeys = localStorage.getItem("apiKeys");
+      const storedCurrency = localStorage.getItem("currency");
 
       if (storedBalance) setGusdBalance(JSON.parse(storedBalance));
       if (storedHoldings) setHoldings(JSON.parse(storedHoldings));
       if (storedApiKeys) setApiKeysState(JSON.parse(storedApiKeys));
+      if (storedCurrency && (storedCurrency === 'USD' || storedCurrency === 'CRC')) {
+        setCurrencyState(storedCurrency);
+      }
     } catch (error) {
       console.error("Failed to parse from localStorage", error);
+      // Reset to defaults on error
       setGusdBalance(INITIAL_GUSD_BALANCE);
       setHoldings([]);
       setApiKeysState({ key: "", secret: "" });
+      setCurrencyState('USD');
     }
     setInitialized(true);
   }, []);
-
+  
+  // Save to local storage
   useEffect(() => {
     if (initialized) {
       localStorage.setItem("gusdBalance", JSON.stringify(gusdBalance));
-    }
-  }, [gusdBalance, initialized]);
-  
-  useEffect(() => {
-    if (initialized) {
       localStorage.setItem("holdings", JSON.stringify(holdings));
-    }
-  }, [holdings, initialized]);
-  
-  useEffect(() => {
-    if (initialized) {
       localStorage.setItem("apiKeys", JSON.stringify(apiKeys));
+      localStorage.setItem("currency", currency);
     }
-  }, [apiKeys, initialized]);
+  }, [gusdBalance, holdings, apiKeys, currency, initialized]);
 
-
+  // Price simulation interval
   useEffect(() => {
     const interval = setInterval(() => {
       setCryptos((prevCryptos) =>
@@ -70,14 +82,18 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
     }, 0);
   }, [holdings, cryptos]);
 
-  const buyCrypto = useCallback((cryptoId: string, gusdAmount: number): boolean => {
+  const buyCrypto = useCallback((cryptoId: string, amount: number, amountIn: 'stablecoin' | 'crypto' = 'stablecoin'): boolean => {
     const crypto = cryptos.find((c) => c.id === cryptoId);
-    if (!crypto || gusdAmount > gusdBalance || gusdAmount <= 0) {
-      return false;
-    }
+    if (!crypto) return false;
 
-    const quantity = gusdAmount / crypto.currentPrice;
-    setGusdBalance((prev) => prev - gusdAmount);
+    const amountInUsd = amountIn === 'stablecoin' 
+      ? (currency === 'CRC' ? amount / exchangeRate : amount) 
+      : amount * crypto.currentPrice;
+      
+    if (amountInUsd > gusdBalance || amountInUsd <= 0) return false;
+
+    const quantity = amountInUsd / crypto.currentPrice;
+    setGusdBalance((prev) => prev - amountInUsd);
 
     setHoldings((prev) => {
       const existingHoldingIndex = prev.findIndex((h) => h.cryptoId === cryptoId);
@@ -85,11 +101,11 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
         const existingHolding = prev[existingHoldingIndex];
         const newQuantity = existingHolding.quantity + quantity;
         const newAvgBuyPrice =
-          (existingHolding.avgBuyPrice * existingHolding.quantity + gusdAmount) / newQuantity;
+          (existingHolding.avgBuyPrice * existingHolding.quantity + amountInUsd) / newQuantity;
         
         const newHoldings = [...prev];
         newHoldings[existingHoldingIndex] = {
-          cryptoId,
+          ...existingHolding,
           quantity: newQuantity,
           avgBuyPrice: newAvgBuyPrice,
         };
@@ -102,7 +118,7 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
       }
     });
     return true;
-  }, [cryptos, gusdBalance]);
+  }, [cryptos, gusdBalance, currency, exchangeRate]);
 
   const sellCrypto = useCallback((cryptoId: string, quantityToSell: number): boolean => {
     const crypto = cryptos.find((c) => c.id === cryptoId);
@@ -132,6 +148,10 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
     setApiKeysState(keys);
   }, []);
 
+  const setCurrency = useCallback((newCurrency: Currency) => {
+    setCurrencyState(newCurrency);
+  }, []);
+
   const contextValue = {
     cryptos,
     gusdBalance,
@@ -142,6 +162,9 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
     initialized,
     apiKeys,
     setApiKeys,
+    currency,
+    setCurrency,
+    exchangeRate
   };
 
   return (

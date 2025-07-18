@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useMemo } from "react";
@@ -19,9 +20,9 @@ import { TradeDialog } from "../dashboard/trade-dialog";
 import { useI18n } from "@/hooks/use-i18n";
 
 export function HoldingsTable() {
-  const { holdings, cryptos } = useCrypto();
+  const { holdings, cryptos, currency, exchangeRate } = useCrypto();
   const [selectedCrypto, setSelectedCrypto] = useState<Crypto | null>(null);
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
 
   const handleSellClick = (crypto: Crypto) => {
     setSelectedCrypto(crypto);
@@ -30,8 +31,18 @@ export function HoldingsTable() {
   const handleTradeDialogClose = () => {
     setSelectedCrypto(null);
   };
+  
+  const formatCurrency = (value: number, decimals: number = 2) => {
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: currency,
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals
+    }).format(value);
+  }
 
   const holdingsWithData = useMemo(() => {
+    const rate = currency === 'CRC' ? exchangeRate : 1;
     return holdings.map(holding => {
       const crypto = cryptos.find(c => c.id === holding.cryptoId);
       if (!crypto) return null;
@@ -43,12 +54,13 @@ export function HoldingsTable() {
       return {
         ...holding,
         crypto,
-        currentValue,
-        pnl,
+        currentValue: currentValue * rate,
+        avgBuyPrice: holding.avgBuyPrice * rate,
+        pnl: pnl * rate,
         pnlPercent
       }
     }).filter(Boolean);
-  }, [holdings, cryptos]);
+  }, [holdings, cryptos, currency, exchangeRate]);
 
   return (
     <>
@@ -84,10 +96,10 @@ export function HoldingsTable() {
                           </div>
                         </TableCell>
                         <TableCell className="text-right font-mono">{holding.quantity.toFixed(6)}</TableCell>
-                        <TableCell className="hidden md:table-cell text-right font-mono">${holding.avgBuyPrice.toLocaleString()}</TableCell>
-                        <TableCell className="text-right font-mono">${holding.currentValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</TableCell>
+                        <TableCell className="hidden md:table-cell text-right font-mono">{formatCurrency(holding.avgBuyPrice, 2)}</TableCell>
+                        <TableCell className="text-right font-mono">{formatCurrency(holding.currentValue, 2)}</TableCell>
                         <TableCell className={cn("text-right font-mono", holding.pnl >= 0 ? "text-green-400" : "text-red-400")}>
-                          {holding.pnl >= 0 ? '+' : ''}${holding.pnl.toFixed(2)} ({holding.pnlPercent.toFixed(2)}%)
+                          {holding.pnl >= 0 ? '+' : ''}{formatCurrency(holding.pnl, 2)} ({holding.pnlPercent.toFixed(2)}%)
                         </TableCell>
                         <TableCell className="text-right">
                           <Button size="sm" onClick={() => handleSellClick(holding.crypto)}>

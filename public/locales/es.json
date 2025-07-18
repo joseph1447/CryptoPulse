@@ -1,108 +1,110 @@
+
 {
-    "header": {
-        "appName": "CriptoPulso",
-        "dashboard": "Panel",
-        "simulator": "Simulador",
-        "settings": "Ajustes",
-        "toggleTheme": "Cambiar tema"
-    },
-    "dashboard": {
-        "title": "Panel de Criptomonedas",
-        "top10ShortTerm": "Top 10 Oportunidades a Corto Plazo (por RSI)"
-    },
-    "simulator": {
-        "title": "Simulador de Trading"
-    },
-    "cryptoTable": {
-        "name": "Nombre",
-        "price": "Precio",
-        "change24h": "% 24h",
-        "volume24h": "Volumen 24h",
-        "marketCap": "Cap. de Mercado",
-        "rsi": "RSI (14)",
-        "action": "Acción",
-        "expandRow": "Expandir fila"
-    },
-    "tradeDialog": {
-        "buy": "Comprar",
-        "sell": "Vender",
-        "title": "Operar {{name}} ({{symbol}})",
-        "currentPrice": "Precio Actual",
-        "balance": "Saldo",
-        "amountToSpend": "Monto a gastar (GUSD)",
-        "amountToReceive": "Monto a recibir",
-        "amountToSell": "Monto a vender ({{symbol}})",
-        "validation": {
-            "positive": "El monto debe ser positivo.",
-            "insufficientGUSD": "Saldo de GUSD insuficiente.",
-            "insufficientCrypto": "Saldo de criptomoneda insuficiente."
-        },
-        "purchaseSuccessTitle": "Compra Exitosa",
-        "purchaseSuccessDescription": "Compraste {{amount}} {{symbol}}.",
-        "purchaseFailTitle": "Falló la Compra",
-        "purchaseFailDescription": "Hubo un error al procesar tu compra.",
-        "saleSuccessTitle": "Venta Exitosa",
-        "saleSuccessDescription": "Vendiste {{amount}} {{symbol}}.",
-        "saleFailTitle": "Falló la Venta",
-        "saleFailDescription": "Hubo un error al procesar tu venta."
-    },
-    "rsi": {
-        "label": "RSI: {{value}}",
-        "oversold": "Sobrevendido (< 30)",
-        "overbought": "Sobrecomprado (> 70)"
-    },
-    "cryptoDetail": {
-        "priceChartTitle": "Gráfico de Precios de {{name}} (30 días)",
-        "aiAnalysis": "Análisis IA",
-        "aiAnalysisDescription": "Obtén señales de trading con IA.",
-        "analyzeButton": "Analizar Ahora",
-        "analysisFailed": "Análisis Fallido",
-        "analysisError": "Ocurrió un error durante el análisis.",
-        "shortTermSignal": "Señal a Corto Plazo",
-        "longTermSignal": "Señal a Largo Plazo",
-        "explanation": "Explicación"
-    },
-    "walletSummary": {
-        "title": "Resumen de Billetera",
-        "cashBalance": "Saldo en Efectivo (GUSD)",
-        "cryptoHoldings": "Valor de Tenencias Cripto",
-        "totalPL": "G/P Total"
-    },
-    "holdingsTable": {
-        "title": "Mis Tenencias",
-        "asset": "Activo",
-        "quantity": "Cantidad",
-        "avgBuyPrice": "Precio Prom. Compra",
-        "currentValue": "Valor Actual",
-        "pl": "G/P",
-        "action": "Acción",
-        "noHoldings": "Aún no tienes tenencias. ¡Compra alguna criptomoneda desde el panel!"
-    },
-    "apiKeyModal": {
-        "title": "Configuración de Clave API",
-        "description": "Ingresa tus claves API para conectarte a un exchange real (función próximamente). Por ahora, esto es solo un marcador de posición.",
-        "securityTitle": "Aviso de Seguridad",
-        "securityDescription": "Tus claves API se guardan de forma segura en el almacenamiento local de tu navegador y nunca se envían a nuestros servidores.",
-        "apiKeyLabel": "Clave API",
-        "apiKeyPlaceholder": "Ingresa tu Clave API",
-        "apiSecretLabel": "Secreto API",
-        "apiSecretPlaceholder": "Ingresa tu Secreto API",
-        "saveButton": "Guardar Cambios",
-        "saveSuccessTitle": "Claves API Guardadas",
-        "saveSuccessDescription": "Tus claves API han sido actualizadas.",
-        "validation": {
-            "keyRequired": "La Clave API es requerida.",
-            "secretRequired": "El Secreto API es requerido."
-        }
-    },
-    "footer": {
-        "policies": "Políticas"
-    },
-    "policies": {
-        "title": "Políticas de la Aplicación",
-        "subtitle": "Información Importante",
-        "p1": "Esta aplicación, CriptoPulso, está diseñada únicamente con fines educativos y de capacitación. Es un simulador y no implica transacciones financieras reales.",
-        "p2": "Los datos presentados, incluidos los precios de las criptomonedas y los análisis, pueden no ser precisos o en tiempo real. Las señales de trading generadas por IA son para fines de demostración y могут contener errores o imprecisiones. No deben considerarse asesoramiento financiero.",
-        "p3": "Utilice esta aplicación con discreción. Los creadores y mantenedores no se hacen responsables de las decisiones tomadas en base a la información aquí proporcionada. Todas las acciones son simuladas y no tienen valor ni consecuencias en el mundo real."
+  "header": {
+    "appName": "CryptoPulse",
+    "dashboard": "Panel",
+    "simulator": "Simulador",
+    "settings": "Configuración",
+    "toggleTheme": "Cambiar tema"
+  },
+  "dashboard": {
+    "title": "Panel de Criptomonedas",
+    "top10ShortTerm": "Top 10 Oportunidades a Corto Plazo (por RSI)"
+  },
+  "cryptoTable": {
+    "name": "Nombre",
+    "price": "Precio",
+    "change24h": "% 24h",
+    "volume24h": "Volumen 24h",
+    "marketCap": "Cap. de Mercado",
+    "rsi": "RSI (14)",
+    "action": "Acción",
+    "expandRow": "Expandir fila"
+  },
+  "cryptoDetail": {
+    "priceChartTitle": "Gráfico de Precio de {{name}} (30 días)",
+    "aiAnalysis": "Análisis con IA",
+    "aiAnalysisDescription": "Obtén señales de trading con IA.",
+    "shortTermSignal": "Señal a Corto Plazo",
+    "longTermSignal": "Señal a Largo Plazo",
+    "explanation": "Explicación",
+    "analyzeButton": "Analizar Ahora",
+    "analysisFailed": "Análisis Fallido",
+    "analysisError": "Ocurrió un error al obtener el análisis de la IA."
+  },
+  "tradeDialog": {
+    "buy": "Comprar",
+    "sell": "Vender",
+    "title": "Operar {{name}} ({{symbol}})",
+    "currentPrice": "Precio Actual",
+    "balance": "Saldo",
+    "amountToSpend": "Monto a gastar ({{stablecoin}})",
+    "amountToReceive": "Monto a recibir",
+    "amountToSell": "Monto a vender",
+    "amountToReceiveIn": "Monto a recibir ({{stablecoin}})",
+    "purchaseSuccessTitle": "Compra Exitosa",
+    "purchaseSuccessDescription": "Compraste {{amount}} {{symbol}}.",
+    "purchaseFailTitle": "Compra Fallida",
+    "purchaseFailDescription": "Hubo un error al procesar tu compra.",
+    "saleSuccessTitle": "Venta Exitosa",
+    "saleSuccessDescription": "Vendiste {{amount}} {{symbol}}.",
+    "saleFailTitle": "Venta Fallida",
+    "saleFailDescription": "Hubo un error al procesar tu venta.",
+    "validation": {
+      "positive": "El monto debe ser positivo",
+      "insufficientGUSD": "Saldo de {{stablecoin}} insuficiente",
+      "insufficientCrypto": "Saldo de criptomoneda insuficiente"
     }
+  },
+  "rsi": {
+    "label": "RSI: {{value}}",
+    "oversold": "Sobrevendido (<30)",
+    "overbought": "Sobrecomprado (>70)"
+  },
+  "simulator": {
+    "title": "Simulador de Trading"
+  },
+  "walletSummary": {
+    "title": "Resumen de Billetera",
+    "cashBalance": "Saldo en {{stablecoin}}",
+    "cryptoHoldings": "Valor de Criptoactivos",
+    "totalPL": "G/P Total"
+  },
+  "holdingsTable": {
+    "title": "Mis Activos",
+    "asset": "Activo",
+    "quantity": "Cantidad",
+    "avgBuyPrice": "Precio Prom. Compra",
+    "currentValue": "Valor Actual",
+    "pl": "G/P",
+    "action": "Acción",
+    "noHoldings": "Aún no tienes activos. ¡Empieza comprando alguna criptomoneda!"
+  },
+  "apiKeyModal": {
+    "title": "Configuración de Claves API",
+    "description": "Ingresa tus claves API para conectarte a un exchange real (solo simulación).",
+    "securityTitle": "Aviso de Seguridad",
+    "securityDescription": "Tus claves se guardan localmente en tu navegador y no se envían a ningún servidor.",
+    "apiKeyLabel": "Clave API",
+    "apiKeyPlaceholder": "Ingresa tu Clave API",
+    "apiSecretLabel": "Secreto API",
+    "apiSecretPlaceholder": "Ingresa tu Secreto API",
+    "saveButton": "Guardar Cambios",
+    "saveSuccessTitle": "Claves API Guardadas",
+    "saveSuccessDescription": "Tus claves API han sido actualizadas exitosamente.",
+    "validation": {
+      "keyRequired": "La Clave API es requerida",
+      "secretRequired": "El Secreto API es requerido"
+    }
+  },
+  "footer": {
+    "policies": "Políticas"
+  },
+  "policies": {
+    "title": "Políticas de la Aplicación",
+    "subtitle": "Descargo de Responsabilidad y Términos de Uso",
+    "p1": "Esta aplicación, CryptoPulse, está diseñada únicamente con fines educativos y de capacitación. Es un simulador y no involucra transacciones monetarias reales ni inversiones.",
+    "p2": "Todos los datos, incluidos los precios de las criptomonedas, los volúmenes y los análisis, son simulados y pueden no reflejar las condiciones reales del mercado. Las señales de trading generadas por IA son para fines ilustrativos y no deben considerarse asesoramiento financiero.",
+    "p3": "Los desarrolladores no se hacen responsables de ninguna decisión tomada en base a la información proporcionada por esta aplicación. Úsela con discreción y comprenda que puede contener errores o imprecisiones."
+  }
 }

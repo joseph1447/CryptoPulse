@@ -1,3 +1,4 @@
+
 export interface Crypto {
   id: string;
   name: string;
@@ -13,19 +14,24 @@ export interface Crypto {
 export interface Holding {
   cryptoId: string;
   quantity: number;
-  avgBuyPrice: number;
+  avgBuyPrice: number; // Always in USD
 }
+
+export type Currency = 'USD' | 'CRC';
 
 export interface CryptoContextType {
   cryptos: Crypto[];
   gusdBalance: number;
   holdings: Holding[];
-  buyCrypto: (cryptoId: string, gusdAmount: number) => boolean;
+  buyCrypto: (cryptoId: string, amount: number, amountIn: 'stablecoin' | 'crypto') => boolean;
   sellCrypto: (cryptoId: string, quantity: number) => boolean;
   portfolioValue: number;
   initialized: boolean;
   apiKeys: { key: string; secret: string };
   setApiKeys: (keys: { key: string; secret: string }) => void;
+  currency: Currency;
+  setCurrency: (currency: Currency) => void;
+  exchangeRate: number; // USD to CRC
 }
 
 // i18n Types

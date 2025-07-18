@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -6,7 +7,7 @@ import { useCrypto } from "@/hooks/use-crypto";
 import { CryptoPulseLogo } from "@/components/icons/crypto-pulse-logo";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Wallet, Settings, Languages, Sun, Moon } from "lucide-react";
+import { Wallet, Settings, Languages, Sun, Moon, ChevronsUpDown } from "lucide-react";
 import { Skeleton } from "../ui/skeleton";
 import { ApiKeyModal } from "./api-key-modal";
 import { useState } from "react";
@@ -38,12 +39,28 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
 }
 
 export default function Header() {
-  const { gusdBalance, portfolioValue, initialized } = useCrypto();
+  const { 
+    gusdBalance, 
+    portfolioValue, 
+    initialized, 
+    currency, 
+    setCurrency, 
+    exchangeRate 
+  } = useCrypto();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { t, setLocale, locale } = useI18n();
   const { theme, setTheme } = useTheme();
 
   const totalValue = gusdBalance + portfolioValue;
+  const displayValue = currency === 'CRC' ? totalValue * exchangeRate : totalValue;
+  
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: currency,
+      currencyDisplay: 'symbol'
+    }).format(value);
+  }
 
   return (
     <>
@@ -65,16 +82,30 @@ export default function Header() {
               <Wallet className="h-4 w-4 text-muted-foreground" />
               {initialized ? (
                 <span className="font-mono text-primary">
-                  {totalValue.toLocaleString("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  })}
+                  {formatCurrency(displayValue)}
                 </span>
               ) : (
                 <Skeleton className="h-6 w-24" />
               )}
             </div>
             
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="px-2">
+                  {currency}
+                  <ChevronsUpDown className="ml-2 h-4 w-4"/>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => setCurrency('USD')} disabled={currency === 'USD'}>
+                  USD
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setCurrency('CRC')} disabled={currency === 'CRC'}>
+                  CRC
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon">

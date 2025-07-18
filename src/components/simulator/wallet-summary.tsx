@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useCrypto } from "@/hooks/use-crypto";
@@ -9,8 +10,8 @@ import { useI18n } from "@/hooks/use-i18n";
 const INITIAL_GUSD_BALANCE = 10000;
 
 export function WalletSummary() {
-  const { gusdBalance, portfolioValue, holdings } = useCrypto();
-  const { t } = useI18n();
+  const { gusdBalance, portfolioValue, holdings, currency, exchangeRate } = useCrypto();
+  const { t, locale } = useI18n();
 
   const totalValue = gusdBalance + portfolioValue;
   
@@ -19,6 +20,13 @@ export function WalletSummary() {
   
   const totalPNL = totalValue - INITIAL_GUSD_BALANCE;
 
+  const rate = currency === 'CRC' ? exchangeRate : 1;
+  const cashBalanceDisplay = gusdBalance * rate;
+  const portfolioValueDisplay = portfolioValue * rate;
+  const totalPnlDisplay = totalPNL * rate;
+  const stablecoinName = currency === 'CRC' ? 'GCNS' : 'GUSD';
+
+
   return (
     <Card>
       <CardHeader>
@@ -26,22 +34,25 @@ export function WalletSummary() {
       </CardHeader>
       <CardContent className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <StatCard
-          title={t('walletSummary.cashBalance')}
-          value={gusdBalance}
+          title={t('walletSummary.cashBalance', { stablecoin: stablecoinName })}
+          value={cashBalanceDisplay}
           icon={DollarSign}
-          isCurrency
+          currency={currency}
+          locale={locale}
         />
         <StatCard
           title={t('walletSummary.cryptoHoldings')}
-          value={portfolioValue}
+          value={portfolioValueDisplay}
           icon={Briefcase}
-          isCurrency
+          currency={currency}
+          locale={locale}
         />
         <StatCard
           title={t('walletSummary.totalPL')}
-          value={totalPNL}
+          value={totalPnlDisplay}
           icon={TrendingUp}
-          isCurrency
+          currency={currency}
+          locale={locale}
           isPnl
         />
       </CardContent>
@@ -53,18 +64,21 @@ function StatCard({
   title,
   value,
   icon: Icon,
-  isCurrency = false,
+  currency,
+  locale,
   isPnl = false,
 }: {
   title: string;
   value: number;
   icon: React.ElementType;
-  isCurrency?: boolean;
+  currency: string;
+  locale: string;
   isPnl?: boolean;
 }) {
-  const formattedValue = isCurrency
-    ? value.toLocaleString("en-US", { style: "currency", currency: "USD" })
-    : value.toLocaleString();
+  const formattedValue = new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency,
+  }).format(value);
     
   const pnlColor = value > 0 ? "text-green-400" : value < 0 ? "text-red-400" : "text-foreground";
 
