@@ -18,6 +18,7 @@ export function I18nProvider({ children, locale: initialLocale }: { children: Re
 
   useEffect(() => {
     async function loadTranslations() {
+      if (!locale) return;
       try {
         const response = await fetch(`/locales/${locale}.json`);
         if (!response.ok) {
