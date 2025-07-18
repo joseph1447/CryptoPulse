@@ -4,6 +4,7 @@ import { CryptoProvider } from "@/context/crypto-provider";
 import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/layout/header";
 import { I18nProvider } from "@/context/i18n-provider";
+import { ThemeProvider } from "@/context/theme-provider";
 
 export const metadata: Metadata = {
   title: "CryptoPulse",
@@ -17,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <I18nProvider>
-      <html lang="en" className="dark">
+      <html lang="en" suppressHydrationWarning>
         <head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -27,13 +28,20 @@ export default function RootLayout({
           />
         </head>
         <body className="font-body antialiased min-h-screen bg-background flex flex-col">
-          <CryptoProvider>
-            <Header />
-            <main className="flex-grow container mx-auto px-4 py-8">
-              {children}
-            </main>
-            <Toaster />
-          </CryptoProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <CryptoProvider>
+              <Header />
+              <main className="flex-grow container mx-auto px-4 py-8">
+                {children}
+              </main>
+              <Toaster />
+            </CryptoProvider>
+          </ThemeProvider>
         </body>
       </html>
     </I18nProvider>

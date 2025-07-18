@@ -6,7 +6,7 @@ import { useCrypto } from "@/hooks/use-crypto";
 import { CryptoPulseLogo } from "@/components/icons/crypto-pulse-logo";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Wallet, Settings, Languages } from "lucide-react";
+import { Wallet, Settings, Languages, Sun, Moon } from "lucide-react";
 import { Skeleton } from "../ui/skeleton";
 import { ApiKeyModal } from "./api-key-modal";
 import { useState } from "react";
@@ -17,6 +17,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useTheme } from "@/hooks/use-theme";
 
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   const pathname = usePathname();
@@ -39,6 +40,7 @@ export default function Header() {
   const { gusdBalance, portfolioValue, initialized } = useCrypto();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { t, setLocale, locale } = useI18n();
+  const { theme, setTheme } = useTheme();
 
   const totalValue = gusdBalance + portfolioValue;
 
@@ -87,6 +89,16 @@ export default function Header() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              aria-label={t('header.toggleTheme')}
+            >
+              <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            </Button>
 
             <Button
               variant="ghost"
