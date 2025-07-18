@@ -1,3 +1,4 @@
+
 "use client";
 
 import { createContext, useState, useEffect, useMemo, useCallback } from "react";
@@ -27,20 +28,26 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
   const [dynamicCryptoList, setDynamicCryptoList] = useState<any[]>([]);
 
   const fetchBinanceData = useCallback(async () => {
-    if (!binanceConnected) return;
+    if (!binanceConnected) {
+        setInitialized(true);
+        return;
+    }
 
     try {
-        // Step 1: Fetch all USDT tickers to identify top symbols by volume
+        let symbolsToFetch;
+        // Step 1: Fetch all USDT tickers to identify top symbols by volume on first load
         if (dynamicCryptoList.length === 0) {
             const allTickers = await getAllTickers();
             const usdtTickers = allTickers
                 .filter((t: any) => t.symbol.endsWith('USDT') && !t.symbol.includes('UP') && !t.symbol.includes('DOWN'))
                 .sort((a: any, b: any) => parseFloat(b.quoteVolume) - parseFloat(a.quoteVolume))
                 .slice(0, TOP_N_BY_VOLUME);
-            setDynamicCryptoList(usdtTickers);
+            const topSymbols = usdtTickers.map((t:any) => t.symbol);
+            setDynamicCryptoList(topSymbols);
+            symbolsToFetch = topSymbols;
+        } else {
+            symbolsToFetch = dynamicCryptoList;
         }
-        
-        const symbolsToFetch = dynamicCryptoList.length > 0 ? dynamicCryptoList.map(t => t.symbol) : cryptoNames.map(c => `${c.symbol}USDT`);
 
         // Step 2: Fetch detailed ticker and k-line data for these symbols
         const tickers = await getTickers(symbolsToFetch);
@@ -62,16 +69,13 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
                 currentPrice: parseFloat(ticker.lastPrice),
                 priceHistory: priceHistory,
                 volume24h: parseFloat(ticker.quoteVolume),
-                marketCap: parseFloat(ticker.lastPrice) * parseFloat(ticker.weightedAvgPrice),
+                marketCap: parseFloat(ticker.lastPrice) * parseFloat(ticker.totalTradedBaseAssetVolume),
                 priceChange24h: parseFloat(ticker.priceChangePercent),
                 rsi: calculateRSI(priceHistory),
             };
         }));
         
         setCryptos(fetchedCryptos.filter(Boolean) as Crypto[]);
-        if (!initialized) {
-            setInitialized(true);
-        }
 
     } catch (error) {
         console.error("Failed to fetch Binance data:", error);
@@ -79,7 +83,10 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
             setBinanceConnectionError(`Failed to fetch live data: ${error.message}.`);
         }
         setCryptos([]); // Clear data on error
-        setInitialized(true); // Mark as initialized to show error message
+    } finally {
+        if (!initialized) {
+            setInitialized(true);
+        }
     }
   }, [binanceConnected, dynamicCryptoList, initialized]);
 

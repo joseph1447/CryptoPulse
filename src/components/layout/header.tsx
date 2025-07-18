@@ -23,8 +23,8 @@ import { Separator } from "../ui/separator";
 
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   const pathname = usePathname();
-  const basepath = pathname.split('/').slice(2).join('/');
-  const isActive = href === `/${basepath}`;
+  const basepath = '/' + pathname.split('/').slice(2).join('/');
+  const isActive = href === basepath;
 
   return (
     <Link
@@ -75,6 +75,7 @@ export default function Header() {
             <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
               <NavLink href="/">{t('header.dashboard')}</NavLink>
               <NavLink href="/simulator">{t('header.simulator')}</NavLink>
+              <NavLink href="/docs">{t('header.docs')}</NavLink>
             </nav>
           </div>
 

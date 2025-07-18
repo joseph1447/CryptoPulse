@@ -4,6 +4,7 @@
     "appName": "CryptoPulse",
     "dashboard": "Dashboard",
     "simulator": "Simulator",
+    "docs": "Docs",
     "binanceConnected": "Binance Connected",
     "binanceDisconnected": "Binance Disconnected",
     "settings": "Settings",
@@ -18,78 +19,79 @@
   },
   "dashboard": {
     "title": "Crypto Dashboard",
-    "top10ShortTermBuy": "Top 10 Short-Term Buy Opportunities (by RSI)",
-    "top10ShortTermSell": "Top 10 Short-Term Sell Opportunities (by RSI)",
+    "top10ShortTerm": "Top 10 Short-Term Opportunities (by RSI)",
+    "top10ShortTermBuy": "Top 10 Buy Opportunities (by RSI)",
+    "top10ShortTermSell": "Top 10 Sell Opportunities (by RSI)",
     "top10BuyLabel": "Top to Buy",
     "top10SellLabel": "Top to Sell",
     "error": {
-      "title": "Binance Connection Error",
-      "description": "Could not fetch live data from Binance. The simulator will use mock data. The error from Binance is:"
+        "title": "Binance API Connection Error",
+        "description": "Could not connect to Binance or fetch live data. Please ensure your API keys in the .env.local file are correct and that you are not in a restricted region. Using a VPN may be required."
     },
     "warning": {
-      "dismiss": "Dismiss"
+        "dismiss": "Dismiss"
     }
   },
   "cryptoTable": {
     "name": "Name",
     "price": "Price",
     "change24h": "24h %",
-    "volume24h": "24h Volume",
+    "volume24h": "Volume (24h)",
     "marketCap": "Market Cap",
     "rsi": "RSI",
     "action": "Action",
-    "expandRow": "Expand row for details",
-    "loading": "Fetching live market data...",
-    "noData": "No cryptocurrency data available."
+    "expandRow": "Expand Row",
+    "noData": "No cryptocurrency data available. This may be due to a Binance API connection issue.",
+    "loading": "Loading real-time crypto data..."
   },
   "cryptoDetail": {
-    "priceChartTitle": "{{name}} 7-Day Price Chart",
+    "priceChartTitle": "{name} Price Chart (30 Days)",
     "aiAnalysis": "AI Analysis",
-    "aiAnalysisDescription": "Get AI-powered trade signals.",
+    "aiAnalysisDescription": "Generate trade signals with AI.",
     "analyzeButton": "Analyze Now",
     "analysisFailed": "Analysis Failed",
-    "analysisError": "Could not retrieve AI analysis.",
+    "analysisError": "An error occurred while generating the AI analysis.",
     "shortTermSignal": "Short-Term Signal",
     "longTermSignal": "Long-Term Signal",
     "explanation": "Explanation"
   },
   "rsi": {
-    "label": "RSI: {{value}}",
+    "label": "RSI: {value}",
     "oversold": "Oversold (< 30)",
     "overbought": "Overbought (> 70)"
   },
   "tradeDialog": {
-    "title": "Trade {{name}} ({{symbol}})",
     "buy": "Buy",
     "sell": "Sell",
-    "balance": "Balance",
+    "title": "Trade {name} ({symbol})",
     "currentPrice": "Current Price",
-    "amountToSpend": "Amount to spend ({{stablecoin}})",
+    "balance": "Balance",
+    "amountToSpend": "Amount to spend ({stablecoin})",
     "amountToReceive": "You will receive",
-    "amountToReceiveIn": "You will receive ({{stablecoin}})",
     "amountToSell": "Amount to sell",
-    "validation": {
-      "positive": "Amount must be positive.",
-      "insufficientGUSD": "Insufficient {{stablecoin}} balance.",
-      "insufficientCrypto": "Insufficient crypto balance."
-    },
+    "amountToReceiveIn": "You will receive ({stablecoin})",
     "purchaseSuccessTitle": "Purchase Successful",
-    "purchaseSuccessDescription": "You purchased {{amount}} {{symbol}}.",
+    "purchaseSuccessDescription": "You purchased {amount} {symbol}.",
     "purchaseFailTitle": "Purchase Failed",
-    "purchaseFailDescription": "The transaction could not be completed.",
+    "purchaseFailDescription": "The transaction could not be completed. Check your balance.",
     "saleSuccessTitle": "Sale Successful",
-    "saleSuccessDescription": "You sold {{amount}} {{symbol}}.",
+    "saleSuccessDescription": "You sold {amount} {symbol}.",
     "saleFailTitle": "Sale Failed",
-    "saleFailDescription": "The transaction could not be completed."
+    "saleFailDescription": "The transaction could not be completed. Check your holdings.",
+    "validation": {
+        "positive": "Amount must be positive.",
+        "insufficientGUSD": "Insufficient {stablecoin} balance.",
+        "insufficientCrypto": "Insufficient crypto balance."
+    }
   },
   "simulator": {
     "title": "Trading Simulator"
   },
   "walletSummary": {
     "title": "Wallet Summary",
-    "cashBalance": "Cash Balance ({{stablecoin}})",
+    "cashBalance": "Cash Balance ({stablecoin})",
     "cryptoHoldings": "Crypto Holdings Value",
-    "totalPL": "Total Profit/Loss"
+    "totalPL": "Total P&L"
   },
   "holdingsTable": {
     "title": "My Holdings",
@@ -99,13 +101,13 @@
     "currentValue": "Current Value",
     "pl": "P/L",
     "action": "Action",
-    "noHoldings": "You do not have any crypto holdings."
+    "noHoldings": "You do not have any holdings yet. Buy some crypto from the dashboard!"
   },
   "policies": {
-    "title": "Policies",
-    "subtitle": "Our Commitment to You",
-    "p1": "This is a simulator application. All data is for educational and entertainment purposes only.",
-    "p2": "No real money is involved. All transactions use a simulated currency called GUSD (Genesis USD).",
-    "p3": "We are not responsible for any financial decisions made based on the information provided in this application."
+    "title": "Privacy & Policies",
+    "subtitle": "Your Data Stays With You",
+    "p1": "CryptoPulse is designed with your privacy and security as the top priority. We do not collect, store, or transmit any of your personal data, including your API keys.",
+    "p2": "Your Binance API keys are stored exclusively in your browser's local environment using an `.env.local` file. They are only used to communicate directly between your browser and the Binance API to fetch real-time data. They are never sent to any server or third-party service.",
+    "p3": "All of your virtual trading data, including your portfolio balance and transaction history, is stored locally in your browser's localStorage. This data is not tracked or monitored by us in any way. Clearing your browser data will reset your simulation."
   }
 }

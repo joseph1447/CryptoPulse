@@ -79,9 +79,11 @@ export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) 
           <TableBody>
             {!initialized ? (
                  <TableRow>
-                    <TableCell colSpan={8} className="text-center h-48">
-                        <Loader2 className="mx-auto h-8 w-8 animate-spin text-primary" />
-                        <p className="mt-2 text-muted-foreground">{t('cryptoTable.loading')}</p>
+                    <TableCell colSpan={8} className="h-48 text-center">
+                        <div className="flex justify-center items-center gap-2">
+                            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                            <p className="text-muted-foreground">{t('cryptoTable.loading')}</p>
+                        </div>
                     </TableCell>
                 </TableRow>
             ) : initialCryptos.length > 0 ? (

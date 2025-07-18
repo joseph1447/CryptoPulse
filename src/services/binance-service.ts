@@ -1,3 +1,4 @@
+
 'use server';
 
 import crypto from 'crypto';
@@ -30,6 +31,7 @@ async function signedRequest(apiKey: string, apiSecret: string, path: string, pa
                 'X-MBX-APIKEY': apiKey,
                 'Content-Type': 'application/json',
             },
+            cache: 'no-store'
         });
 
         const data = await response.json();
@@ -82,6 +84,9 @@ async function publicRequest(path: string, params: Record<string, any> = {}) {
  */
 export async function testBinanceConnection(apiKey: string, apiSecret: string): Promise<{ connected: boolean, error?: string }> {
     try {
+        if (!apiKey || !apiSecret) {
+            return { connected: false };
+        }
         await signedRequest(apiKey, apiSecret, '/api/v3/account');
         return { connected: true };
     } catch (error) {
