@@ -2,6 +2,7 @@
 
 import { createContext, useState, useEffect, useCallback, type ReactNode } from "react";
 import type { Locale, I18nContextType, Translations } from "@/lib/types";
+import { usePathname, useRouter } from 'next/navigation';
 
 export const I18nContext = createContext<I18nContextType | null>(null);
 
@@ -9,16 +10,11 @@ function getNestedValue(obj: any, path: string): string | undefined {
   return path.split('.').reduce((acc, part) => acc && acc[part], obj);
 }
 
-export function I18nProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>('en');
+export function I18nProvider({ children, locale: initialLocale }: { children: ReactNode, locale: Locale }) {
+  const [locale, setLocaleState] = useState<Locale>(initialLocale);
   const [translations, setTranslations] = useState<Translations>({});
-
-  useEffect(() => {
-    const storedLocale = localStorage.getItem("locale") as Locale | null;
-    if (storedLocale && ['en', 'es'].includes(storedLocale)) {
-      setLocaleState(storedLocale);
-    }
-  }, []);
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     async function loadTranslations() {
@@ -31,7 +27,6 @@ export function I18nProvider({ children }: { children: ReactNode }) {
         setTranslations(data);
       } catch (error) {
         console.error("Failed to load translations:", error);
-        // Fallback to English if translations fail to load
         if(locale !== 'en') {
             setLocale('en');
         }
@@ -42,10 +37,17 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   
   const setLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale);
-    localStorage.setItem("locale", newLocale);
-    // Force a re-render by updating the document's lang attribute
-    document.documentElement.lang = newLocale;
-  }, []);
+    
+    // Set cookie for persistence
+    const date = new Date();
+    date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
+    document.cookie = `NEXT_LOCALE=${newLocale};expires=${date.toUTCString()};path=/`;
+    
+    // update the URL
+    const newPath = pathname.replace(/^\/(en|es)/, `/${newLocale}`);
+    router.replace(newPath);
+
+  }, [pathname, router]);
 
   const t = useCallback((key: string, replacements?: Record<string, string | number>) => {
     const translation = getNestedValue(translations, key);

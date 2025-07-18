@@ -21,7 +21,8 @@ import { useTheme } from "@/hooks/use-theme";
 
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   const pathname = usePathname();
-  const isActive = pathname === href;
+  const basepath = pathname.split('/').slice(2).join('/');
+  const isActive = href === `/${basepath}`;
 
   return (
     <Link
