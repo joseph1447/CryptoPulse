@@ -25,9 +25,9 @@ export default function DashboardPage() {
     
     const sorted = [...cryptos].sort((a, b) => {
         if (viewMode === 'buy') {
-            return a.rsi - b.rsi; // Lowest RSI first
+            return a.rsi - b.rsi; // Lowest RSI first for buy opportunities
         } else {
-            return b.rsi - a.rsi; // Highest RSI first
+            return b.rsi - a.rsi; // Highest RSI first for sell opportunities
         }
     });
 
@@ -65,7 +65,7 @@ export default function DashboardPage() {
             <AlertTitle>{t('dashboard.error.title')}</AlertTitle>
             <AlertDescription>
                 {t('dashboard.error.description')}
-                <pre className="mt-2 text-xs bg-black/20 p-2 rounded-md font-mono">{binanceConnectionError}</pre>
+                <pre className="mt-2 text-xs bg-black/20 p-2 rounded-md font-mono whitespace-pre-wrap break-words">{binanceConnectionError}</pre>
             </AlertDescription>
              <Button
                 variant="ghost"
