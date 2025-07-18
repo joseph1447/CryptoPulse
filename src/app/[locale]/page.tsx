@@ -1,14 +1,14 @@
 
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useTransition } from "react";
 import { useCrypto } from "@/hooks/use-crypto";
 import { CryptoTable } from "@/components/dashboard/crypto-table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useI18n } from "@/hooks/use-i18n";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle, X } from "lucide-react";
+import { AlertCircle, X, RefreshCw, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
@@ -16,10 +16,23 @@ import { Label } from "@/components/ui/label";
 type ViewMode = "buy" | "sell";
 
 export default function DashboardPage() {
-  const { cryptos, initialized, binanceConnectionError } = useCrypto();
+  const { 
+    cryptos, 
+    initialized, 
+    loading,
+    binanceConnectionError,
+    fetchBinanceData 
+  } = useCrypto();
   const { t } = useI18n();
   const [showWarning, setShowWarning] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>("buy");
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    await fetchBinanceData();
+    setIsRefreshing(false);
+  };
 
   const rankedCryptos = useMemo(() => {
     if (!cryptos || cryptos.length === 0) return [];
@@ -82,7 +95,16 @@ export default function DashboardPage() {
 
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <h1 className="text-3xl font-bold font-headline">{t('dashboard.title')}</h1>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-4">
+          <Button onClick={handleRefresh} disabled={isRefreshing || loading} variant="outline" size="sm">
+            {isRefreshing || loading ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <RefreshCw className="mr-2 h-4 w-4" />
+            )}
+            {t('dashboard.refreshButton')}
+          </Button>
+          <div className="flex items-center space-x-2">
             <Label htmlFor="view-mode" className={viewMode === 'buy' ? 'text-primary' : ''}>{t('dashboard.top10BuyLabel')}</Label>
             <Switch
                 id="view-mode"
@@ -90,6 +112,7 @@ export default function DashboardPage() {
                 onCheckedChange={(checked) => setViewMode(checked ? 'sell' : 'buy')}
             />
             <Label htmlFor="view-mode" className={viewMode === 'sell' ? 'text-primary' : ''}>{t('dashboard.top10SellLabel')}</Label>
+          </div>
         </div>
       </div>
 

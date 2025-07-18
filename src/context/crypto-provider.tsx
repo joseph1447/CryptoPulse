@@ -12,11 +12,11 @@ import { getKlines, getTickers, getAllTickers } from "@/services/binance-service
 export const CryptoContext = createContext<CryptoContextType | null>(null);
 
 const INITIAL_GUSD_BALANCE = 10000;
-const REFETCH_INTERVAL = 30000; // 30 seconds for polling all tickers
 const TOP_N_BY_VOLUME = 50; // Analyze the top 50 cryptos by volume
 
 export function CryptoProvider({ children }: { children: ReactNode }) {
   const [initialized, setInitialized] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [cryptos, setCryptos] = useState<Crypto[]>([]);
   const [gusdBalance, setGusdBalance] = useState<number>(INITIAL_GUSD_BALANCE);
   const [holdings, setHoldings] = useState<Holding[]>([]);
@@ -25,18 +25,20 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
   const [binanceConnected, setBinanceConnected] = useState(false);
   const [binanceConnectionError, setBinanceConnectionError] = useState<string | null>(null);
   
-  const [dynamicCryptoList, setDynamicCryptoList] = useState<any[]>([]);
+  const [dynamicCryptoList, setDynamicCryptoList] = useState<string[]>([]);
 
   const fetchBinanceData = useCallback(async () => {
+    setLoading(true);
     if (!binanceConnected) {
         setInitialized(true);
+        setLoading(false);
         return;
     }
 
     try {
-        let symbolsToFetch;
+        let symbolsToFetch = dynamicCryptoList;
         // Step 1: Fetch all USDT tickers to identify top symbols by volume on first load
-        if (dynamicCryptoList.length === 0) {
+        if (symbolsToFetch.length === 0) {
             const allTickers = await getAllTickers();
             const usdtTickers = allTickers
                 .filter((t: any) => t.symbol.endsWith('USDT') && !t.symbol.includes('UP') && !t.symbol.includes('DOWN'))
@@ -45,8 +47,6 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
             const topSymbols = usdtTickers.map((t:any) => t.symbol);
             setDynamicCryptoList(topSymbols);
             symbolsToFetch = topSymbols;
-        } else {
-            symbolsToFetch = dynamicCryptoList;
         }
 
         // Step 2: Fetch detailed ticker and k-line data for these symbols
@@ -87,6 +87,7 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
         if (!initialized) {
             setInitialized(true);
         }
+        setLoading(false);
     }
   }, [binanceConnected, dynamicCryptoList, initialized]);
 
@@ -97,6 +98,7 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
       if (error) {
         setBinanceConnectionError(error);
         setInitialized(true); // If connection fails, we are "initialized" to an error state
+        setLoading(false);
       }
     }
     checkConnection();
@@ -105,8 +107,6 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (binanceConnected) {
       fetchBinanceData(); // Initial fetch
-      const interval = setInterval(fetchBinanceData, REFETCH_INTERVAL);
-      return () => clearInterval(interval);
     }
   }, [binanceConnected, fetchBinanceData]);
 
@@ -227,11 +227,13 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
     sellCrypto,
     portfolioValue,
     initialized,
+    loading,
     currency,
     setCurrency,
     exchangeRate,
     binanceConnected,
-    binanceConnectionError
+    binanceConnectionError,
+    fetchBinanceData
   };
 
   return (

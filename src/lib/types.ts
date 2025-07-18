@@ -27,11 +27,13 @@ export interface CryptoContextType {
   sellCrypto: (cryptoId: string, quantity: number) => boolean;
   portfolioValue: number;
   initialized: boolean;
+  loading: boolean;
   currency: Currency;
   setCurrency: (currency: Currency) => void;
   exchangeRate: number; // USD to CRC
   binanceConnected: boolean;
   binanceConnectionError: string | null;
+  fetchBinanceData: () => Promise<void>;
 }
 
 // i18n Types
