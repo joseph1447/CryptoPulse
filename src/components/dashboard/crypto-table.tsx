@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 import { RSIIndicator } from "./rsi-indicator";
 import { CryptoLogo } from "../icons/crypto-logos";
 import { TradeDialog } from "./trade-dialog";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Loader2 } from "lucide-react";
 import { CryptoDetailView } from "./crypto-detail-view";
 import { useI18n } from "@/hooks/use-i18n";
 import { useCrypto } from "@/hooks/use-crypto";
@@ -25,7 +25,7 @@ export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) 
   const [selectedCrypto, setSelectedCrypto] = useState<Crypto | null>(null);
   const [openCollapsible, setOpenCollapsible] = useState<string | null>(null);
   const { t, locale } = useI18n();
-  const { currency, exchangeRate, cryptos } = useCrypto();
+  const { currency, exchangeRate, initialized } = useCrypto();
 
   const handleBuyClick = (crypto: Crypto) => {
     setSelectedCrypto(crypto);
@@ -52,10 +52,10 @@ export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) 
   const formatBigNumber = (value: number) => {
     const val = currency === 'CRC' ? value * exchangeRate : value;
     if (val > 1_000_000_000) {
-      return `${formatCurrency(val / 1_000_000_000)}B`;
+      return `${formatCurrency(val / 1_000_000_000).replace(/\d/g, '').replace(/\./g, '').replace(/,/g, '')}${ (val/1_000_000_000).toFixed(2) }B`;
     }
     if (val > 1_000_000) {
-      return `${formatCurrency(val / 1_000_000)}M`;
+      return `${formatCurrency(val / 1_000_000).replace(/\d/g, '').replace(/\./g, '').replace(/,/g, '')}${ (val/1_000_000).toFixed(2) }M`;
     }
     return formatCurrency(val);
   }
@@ -77,49 +77,64 @@ export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) 
             </TableRow>
           </TableHeader>
           <TableBody>
-            {initialCryptos.map((crypto) => (
-              <Fragment key={crypto.id}>
-                  <TableRow className="cursor-pointer" onClick={() => toggleCollapsible(crypto.id)}>
-                    <TableCell>
-                      <Button variant="ghost" size="sm" className="w-9 p-0" aria-label={t('cryptoTable.expandRow')}>
-                         <ChevronDown className={cn("h-4 w-4 transition-transform", openCollapsible === crypto.id && "rotate-180")} />
-                      </Button>
+            {!initialized ? (
+                 <TableRow>
+                    <TableCell colSpan={8} className="text-center h-48">
+                        <Loader2 className="mx-auto h-8 w-8 animate-spin text-primary" />
+                        <p className="mt-2 text-muted-foreground">{t('cryptoTable.loading')}</p>
                     </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-3">
-                        <CryptoLogo symbol={crypto.symbol} className="h-8 w-8" />
-                        <div>
-                          <div className="font-medium">{crypto.name}</div>
-                          <div className="text-muted-foreground text-xs">{crypto.symbol}</div>
+                </TableRow>
+            ) : initialCryptos.length > 0 ? (
+              initialCryptos.map((crypto) => (
+                <Fragment key={crypto.id}>
+                    <TableRow className="cursor-pointer" onClick={() => toggleCollapsible(crypto.id)}>
+                      <TableCell>
+                        <Button variant="ghost" size="sm" className="w-9 p-0" aria-label={t('cryptoTable.expandRow')}>
+                           <ChevronDown className={cn("h-4 w-4 transition-transform", openCollapsible === crypto.id && "rotate-180")} />
+                        </Button>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-3">
+                          <CryptoLogo symbol={crypto.symbol} className="h-8 w-8" />
+                          <div>
+                            <div className="font-medium">{crypto.name}</div>
+                            <div className="text-muted-foreground text-xs">{crypto.symbol}</div>
+                          </div>
                         </div>
-                      </div>
+                      </TableCell>
+                      <TableCell className="text-right font-mono">{formatCurrency(crypto.currentPrice * (currency === 'CRC' ? exchangeRate : 1))}</TableCell>
+                      <TableCell
+                        className={cn("text-right font-mono", crypto.priceChange24h >= 0 ? "text-green-400" : "text-red-400")}
+                      >
+                        {crypto.priceChange24h.toFixed(2)}%
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell text-right font-mono">{formatBigNumber(crypto.volume24h)}</TableCell>
+                      <TableCell className="hidden lg:table-cell text-right font-mono">{formatBigNumber(crypto.marketCap)}</TableCell>
+                      <TableCell>
+                        <RSIIndicator value={crypto.rsi} />
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <Button size="sm" onClick={(e) => { e.stopPropagation(); handleBuyClick(crypto); }}>
+                          {t('tradeDialog.buy')}
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                    {openCollapsible === crypto.id && (
+                       <TableRow>
+                          <TableCell colSpan={8} className="p-0">
+                             <CryptoDetailView crypto={crypto} />
+                          </TableCell>
+                       </TableRow>
+                    )}
+                  </Fragment>
+              ))
+            ) : (
+                <TableRow>
+                    <TableCell colSpan={8} className="text-center h-48 text-muted-foreground">
+                       {t('cryptoTable.noData')}
                     </TableCell>
-                    <TableCell className="text-right font-mono">{formatCurrency(crypto.currentPrice * (currency === 'CRC' ? exchangeRate : 1))}</TableCell>
-                    <TableCell
-                      className={cn("text-right font-mono", crypto.priceChange24h >= 0 ? "text-green-400" : "text-red-400")}
-                    >
-                      {crypto.priceChange24h.toFixed(2)}%
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell text-right font-mono">{formatBigNumber(crypto.volume24h)}</TableCell>
-                    <TableCell className="hidden lg:table-cell text-right font-mono">{formatBigNumber(crypto.marketCap)}</TableCell>
-                    <TableCell>
-                      <RSIIndicator value={crypto.rsi} />
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Button size="sm" onClick={(e) => { e.stopPropagation(); handleBuyClick(crypto); }}>
-                        {t('tradeDialog.buy')}
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                  {openCollapsible === crypto.id && (
-                     <TableRow>
-                        <TableCell colSpan={8} className="p-0">
-                           <CryptoDetailView crypto={crypto} />
-                        </TableCell>
-                     </TableRow>
-                  )}
-                </Fragment>
-            ))}
+                </TableRow>
+            )}
           </TableBody>
         </Table>
       </div>

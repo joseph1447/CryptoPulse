@@ -1,4 +1,3 @@
-
 'use server';
 
 import crypto from 'crypto';
@@ -51,15 +50,15 @@ async function signedRequest(apiKey: string, apiSecret: string, path: string, pa
 /**
  * Creates a public request to the Binance API.
  * @param {string} path - The API endpoint path.
- * @param {Record<string, string>} params - The request parameters.
+ * @param {Record<string, any>} params - The request parameters.
  * @returns {Promise<any>} The JSON response from the API.
  */
-async function publicRequest(path: string, params: Record<string, string> = {}) {
+async function publicRequest(path: string, params: Record<string, any> = {}) {
     const queryString = new URLSearchParams(params).toString();
     const url = `${BINANCE_API_URL}${path}?${queryString}`;
 
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, { next: { revalidate: 10 } }); // Revalidate cache every 10s
         const data = await response.json();
 
         if (!response.ok) {
@@ -91,6 +90,14 @@ export async function testBinanceConnection(apiKey: string, apiSecret: string): 
         }
         return { connected: false, error: 'An unknown error occurred.' };
     }
+}
+
+/**
+ * Fetches 24-hour ticker information for all symbols.
+ * @returns {Promise<any>} The ticker data.
+ */
+export async function getAllTickers(): Promise<any> {
+    return publicRequest('/api/v3/ticker/24hr');
 }
 
 /**
