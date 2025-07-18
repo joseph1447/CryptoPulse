@@ -1,110 +1,99 @@
 
 {
-  "header": {
-    "appName": "CryptoPulse",
-    "dashboard": "Panel",
-    "simulator": "Simulador",
-    "settings": "Configuración",
-    "toggleTheme": "Cambiar tema"
-  },
-  "dashboard": {
-    "title": "Panel de Criptomonedas",
-    "top10ShortTerm": "Top 10 Oportunidades a Corto Plazo (por RSI)"
-  },
-  "cryptoTable": {
-    "name": "Nombre",
-    "price": "Precio",
-    "change24h": "% 24h",
-    "volume24h": "Volumen 24h",
-    "marketCap": "Cap. de Mercado",
-    "rsi": "RSI (14)",
-    "action": "Acción",
-    "expandRow": "Expandir fila"
-  },
-  "cryptoDetail": {
-    "priceChartTitle": "Gráfico de Precio de {{name}} (30 días)",
-    "aiAnalysis": "Análisis con IA",
-    "aiAnalysisDescription": "Obtén señales de trading con IA.",
-    "shortTermSignal": "Señal a Corto Plazo",
-    "longTermSignal": "Señal a Largo Plazo",
-    "explanation": "Explicación",
-    "analyzeButton": "Analizar Ahora",
-    "analysisFailed": "Análisis Fallido",
-    "analysisError": "Ocurrió un error al obtener el análisis de la IA."
-  },
-  "tradeDialog": {
-    "buy": "Comprar",
-    "sell": "Vender",
-    "title": "Operar {{name}} ({{symbol}})",
-    "currentPrice": "Precio Actual",
-    "balance": "Saldo",
-    "amountToSpend": "Monto a gastar ({{stablecoin}})",
-    "amountToReceive": "Monto a recibir",
-    "amountToSell": "Monto a vender",
-    "amountToReceiveIn": "Monto a recibir ({{stablecoin}})",
-    "purchaseSuccessTitle": "Compra Exitosa",
-    "purchaseSuccessDescription": "Compraste {{amount}} {{symbol}}.",
-    "purchaseFailTitle": "Compra Fallida",
-    "purchaseFailDescription": "Hubo un error al procesar tu compra.",
-    "saleSuccessTitle": "Venta Exitosa",
-    "saleSuccessDescription": "Vendiste {{amount}} {{symbol}}.",
-    "saleFailTitle": "Venta Fallida",
-    "saleFailDescription": "Hubo un error al procesar tu venta.",
-    "validation": {
-      "positive": "El monto debe ser positivo",
-      "insufficientGUSD": "Saldo de {{stablecoin}} insuficiente",
-      "insufficientCrypto": "Saldo de criptomoneda insuficiente"
+    "header": {
+      "appName": "CriptoPulso",
+      "dashboard": "Panel",
+      "simulator": "Simulador",
+      "settings": "Configuración",
+      "toggleTheme": "Cambiar tema",
+      "theme": "Tema",
+      "light": "Claro",
+      "dark": "Oscuro",
+      "language": "Idioma",
+      "currency": "Moneda"
+    },
+    "footer": {
+      "policies": "Políticas"
+    },
+    "dashboard": {
+      "title": "Panel de Criptomonedas",
+      "top10ShortTerm": "Top 10 Oportunidades a Corto Plazo (RSI Bajo)"
+    },
+    "simulator": {
+      "title": "Simulador de Trading"
+    },
+    "policies": {
+      "title": "Políticas de la Aplicación",
+      "subtitle": "Descargo de Responsabilidad",
+      "p1": "Esta aplicación, CriptoPulso, se desarrolla únicamente con fines educativos y de capacitación. Simula el comercio de criptomonedas pero no implica dinero real ni transacciones financieras reales.",
+      "p2": "Los datos presentados, incluidos precios, volúmenes y análisis, son simulados y pueden no reflejar las condiciones reales del mercado. Las señales de trading generadas por IA son para fines ilustrativos y no deben considerarse como asesoramiento financiero.",
+      "p3": "Utilice esta aplicación con discreción. Los desarrolladores no se hacen responsables de ninguna decisión tomada en base a la información aquí proporcionada. Todo uso de esta aplicación es bajo su propio riesgo."
+    },
+    "cryptoTable": {
+      "expandRow": "Expandir Fila",
+      "name": "Nombre",
+      "price": "Precio",
+      "change24h": "% 24h",
+      "volume24h": "Volumen 24h",
+      "marketCap": "Cap. de Mercado",
+      "rsi": "RSI (14)",
+      "action": "Acción"
+    },
+    "rsi": {
+        "label": "RSI: {{value}}",
+        "oversold": "Sobrevendido (< 30)",
+        "overbought": "Sobrecomprado (> 70)"
+    },
+    "cryptoDetail": {
+      "priceChartTitle": "Gráfico de Precio de {{name}}",
+      "aiAnalysis": "Análisis IA",
+      "aiAnalysisDescription": "Obtén señales de trading con IA.",
+      "analyzeButton": "Analizar Ahora",
+      "analysisFailed": "Análisis Fallido",
+      "analysisError": "No se pudo obtener el análisis de la IA.",
+      "shortTermSignal": "Señal a Corto Plazo",
+      "longTermSignal": "Señal a Largo Plazo",
+      "explanation": "Explicación"
+    },
+    "tradeDialog": {
+      "buy": "Comprar",
+      "sell": "Vender",
+      "title": "Transaccionar {{name}} ({{symbol}})",
+      "currentPrice": "Precio Actual",
+      "balance": "Saldo",
+      "amountToSpend": "Monto a gastar ({{stablecoin}})",
+      "amountToReceive": "Monto a recibir",
+      "amountToSell": "Monto a vender",
+      "amountToReceiveIn": "Monto a recibir ({{stablecoin}})",
+      "validation": {
+        "positive": "El monto debe ser positivo.",
+        "insufficientGUSD": "Saldo de {{stablecoin}} insuficiente.",
+        "insufficientCrypto": "Saldo de cripto insuficiente."
+      },
+      "purchaseSuccessTitle": "Compra Exitosa",
+      "purchaseSuccessDescription": "Compraste {{amount}} {{symbol}}.",
+      "purchaseFailTitle": "Compra Fallida",
+      "purchaseFailDescription": "La transacción no pudo completarse.",
+      "saleSuccessTitle": "Venta Exitosa",
+      "saleSuccessDescription": "Vendiste {{amount}} {{symbol}}.",
+      "saleFailTitle": "Venta Fallida",
+      "saleFailDescription": "La transacción no pudo completarse."
+    },
+    "holdingsTable": {
+      "title": "Mis Activos",
+      "asset": "Activo",
+      "quantity": "Cantidad",
+      "avgBuyPrice": "Precio Prom. Compra",
+      "currentValue": "Valor Actual",
+      "pl": "G/P",
+      "action": "Acción",
+      "noHoldings": "Aún no tienes activos."
+    },
+    "walletSummary": {
+      "title": "Resumen de Billetera",
+      "cashBalance": "Saldo en Efectivo ({{stablecoin}})",
+      "cryptoHoldings": "Valor de Activos Cripto",
+      "totalPL": "G/P Total"
     }
-  },
-  "rsi": {
-    "label": "RSI: {{value}}",
-    "oversold": "Sobrevendido (<30)",
-    "overbought": "Sobrecomprado (>70)"
-  },
-  "simulator": {
-    "title": "Simulador de Trading"
-  },
-  "walletSummary": {
-    "title": "Resumen de Billetera",
-    "cashBalance": "Saldo en {{stablecoin}}",
-    "cryptoHoldings": "Valor de Criptoactivos",
-    "totalPL": "G/P Total"
-  },
-  "holdingsTable": {
-    "title": "Mis Activos",
-    "asset": "Activo",
-    "quantity": "Cantidad",
-    "avgBuyPrice": "Precio Prom. Compra",
-    "currentValue": "Valor Actual",
-    "pl": "G/P",
-    "action": "Acción",
-    "noHoldings": "Aún no tienes activos. ¡Empieza comprando alguna criptomoneda!"
-  },
-  "apiKeyModal": {
-    "title": "Configuración de Claves API",
-    "description": "Ingresa tus claves API para conectarte a un exchange real (solo simulación).",
-    "securityTitle": "Aviso de Seguridad",
-    "securityDescription": "Tus claves se guardan localmente en tu navegador y no se envían a ningún servidor.",
-    "apiKeyLabel": "Clave API",
-    "apiKeyPlaceholder": "Ingresa tu Clave API",
-    "apiSecretLabel": "Secreto API",
-    "apiSecretPlaceholder": "Ingresa tu Secreto API",
-    "saveButton": "Guardar Cambios",
-    "saveSuccessTitle": "Claves API Guardadas",
-    "saveSuccessDescription": "Tus claves API han sido actualizadas exitosamente.",
-    "validation": {
-      "keyRequired": "La Clave API es requerida",
-      "secretRequired": "El Secreto API es requerido"
-    }
-  },
-  "footer": {
-    "policies": "Políticas"
-  },
-  "policies": {
-    "title": "Políticas de la Aplicación",
-    "subtitle": "Descargo de Responsabilidad y Términos de Uso",
-    "p1": "Esta aplicación, CryptoPulse, está diseñada únicamente con fines educativos y de capacitación. Es un simulador y no involucra transacciones monetarias reales ni inversiones.",
-    "p2": "Todos los datos, incluidos los precios de las criptomonedas, los volúmenes y los análisis, son simulados y pueden no reflejar las condiciones reales del mercado. Las señales de trading generadas por IA son para fines ilustrativos y no deben considerarse asesoramiento financiero.",
-    "p3": "Los desarrolladores no se hacen responsables de ninguna decisión tomada en base a la información proporcionada por esta aplicación. Úsela con discreción y comprenda que puede contener errores o imprecisiones."
   }
-}
+  

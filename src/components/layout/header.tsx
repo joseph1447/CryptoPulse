@@ -7,7 +7,7 @@ import { useCrypto } from "@/hooks/use-crypto";
 import { CryptoPulseLogo } from "@/components/icons/crypto-pulse-logo";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Wallet, Languages, Sun, Moon, ChevronsUpDown } from "lucide-react";
+import { Wallet, Languages, Sun, Moon, Settings } from "lucide-react";
 import { Skeleton } from "../ui/skeleton";
 import { useI18n } from "@/hooks/use-i18n";
 import {
@@ -15,6 +15,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
+  DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "@/hooks/use-theme";
 
@@ -88,12 +90,35 @@ export default function Header() {
             
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="px-2">
-                  {currency}
-                  <ChevronsUpDown className="ml-2 h-4 w-4"/>
+                <Button variant="ghost" size="icon">
+                  <Settings className="h-5 w-5" />
+                  <span className="sr-only">{t('header.settings')}</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
+                <DropdownMenuLabel>{t('header.settings')}</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuLabel className="text-xs font-normal text-muted-foreground">{t('header.theme')}</DropdownMenuLabel>
+                <DropdownMenuItem onClick={() => setTheme('light')}>
+                  <Sun className="mr-2 h-4 w-4" />
+                  <span>{t('header.light')}</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setTheme('dark')}>
+                  <Moon className="mr-2 h-4 w-4" />
+                  <span>{t('header.dark')}</span>
+                </DropdownMenuItem>
+
+                <DropdownMenuSeparator />
+                <DropdownMenuLabel className="text-xs font-normal text-muted-foreground">{t('header.language')}</DropdownMenuLabel>
+                <DropdownMenuItem onClick={() => setLocale('en')} disabled={locale === 'en'}>
+                  English
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setLocale('es')} disabled={locale === 'es'}>
+                  Español
+                </DropdownMenuItem>
+
+                <DropdownMenuSeparator />
+                <DropdownMenuLabel className="text-xs font-normal text-muted-foreground">{t('header.currency')}</DropdownMenuLabel>
                 <DropdownMenuItem onClick={() => setCurrency('USD')} disabled={currency === 'USD'}>
                   USD
                 </DropdownMenuItem>
@@ -103,31 +128,6 @@ export default function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Languages className="h-5 w-5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => setLocale('en')} disabled={locale === 'en'}>
-                  English
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setLocale('es')} disabled={locale === 'es'}>
-                  Español
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              aria-label={t('header.toggleTheme')}
-            >
-              <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-            </Button>
           </div>
         </div>
       </header>
