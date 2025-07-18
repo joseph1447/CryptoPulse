@@ -6,6 +6,7 @@ import Header from "@/components/layout/header";
 import { I18nProvider } from "@/context/i18n-provider";
 import { ThemeProvider } from "@/context/theme-provider";
 import { type Locale } from "@/lib/types";
+import Footer from "@/components/layout/footer";
 
 export const metadata: Metadata = {
   title: "CryptoPulse",
@@ -42,6 +43,7 @@ export default function RootLayout({
               <main className="flex-grow container mx-auto px-4 py-8">
                 {children}
               </main>
+              <Footer />
               <Toaster />
             </CryptoProvider>
           </ThemeProvider>

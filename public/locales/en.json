@@ -1,97 +1,108 @@
 {
-  "header": {
-    "appName": "CryptoPulse",
-    "dashboard": "Dashboard",
-    "simulator": "Simulator",
-    "settings": "Settings"
-  },
-  "dashboard": {
-    "title": "Dashboard",
-    "top10ShortTerm": "Top 10 Short-Term Opportunities"
-  },
-  "simulator": {
-    "title": "Trading Simulator"
-  },
-  "cryptoDetail": {
-    "priceChartTitle": "{{name}} Price Chart (30d)",
-    "aiAnalysis": "AI-Powered Analysis",
-    "aiAnalysisDescription": "Get AI-driven trade signals.",
-    "analysisFailed": "Analysis Failed",
-    "analysisError": "Could not generate trade signals.",
-    "shortTermSignal": "Short-Term Signal",
-    "longTermSignal": "Long-Term Signal",
-    "explanation": "Explanation",
-    "analyzeButton": "Analyze with AI"
-  },
-  "cryptoTable": {
-    "expandRow": "Expand row",
-    "name": "Name",
-    "price": "Price",
-    "change24h": "24h %",
-    "volume24h": "Volume (24h)",
-    "marketCap": "Market Cap",
-    "rsi": "RSI",
-    "action": "Action"
-  },
-  "rsi": {
-    "label": "RSI: {{value}}",
-    "oversold": "Status: Potentially Oversold",
-    "overbought": "Status: Potentially Overbought"
-  },
-  "tradeDialog": {
-    "title": "Trade {{name}} ({{symbol}})",
-    "currentPrice": "Current Price",
-    "buy": "Buy",
-    "sell": "Sell",
-    "purchaseSuccessTitle": "Purchase Successful",
-    "purchaseSuccessDescription": "You bought {{amount}} {{symbol}}",
-    "purchaseFailTitle": "Purchase Failed",
-    "purchaseFailDescription": "Could not complete the transaction.",
-    "saleSuccessTitle": "Sale Successful",
-    "saleSuccessDescription": "You sold {{amount}} {{symbol}}",
-    "saleFailTitle": "Sale Failed",
-    "saleFailDescription": "Could not complete the transaction.",
-    "balance": "Balance",
-    "amountToSpend": "Amount to Spend",
-    "amountToReceive": "Amount to Receive",
-    "amountToSell": "Amount to Sell",
-    "validation": {
-      "positive": "Amount must be positive",
-      "insufficientGUSD": "Insufficient GUSD balance",
-      "insufficientCrypto": "Insufficient crypto balance"
+    "header": {
+        "appName": "CryptoPulse",
+        "dashboard": "Dashboard",
+        "simulator": "Simulator",
+        "settings": "Settings",
+        "toggleTheme": "Toggle theme"
+    },
+    "dashboard": {
+        "title": "Crypto Dashboard",
+        "top10ShortTerm": "Top 10 Short-Term Opportunities (by RSI)"
+    },
+    "simulator": {
+        "title": "Trading Simulator"
+    },
+    "cryptoTable": {
+        "name": "Name",
+        "price": "Price",
+        "change24h": "24h %",
+        "volume24h": "24h Volume",
+        "marketCap": "Market Cap",
+        "rsi": "RSI (14)",
+        "action": "Action",
+        "expandRow": "Expand row"
+    },
+    "tradeDialog": {
+        "buy": "Buy",
+        "sell": "Sell",
+        "title": "Trade {{name}} ({{symbol}})",
+        "currentPrice": "Current Price",
+        "balance": "Balance",
+        "amountToSpend": "Amount to spend (GUSD)",
+        "amountToReceive": "Amount to receive",
+        "amountToSell": "Amount to sell ({{symbol}})",
+        "validation": {
+            "positive": "Amount must be positive.",
+            "insufficientGUSD": "Insufficient GUSD balance.",
+            "insufficientCrypto": "Insufficient crypto balance."
+        },
+        "purchaseSuccessTitle": "Purchase Successful",
+        "purchaseSuccessDescription": "You purchased {{amount}} {{symbol}}.",
+        "purchaseFailTitle": "Purchase Failed",
+        "purchaseFailDescription": "There was an error processing your purchase.",
+        "saleSuccessTitle": "Sale Successful",
+        "saleSuccessDescription": "You sold {{amount}} {{symbol}}.",
+        "saleFailTitle": "Sale Failed",
+        "saleFailDescription": "There was an error processing your sale."
+    },
+    "rsi": {
+        "label": "RSI: {{value}}",
+        "oversold": "Oversold (< 30)",
+        "overbought": "Overbought (> 70)"
+    },
+    "cryptoDetail": {
+        "priceChartTitle": "{{name}} Price Chart (30 days)",
+        "aiAnalysis": "AI Analysis",
+        "aiAnalysisDescription": "Get AI-powered trading signals.",
+        "analyzeButton": "Analyze Now",
+        "analysisFailed": "Analysis Failed",
+        "analysisError": "An error occurred during analysis.",
+        "shortTermSignal": "Short-Term Signal",
+        "longTermSignal": "Long-Term Signal",
+        "explanation": "Explanation"
+    },
+    "walletSummary": {
+        "title": "Wallet Summary",
+        "cashBalance": "Cash Balance (GUSD)",
+        "cryptoHoldings": "Crypto Holdings Value",
+        "totalPL": "Total P&L"
+    },
+    "holdingsTable": {
+        "title": "My Holdings",
+        "asset": "Asset",
+        "quantity": "Quantity",
+        "avgBuyPrice": "Avg. Buy Price",
+        "currentValue": "Current Value",
+        "pl": "P&L",
+        "action": "Action",
+        "noHoldings": "You do not have any holdings yet. Buy some crypto from the dashboard!"
+    },
+    "apiKeyModal": {
+        "title": "API Key Settings",
+        "description": "Enter your API keys to connect to a real exchange (feature coming soon). For now, this is just a placeholder.",
+        "securityTitle": "Security Notice",
+        "securityDescription": "Your API keys are stored securely in your browser's local storage and are never sent to our servers.",
+        "apiKeyLabel": "API Key",
+        "apiKeyPlaceholder": "Enter your API Key",
+        "apiSecretLabel": "API Secret",
+        "apiSecretPlaceholder": "Enter your API Secret",
+        "saveButton": "Save Changes",
+        "saveSuccessTitle": "API Keys Saved",
+        "saveSuccessDescription": "Your API keys have been updated.",
+        "validation": {
+            "keyRequired": "API Key is required.",
+            "secretRequired": "API Secret is required."
+        }
+    },
+    "footer": {
+        "policies": "Policies"
+    },
+    "policies": {
+        "title": "Application Policies",
+        "subtitle": "Important Information",
+        "p1": "This application, CryptoPulse, is designed for educational and training purposes only. It is a simulator and does not involve real financial transactions.",
+        "p2": "The data presented, including cryptocurrency prices and analyses, may not be accurate or real-time. The AI-generated trading signals are for demonstration purposes and may contain errors or inaccuracies. They should not be considered financial advice.",
+        "p3": "Use this application with discretion. The creators and maintainers are not responsible for any decisions made based on the information provided here. All actions are simulated and have no real-world value or consequence."
     }
-  },
-  "apiKeyModal": {
-    "title": "Binance API Integration",
-    "description": "Enter your Binance API keys to fetch market data.",
-    "securityTitle": "Security Notice",
-    "securityDescription": "Your keys are stored only in your browser's local storage and are never sent to our servers.",
-    "apiKeyLabel": "API Key",
-    "apiKeyPlaceholder": "Your API Key",
-    "apiSecretLabel": "API Secret",
-    "apiSecretPlaceholder": "Your API Secret",
-    "saveButton": "Save Keys",
-    "saveSuccessTitle": "API Keys Saved",
-    "saveSuccessDescription": "Your Binance API keys have been saved locally.",
-    "validation": {
-      "keyRequired": "API Key is required.",
-      "secretRequired": "API Secret is required."
-    }
-  },
-  "holdingsTable": {
-    "title": "My Holdings",
-    "asset": "Asset",
-    "quantity": "Quantity",
-    "avgBuyPrice": "Avg. Buy Price",
-    "currentValue": "Current Value",
-    "pl": "P/L",
-    "action": "Action",
-    "noHoldings": "You have no crypto holdings. Start by buying from the dashboard."
-  },
-  "walletSummary": {
-    "title": "Portfolio Overview",
-    "cashBalance": "Cash Balance (GUSD)",
-    "cryptoHoldings": "Crypto Holdings Value",
-    "totalPL": "Total P/L"
-  }
 }
