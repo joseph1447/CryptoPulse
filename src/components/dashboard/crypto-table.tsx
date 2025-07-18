@@ -53,53 +53,51 @@ export function CryptoTable({ cryptos }: { cryptos: Crypto[] }) {
           </TableHeader>
           <TableBody>
             {cryptos.map((crypto) => (
-              <Fragment key={crypto.id}>
-                <Collapsible asChild open={openCollapsible === crypto.id} onOpenChange={() => toggleCollapsible(crypto.id)}>
-                  <>
-                    <TableRow className="cursor-pointer">
-                      <TableCell>
-                        <CollapsibleTrigger asChild>
-                          <Button variant="ghost" size="sm" className="w-9 p-0">
-                             <ChevronDown className={cn("h-4 w-4 transition-transform", openCollapsible === crypto.id && "rotate-180")} />
-                          </Button>
-                        </CollapsibleTrigger>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-3">
-                          <CryptoLogo symbol={crypto.symbol} className="h-8 w-8" />
-                          <div>
-                            <div className="font-medium">{crypto.name}</div>
-                            <div className="text-muted-foreground text-xs">{crypto.symbol}</div>
-                          </div>
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-right font-mono">${crypto.currentPrice.toLocaleString()}</TableCell>
-                      <TableCell
-                        className={cn("text-right font-mono", crypto.priceChange24h >= 0 ? "text-green-400" : "text-red-400")}
-                      >
-                        {crypto.priceChange24h.toFixed(2)}%
-                      </TableCell>
-                      <TableCell className="hidden md:table-cell text-right font-mono">${(crypto.volume24h / 1e9).toFixed(2)}B</TableCell>
-                      <TableCell className="hidden lg:table-cell text-right font-mono">${(crypto.marketCap / 1e9).toFixed(2)}B</TableCell>
-                      <TableCell>
-                        <RSIIndicator value={crypto.rsi} />
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <Button size="sm" onClick={() => handleBuyClick(crypto)}>
-                          Buy
+              <Collapsible asChild key={crypto.id} open={openCollapsible === crypto.id} onOpenChange={() => toggleCollapsible(crypto.id)}>
+                <Fragment>
+                  <TableRow className="cursor-pointer">
+                    <TableCell>
+                      <CollapsibleTrigger asChild>
+                        <Button variant="ghost" size="sm" className="w-9 p-0">
+                           <ChevronDown className={cn("h-4 w-4 transition-transform", openCollapsible === crypto.id && "rotate-180")} />
                         </Button>
-                      </TableCell>
-                    </TableRow>
-                    <CollapsibleContent asChild>
-                       <TableRow>
-                          <TableCell colSpan={8}>
-                             <CryptoDetailView crypto={crypto} />
-                          </TableCell>
-                       </TableRow>
-                    </CollapsibleContent>
-                  </>
-                </Collapsible>
-              </Fragment>
+                      </CollapsibleTrigger>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-3">
+                        <CryptoLogo symbol={crypto.symbol} className="h-8 w-8" />
+                        <div>
+                          <div className="font-medium">{crypto.name}</div>
+                          <div className="text-muted-foreground text-xs">{crypto.symbol}</div>
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-right font-mono">${crypto.currentPrice.toLocaleString()}</TableCell>
+                    <TableCell
+                      className={cn("text-right font-mono", crypto.priceChange24h >= 0 ? "text-green-400" : "text-red-400")}
+                    >
+                      {crypto.priceChange24h.toFixed(2)}%
+                    </TableCell>
+                    <TableCell className="hidden md:table-cell text-right font-mono">${(crypto.volume24h / 1e9).toFixed(2)}B</TableCell>
+                    <TableCell className="hidden lg:table-cell text-right font-mono">${(crypto.marketCap / 1e9).toFixed(2)}B</TableCell>
+                    <TableCell>
+                      <RSIIndicator value={crypto.rsi} />
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <Button size="sm" onClick={() => handleBuyClick(crypto)}>
+                        Buy
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                  <CollapsibleContent asChild>
+                     <TableRow>
+                        <TableCell colSpan={8}>
+                           <CryptoDetailView crypto={crypto} />
+                        </TableCell>
+                     </TableRow>
+                  </CollapsibleContent>
+                </Fragment>
+              </Collapsible>
             ))}
           </TableBody>
         </Table>
