@@ -1,3 +1,4 @@
+
 "use client";
 
 import { createContext, useState, useEffect, useCallback, type ReactNode } from "react";
@@ -17,24 +18,24 @@ export function I18nProvider({ children, locale: initialLocale }: { children: Re
   const pathname = usePathname();
 
   useEffect(() => {
-    async function loadTranslations() {
-      if (!locale) return;
+    async function loadTranslations(loc: Locale) {
+      if (!loc) return;
       try {
-        const response = await fetch(`/locales/${locale}.json`);
+        const response = await fetch(`/locales/${loc}.json`);
         if (!response.ok) {
-          throw new Error(`Failed to load ${locale}.json`);
+          throw new Error(`Failed to load ${loc}.json`);
         }
         const data = await response.json();
         setTranslations(data);
       } catch (error) {
         console.error("Failed to load translations:", error);
-        if(locale !== 'en') {
-            setLocale('en');
+        if(loc !== 'en') {
+            setLocale('en'); // Fallback to english
         }
       }
     }
-    loadTranslations();
-  }, [locale]);
+    loadTranslations(initialLocale);
+  }, [initialLocale]);
   
   const setLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale);
@@ -54,7 +55,10 @@ export function I18nProvider({ children, locale: initialLocale }: { children: Re
     const translation = getNestedValue(translations, key);
     
     if (!translation) {
-      console.warn(`Translation not found for key: ${key}`);
+      // Don't warn on first render when translations might not be loaded yet
+      if (Object.keys(translations).length > 0) {
+        console.warn(`Translation not found for key: ${key}`);
+      }
       return key;
     }
     
