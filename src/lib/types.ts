@@ -27,8 +27,6 @@ export interface CryptoContextType {
   sellCrypto: (cryptoId: string, quantity: number) => boolean;
   portfolioValue: number;
   initialized: boolean;
-  apiKeys: { key: string; secret: string };
-  setApiKeys: (keys: { key: string; secret: string }) => void;
   currency: Currency;
   setCurrency: (currency: Currency) => void;
   exchangeRate: number; // USD to CRC

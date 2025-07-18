@@ -16,7 +16,6 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
   const [cryptos, setCryptos] = useState<Crypto[]>(mockCryptos);
   const [gusdBalance, setGusdBalance] = useState<number>(INITIAL_GUSD_BALANCE);
   const [holdings, setHoldings] = useState<Holding[]>([]);
-  const [apiKeys, setApiKeysState] = useState({ key: "", secret: "" });
   const [currency, setCurrencyState] = useState<Currency>('USD');
   const [exchangeRate, setExchangeRate] = useState(1);
 
@@ -34,21 +33,18 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
     try {
       const storedBalance = localStorage.getItem("gusdBalance");
       const storedHoldings = localStorage.getItem("holdings");
-      const storedApiKeys = localStorage.getItem("apiKeys");
       const storedCurrency = localStorage.getItem("currency");
 
       if (storedBalance) setGusdBalance(JSON.parse(storedBalance));
       if (storedHoldings) setHoldings(JSON.parse(storedHoldings));
-      if (storedApiKeys) setApiKeysState(JSON.parse(storedApiKeys));
       if (storedCurrency && (storedCurrency === 'USD' || storedCurrency === 'CRC')) {
-        setCurrencyState(storedCurrency);
+        setCurrencyState(storedCurrency as Currency);
       }
     } catch (error) {
       console.error("Failed to parse from localStorage", error);
       // Reset to defaults on error
       setGusdBalance(INITIAL_GUSD_BALANCE);
       setHoldings([]);
-      setApiKeysState({ key: "", secret: "" });
       setCurrencyState('USD');
     }
     setInitialized(true);
@@ -59,10 +55,9 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
     if (initialized) {
       localStorage.setItem("gusdBalance", JSON.stringify(gusdBalance));
       localStorage.setItem("holdings", JSON.stringify(holdings));
-      localStorage.setItem("apiKeys", JSON.stringify(apiKeys));
       localStorage.setItem("currency", currency);
     }
-  }, [gusdBalance, holdings, apiKeys, currency, initialized]);
+  }, [gusdBalance, holdings, currency, initialized]);
 
   // Price simulation interval
   useEffect(() => {
@@ -144,10 +139,6 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
     return true;
   }, [cryptos, holdings]);
 
-  const setApiKeys = useCallback((keys: { key: string; secret: string }) => {
-    setApiKeysState(keys);
-  }, []);
-
   const setCurrency = useCallback((newCurrency: Currency) => {
     setCurrencyState(newCurrency);
   }, []);
@@ -160,8 +151,6 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
     sellCrypto,
     portfolioValue,
     initialized,
-    apiKeys,
-    setApiKeys,
     currency,
     setCurrency,
     exchangeRate

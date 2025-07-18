@@ -7,10 +7,8 @@ import { useCrypto } from "@/hooks/use-crypto";
 import { CryptoPulseLogo } from "@/components/icons/crypto-pulse-logo";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Wallet, Settings, Languages, Sun, Moon, ChevronsUpDown } from "lucide-react";
+import { Wallet, Languages, Sun, Moon, ChevronsUpDown } from "lucide-react";
 import { Skeleton } from "../ui/skeleton";
-import { ApiKeyModal } from "./api-key-modal";
-import { useState } from "react";
 import { useI18n } from "@/hooks/use-i18n";
 import {
   DropdownMenu,
@@ -47,7 +45,6 @@ export default function Header() {
     setCurrency, 
     exchangeRate 
   } = useCrypto();
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const { t, setLocale, locale } = useI18n();
   const { theme, setTheme } = useTheme();
 
@@ -131,19 +128,9 @@ export default function Header() {
               <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
               <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
             </Button>
-
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsModalOpen(true)}
-              aria-label={t('header.settings')}
-            >
-              <Settings className="h-5 w-5" />
-            </Button>
           </div>
         </div>
       </header>
-      <ApiKeyModal isOpen={isModalOpen} onOpenChange={setIsModalOpen} />
     </>
   );
 }
