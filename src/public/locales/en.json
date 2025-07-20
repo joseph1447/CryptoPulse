@@ -1,0 +1,113 @@
+
+{
+  "header": {
+    "appName": "CryptoPulse",
+    "dashboard": "Dashboard",
+    "simulator": "Simulator",
+    "docs": "Docs",
+    "apiConnected": "API Connected",
+    "apiDisconnected": "API Disconnected",
+    "settings": "Settings",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "language": "Language",
+    "currency": "Currency"
+  },
+  "dashboard": {
+    "title": "Crypto Dashboard",
+    "top10ShortTermBuy": "Top 10 Short-Term Buy Opportunities (by RSI)",
+    "top10ShortTermSell": "Top 10 Short-Term Sell Opportunities (by RSI)",
+    "top10BuyLabel": "Buy",
+    "top10SellLabel": "Sell",
+    "error": {
+      "title": "API Connection Error",
+      "description": "Could not connect to the crypto data API. The data below might be stale or incomplete. Please check your internet connection and API key."
+    },
+    "warning": {
+      "dismiss": "Dismiss"
+    },
+    "refreshButton": "Refresh"
+  },
+  "cryptoTable": {
+    "name": "Name",
+    "price": "Price",
+    "change24h": "24h Change",
+    "volume24h": "24h Volume",
+    "marketCap": "Market Cap",
+    "rsi": "RSI (14d)",
+    "action": "Action",
+    "expandRow": "Expand row",
+    "loading": "Loading real-time crypto data...",
+    "noData": "No cryptocurrency data available."
+  },
+  "cryptoDetail": {
+    "priceChartTitle": "{name} Price Chart (30 days)",
+    "aiAnalysis": "AI Analysis",
+    "aiAnalysisDescription": "Get AI-powered trade signals.",
+    "analyzeButton": "Analyze Now",
+    "analysisFailed": "Analysis Failed",
+    "analysisError": "Could not generate AI trade signals.",
+    "shortTermSignal": "Short-Term Signal",
+    "longTermSignal": "Long-Term Signal",
+    "explanation": "Explanation"
+  },
+  "rsi": {
+    "label": "RSI: {value}",
+    "oversold": "Oversold (<30)",
+    "overbought": "Overbought (>70)"
+  },
+  "tradeDialog": {
+    "title": "Trade {name} ({symbol})",
+    "buy": "Buy",
+    "sell": "Sell",
+    "balance": "Balance",
+    "amountToSpend": "Amount to spend ({stablecoin})",
+    "amountToReceive": "Amount to receive",
+    "amountToSell": "Amount to sell",
+    "amountToReceiveIn": "Amount you'll get ({stablecoin})",
+    "currentPrice": "Current Price",
+    "validation": {
+      "positive": "Amount must be positive.",
+      "insufficientGUSD": "Insufficient {stablecoin} balance.",
+      "insufficientCrypto": "Insufficient crypto balance."
+    },
+    "purchaseSuccessTitle": "Purchase Successful",
+    "purchaseSuccessDescription": "You purchased {amount} {symbol}.",
+    "purchaseFailTitle": "Purchase Failed",
+    "purchaseFailDescription": "The transaction could not be completed.",
+    "saleSuccessTitle": "Sale Successful",
+    "saleSuccessDescription": "You sold {amount} {symbol}.",
+    "saleFailTitle": "Sale Failed",
+    "saleFailDescription": "The transaction could not be completed."
+  },
+  "simulator": {
+    "title": "Trading Simulator"
+  },
+  "walletSummary": {
+    "title": "Virtual Wallet Summary",
+    "cashBalance": "Cash Balance ({stablecoin})",
+    "cryptoHoldings": "Crypto Holdings Value",
+    "totalPL": "Total Profit/Loss"
+  },
+  "holdingsTable": {
+    "title": "My Holdings",
+    "asset": "Asset",
+    "quantity": "Quantity",
+    "avgBuyPrice": "Avg. Buy Price",
+    "currentValue": "Current Value",
+    "pl": "P/L",
+    "action": "Action",
+    "noHoldings": "You do not have any holdings yet. Start by buying some crypto from the dashboard!"
+  },
+  "footer": {
+    "policies": "Policies"
+  },
+  "policies": {
+    "title": "Our Policies",
+    "subtitle": "Privacy & Data Usage",
+    "p1": "Your privacy is important to us. This application operates entirely on the client-side. All data, including your API keys and wallet information, is stored locally in your browser's storage and is never sent to any server.",
+    "p2": "We do not collect, store, or process any personal information. Your trading activity is simulated and remains private to your session.",
+    "p3": "The AI analysis feature sends anonymized market data (like price, volume, and RSI) to the Google Gemini API to generate signals, but it does not include any of your personal or wallet information."
+  }
+}

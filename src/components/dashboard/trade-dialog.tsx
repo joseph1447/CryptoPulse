@@ -26,8 +26,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CryptoLogo } from "../icons/crypto-logos";
 import { useI18n } from "@/hooks/use-i18n";
+import Image from "next/image";
 
 interface TradeDialogProps {
   crypto: Crypto;
@@ -130,7 +130,7 @@ export function TradeDialog({ crypto, isOpen, onClose, defaultTab = 'buy' }: Tra
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <CryptoLogo symbol={crypto.symbol} className="h-6 w-6" />
+            <Image src={crypto.imageUrl} alt={`${crypto.name} logo`} width={24} height={24} className="h-6 w-6 rounded-full" />
             {t('tradeDialog.title', { name: crypto.name, symbol: crypto.symbol })}
           </DialogTitle>
         </DialogHeader>

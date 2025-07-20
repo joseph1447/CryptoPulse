@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useTransition } from "react";
@@ -24,7 +25,6 @@ export function CryptoDetailView({ crypto }: { crypto: Crypto }) {
         cryptoName: `${crypto.symbol}/USDT`,
         currentPrice: crypto.currentPrice,
         volume24h: crypto.volume24h,
-        marketCap: crypto.marketCap,
         rsi: crypto.rsi,
       });
 

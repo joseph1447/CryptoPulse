@@ -1,0 +1,113 @@
+
+{
+  "header": {
+    "appName": "CryptoPulse",
+    "dashboard": "Panel",
+    "simulator": "Simulador",
+    "docs": "Docs",
+    "apiConnected": "API Conectada",
+    "apiDisconnected": "API Desconectada",
+    "settings": "Ajustes",
+    "theme": "Tema",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "language": "Idioma",
+    "currency": "Moneda"
+  },
+  "dashboard": {
+    "title": "Panel de Criptomonedas",
+    "top10ShortTermBuy": "Top 10 Oportunidades a Corto Plazo (por RSI)",
+    "top10ShortTermSell": "Top 10 Oportunidades de Venta a Corto Plazo (por RSI)",
+    "top10BuyLabel": "Comprar",
+    "top10SellLabel": "Vender",
+    "error": {
+      "title": "Error de Conexión API",
+      "description": "No se pudo conectar a la API de datos de criptomonedas. Los datos a continuación pueden estar desactualizados o incompletos. Por favor, verifique su conexión a internet y su clave de API."
+    },
+    "warning": {
+      "dismiss": "Descartar"
+    },
+    "refreshButton": "Actualizar"
+  },
+  "cryptoTable": {
+    "name": "Nombre",
+    "price": "Precio",
+    "change24h": "Cambio 24h",
+    "volume24h": "Volumen 24h",
+    "marketCap": "Cap. de Mercado",
+    "rsi": "RSI (14d)",
+    "action": "Acción",
+    "expandRow": "Expandir fila",
+    "loading": "Cargando datos de cripto en tiempo real...",
+    "noData": "No hay datos de criptomonedas disponibles."
+  },
+  "cryptoDetail": {
+    "priceChartTitle": "Gráfico de Precios de {name} (30 días)",
+    "aiAnalysis": "Análisis con IA",
+    "aiAnalysisDescription": "Obtén señales de trading con IA.",
+    "analyzeButton": "Analizar Ahora",
+    "analysisFailed": "Análisis Fallido",
+    "analysisError": "No se pudieron generar las señales de trading con IA.",
+    "shortTermSignal": "Señal a Corto Plazo",
+    "longTermSignal": "Señal a Largo Plazo",
+    "explanation": "Explicación"
+  },
+  "rsi": {
+    "label": "RSI: {value}",
+    "oversold": "Sobrevendido (<30)",
+    "overbought": "Sobrecomprado (>70)"
+  },
+  "tradeDialog": {
+    "title": "Operar {name} ({symbol})",
+    "buy": "Comprar",
+    "sell": "Vender",
+    "balance": "Saldo",
+    "amountToSpend": "Monto a gastar ({stablecoin})",
+    "amountToReceive": "Monto a recibir",
+    "amountToSell": "Monto a vender",
+    "amountToReceiveIn": "Monto que recibirás ({stablecoin})",
+    "currentPrice": "Precio Actual",
+    "validation": {
+      "positive": "El monto debe ser positivo.",
+      "insufficientGUSD": "Saldo de {stablecoin} insuficiente.",
+      "insufficientCrypto": "Saldo de cripto insuficiente."
+    },
+    "purchaseSuccessTitle": "Compra Exitosa",
+    "purchaseSuccessDescription": "Compraste {amount} {symbol}.",
+    "purchaseFailTitle": "Compra Fallida",
+    "purchaseFailDescription": "La transacción no pudo ser completada.",
+    "saleSuccessTitle": "Venta Exitosa",
+    "saleSuccessDescription": "Vendiste {amount} {symbol}.",
+    "saleFailTitle": "Venta Fallida",
+    "saleFailDescription": "La transacción no pudo ser completada."
+  },
+  "simulator": {
+    "title": "Simulador de Trading"
+  },
+  "walletSummary": {
+    "title": "Resumen de Billetera Virtual",
+    "cashBalance": "Saldo en Efectivo ({stablecoin})",
+    "cryptoHoldings": "Valor de Tenencias Cripto",
+    "totalPL": "Ganancia/Pérdida Total"
+  },
+  "holdingsTable": {
+    "title": "Mis Tenencias",
+    "asset": "Activo",
+    "quantity": "Cantidad",
+    "avgBuyPrice": "Precio Prom. Compra",
+    "currentValue": "Valor Actual",
+    "pl": "G/P",
+    "action": "Acción",
+    "noHoldings": "Aún no tienes tenencias. ¡Empieza por comprar alguna cripto en el panel!"
+  },
+  "footer": {
+    "policies": "Políticas"
+  },
+  "policies": {
+    "title": "Nuestras Políticas",
+    "subtitle": "Privacidad y Uso de Datos",
+    "p1": "Tu privacidad es importante para nosotros. Esta aplicación opera completamente en el lado del cliente. Todos los datos, incluyendo tus claves de API e información de la billetera, se almacenan localmente en el almacenamiento de tu navegador y nunca se envían a ningún servidor.",
+    "p2": "No recopilamos, almacenamos ni procesamos ninguna información personal. Tu actividad de trading es simulada y permanece privada en tu sesión.",
+    "p3": "La función de análisis con IA envía datos de mercado anónimos (como precio, volumen y RSI) a la API de Google Gemini para generar señales, pero no incluye ninguna de tu información personal o de tu billetera."
+  }
+}

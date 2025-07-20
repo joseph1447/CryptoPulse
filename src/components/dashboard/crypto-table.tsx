@@ -14,12 +14,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { RSIIndicator } from "./rsi-indicator";
-import { CryptoLogo } from "../icons/crypto-logos";
 import { TradeDialog } from "./trade-dialog";
 import { ChevronDown, Loader2 } from "lucide-react";
 import { CryptoDetailView } from "./crypto-detail-view";
 import { useI18n } from "@/hooks/use-i18n";
 import { useCrypto } from "@/hooks/use-crypto";
+import Image from "next/image";
 
 export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) {
   const [selectedCrypto, setSelectedCrypto] = useState<Crypto | null>(null);
@@ -69,9 +69,7 @@ export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) 
               <TableHead className="w-12"></TableHead>
               <TableHead>{t('cryptoTable.name')}</TableHead>
               <TableHead className="text-right">{t('cryptoTable.price')}</TableHead>
-              <TableHead className="text-right">{t('cryptoTable.change24h')}</TableHead>
               <TableHead className="hidden md:table-cell text-right">{t('cryptoTable.volume24h')}</TableHead>
-              <TableHead className="hidden lg:table-cell text-right">{t('cryptoTable.marketCap')}</TableHead>
               <TableHead className="w-[120px] text-center">{t('cryptoTable.rsi')}</TableHead>
               <TableHead className="text-right">{t('cryptoTable.action')}</TableHead>
             </TableRow>
@@ -79,7 +77,7 @@ export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) 
           <TableBody>
             {loading && initialCryptos.length === 0 ? (
                  <TableRow>
-                    <TableCell colSpan={8} className="h-48 text-center">
+                    <TableCell colSpan={6} className="h-48 text-center">
                         <div className="flex justify-center items-center gap-2">
                             <Loader2 className="h-8 w-8 animate-spin text-primary" />
                             <p className="text-muted-foreground">{t('cryptoTable.loading')}</p>
@@ -97,7 +95,7 @@ export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) 
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-3">
-                          <CryptoLogo symbol={crypto.symbol} className="h-8 w-8" />
+                          <Image src={crypto.imageUrl} alt={`${crypto.name} logo`} width={32} height={32} className="h-8 w-8 rounded-full" />
                           <div>
                             <div className="font-medium">{crypto.name}</div>
                             <div className="text-muted-foreground text-xs">{crypto.symbol}</div>
@@ -105,13 +103,7 @@ export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) 
                         </div>
                       </TableCell>
                       <TableCell className="text-right font-mono">{formatCurrency(crypto.currentPrice * (currency === 'CRC' ? exchangeRate : 1))}</TableCell>
-                      <TableCell
-                        className={cn("text-right font-mono", crypto.priceChange24h >= 0 ? "text-green-400" : "text-red-400")}
-                      >
-                        {crypto.priceChange24h.toFixed(2)}%
-                      </TableCell>
                       <TableCell className="hidden md:table-cell text-right font-mono">{formatBigNumber(crypto.volume24h)}</TableCell>
-                      <TableCell className="hidden lg:table-cell text-right font-mono">{formatBigNumber(crypto.marketCap)}</TableCell>
                       <TableCell>
                         <RSIIndicator value={crypto.rsi} />
                       </TableCell>
@@ -123,7 +115,7 @@ export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) 
                     </TableRow>
                     {openCollapsible === crypto.id && (
                        <TableRow>
-                          <TableCell colSpan={8} className="p-0">
+                          <TableCell colSpan={6} className="p-0">
                              <CryptoDetailView crypto={crypto} />
                           </TableCell>
                        </TableRow>
@@ -132,7 +124,7 @@ export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) 
               ))
             ) : (
                 <TableRow>
-                    <TableCell colSpan={8} className="text-center h-48 text-muted-foreground">
+                    <TableCell colSpan={6} className="text-center h-48 text-muted-foreground">
                        {t('cryptoTable.noData')}
                     </TableCell>
                 </TableRow>

@@ -6,9 +6,9 @@ export interface Crypto {
   currentPrice: number;
   priceHistory: number[];
   volume24h: number;
-  marketCap: number;
   priceChange24h: number;
   rsi: number;
+  imageUrl: string;
 }
 
 export interface Holding {

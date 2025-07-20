@@ -1,12 +1,11 @@
 
 "use server";
 
-import { analyzeCryptoData } from "@/ai/flows/analyze-crypto-data";
 import { generateTradeSignals, type GenerateTradeSignalsInput, type GenerateTradeSignalsOutput } from "@/ai/flows/generate-trade-signals";
 import type { Crypto } from "@/lib/types";
-import { cryptoNames, calculateRSI } from "@/lib/crypto-data";
+import { cryptoNames } from "@/lib/crypto-data";
 
-const CUSTOM_API_URL = "https://docmanagerapi-1.onrender.com/api/top20-volatile";
+const CUSTOM_API_URL = "https://docmanagerapi-1.onrender.com/api/list-reliable-coins";
 
 export async function getCryptoDataAction(): Promise<{
     success: boolean;
@@ -21,17 +20,17 @@ export async function getCryptoDataAction(): Promise<{
         
         const result = await response.json();
 
-        const fetchedCryptos = result.data.map((item: any): Crypto => {
-            const cryptoInfo = cryptoNames.find(c => c.symbol === item.symbol) || {
-                id: item.symbol.toLowerCase().replace(/[^a-z0-9]/g, ''),
-                name: item.symbol,
-                symbol: item.symbol,
-            };
+        const fetchedCryptos = result.data.map((item: any): Crypto | null => {
+            const cryptoInfo = cryptoNames.find(c => c.symbol === item.symbol);
+            if (!cryptoInfo) return null; // Skip if we don't have a known name for it
             
-            const priceHistory = Array.from({ length: 30 }, (_, i) => {
+            // Generate some plausible historical data for the chart, ending with the current price
+            const priceHistory = Array.from({ length: 29 }, (_, i) => {
                 const variance = (Math.random() - 0.5) * (item.currentPrice * 0.1); 
                 return item.currentPrice + variance;
             });
+            priceHistory.push(item.currentPrice);
+
 
             return {
               id: cryptoInfo.id,
@@ -39,12 +38,12 @@ export async function getCryptoDataAction(): Promise<{
               symbol: cryptoInfo.symbol,
               currentPrice: parseFloat(item.currentPrice),
               priceHistory: priceHistory,
-              volume24h: parseFloat(item.volume),
-              marketCap: 0, 
-              priceChange24h: parseFloat(item.volatility),
-              rsi: calculateRSI(priceHistory),
+              volume24h: parseFloat(item.tradeVolumeUSDT),
+              priceChange24h: 0, // This data is not in the new API
+              rsi: parseFloat(item.rsi),
+              imageUrl: item.imageUrl,
             };
-        });
+        }).filter((c: Crypto | null): c is Crypto => c !== null); // Filter out nulls
 
         return { success: true, data: fetchedCryptos };
 

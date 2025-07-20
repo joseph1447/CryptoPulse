@@ -1,3 +1,4 @@
+
 // src/ai/flows/generate-trade-signals.ts
 'use server';
 
@@ -16,7 +17,6 @@ const GenerateTradeSignalsInputSchema = z.object({
   cryptoName: z.string().describe('The name of the cryptocurrency (e.g., BTC/USDT).'),
   currentPrice: z.number().describe('The current price of the cryptocurrency.'),
   volume24h: z.number().describe('The 24-hour trading volume of the cryptocurrency.'),
-  marketCap: z.number().describe('The market capitalization of the cryptocurrency.'),
   rsi: z.number().describe('The Relative Strength Index (RSI) of the cryptocurrency.'),
 });
 export type GenerateTradeSignalsInput = z.infer<typeof GenerateTradeSignalsInputSchema>;
@@ -27,7 +27,7 @@ const GenerateTradeSignalsOutputSchema = z.object({
     .describe('Short-term trading signal based on RSI and volume.'),
   longTermSignal: z
     .enum(['BUY', 'SELL', 'HOLD'])
-    .describe('Long-term trading signal based on market cap growth and volume.'),
+    .describe('Long-term trading signal based on general market sentiment and volume.'),
   explanation: z.string().describe('Explanation of the generated trading signals.'),
 });
 export type GenerateTradeSignalsOutput = z.infer<typeof GenerateTradeSignalsOutputSchema>;
@@ -47,15 +47,14 @@ const prompt = ai.definePrompt({
   Consider the following factors:
   - Short-term BUY: RSI is significantly low (below 30) and volume is decent.
   - Short-term SELL: RSI is significantly high (above 70).
-  - Long-term BUY: Market cap is growing, and volume is sustained.
-  - Long-term SELL: Market cap is declining, and volume is decreasing.
+  - Long-term BUY: Sustained high volume suggests strong interest.
+  - Long-term SELL: Declining volume may suggest waning interest.
 
   Provide a brief explanation for each signal.
 
   Cryptocurrency: {{cryptoName}}
   Current Price: {{currentPrice}}
   24h Volume: {{volume24h}}
-  Market Cap: {{marketCap}}
   RSI: {{rsi}}
   
   Output in JSON format.
