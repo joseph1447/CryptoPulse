@@ -20,8 +20,8 @@ export default function DashboardPage() {
     cryptos, 
     initialized, 
     loading,
-    binanceConnectionError,
-    fetchBinanceData 
+    apiConnectionError,
+    fetchCryptoData 
   } = useCrypto();
   const { t } = useI18n();
   const [showWarning, setShowWarning] = useState(true);
@@ -30,7 +30,7 @@ export default function DashboardPage() {
   
   const handleRefresh = async () => {
     setIsRefreshing(true);
-    await fetchBinanceData();
+    await fetchCryptoData();
     setIsRefreshing(false);
   };
 
@@ -73,13 +73,13 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-8">
-      {showWarning && binanceConnectionError && (
+      {showWarning && apiConnectionError && (
          <Alert variant="destructive" className="relative">
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>{t('dashboard.error.title')}</AlertTitle>
             <AlertDescription>
                 <div className="break-all">{t('dashboard.error.description')}</div>
-                <pre className="mt-2 text-xs bg-black/20 p-2 rounded-md font-mono whitespace-pre-wrap break-words">{binanceConnectionError}</pre>
+                <pre className="mt-2 text-xs bg-black/20 p-2 rounded-md whitespace-pre-wrap break-words">{apiConnectionError}</pre>
             </AlertDescription>
              <Button
                 variant="ghost"

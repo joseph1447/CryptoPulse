@@ -6,13 +6,11 @@ import type { ReactNode } from "react";
 import { cryptoNames, calculateRSI } from "@/lib/crypto-data";
 import type { Crypto, Holding, CryptoContextType, Currency } from "@/lib/types";
 import { getExchangeRate } from "@/services/exchange-rate-service";
-import { getBinanceConnectionStatus } from "@/app/actions";
-import { getKlines, getTickers, getAllTickers } from "@/services/binance-service";
 
 export const CryptoContext = createContext<CryptoContextType | null>(null);
 
 const INITIAL_GUSD_BALANCE = 10000;
-const TOP_N_BY_VOLUME = 50; // Analyze the top 50 cryptos by volume
+const CUSTOM_API_URL = "https://docmanagerapi-1.onrender.com/api/top20-volatile";
 
 export function CryptoProvider({ children }: { children: ReactNode }) {
   const [initialized, setInitialized] = useState(false);
@@ -22,93 +20,69 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
   const [holdings, setHoldings] = useState<Holding[]>([]);
   const [currency, setCurrencyState] = useState<Currency>('USD');
   const [exchangeRate, setExchangeRate] = useState(1);
-  const [binanceConnected, setBinanceConnected] = useState(false);
-  const [binanceConnectionError, setBinanceConnectionError] = useState<string | null>(null);
-  
-  const [dynamicCryptoList, setDynamicCryptoList] = useState<string[]>([]);
+  const [apiConnected, setApiConnected] = useState(false);
+  const [apiConnectionError, setApiConnectionError] = useState<string | null>(null);
 
-  const fetchBinanceData = useCallback(async () => {
+  const fetchCryptoData = useCallback(async () => {
     setLoading(true);
-    if (!binanceConnected) {
-        setInitialized(true);
-        setLoading(false);
-        return;
-    }
+    setApiConnectionError(null);
 
     try {
-        let symbolsToFetch = dynamicCryptoList;
-        // Step 1: Fetch all USDT tickers to identify top symbols by volume on first load
-        if (symbolsToFetch.length === 0) {
-            const allTickers = await getAllTickers();
-            const usdtTickers = allTickers
-                .filter((t: any) => t.symbol.endsWith('USDT') && !t.symbol.includes('UP') && !t.symbol.includes('DOWN'))
-                .sort((a: any, b: any) => parseFloat(b.quoteVolume) - parseFloat(a.quoteVolume))
-                .slice(0, TOP_N_BY_VOLUME);
-            const topSymbols = usdtTickers.map((t:any) => t.symbol);
-            setDynamicCryptoList(topSymbols);
-            symbolsToFetch = topSymbols;
-        }
+      const response = await fetch(CUSTOM_API_URL, { cache: 'no-store' });
+      if (!response.ok) {
+        throw new Error(`Failed to fetch from custom API. Status: ${response.status}`);
+      }
+      
+      const result = await response.json();
+      setApiConnected(true);
 
-        // Step 2: Fetch detailed ticker and k-line data for these symbols
-        const tickers = await getTickers(symbolsToFetch);
-
-        const fetchedCryptos = await Promise.all(tickers.map(async (ticker: any) => {
-            const cryptoInfo = cryptoNames.find(c => `${c.symbol}USDT` === ticker.symbol) || {
-                id: ticker.symbol.replace('USDT', '').toLowerCase(),
-                name: ticker.symbol.replace('USDT', ''),
-                symbol: ticker.symbol.replace('USDT', ''),
-            };
-
-            const klines = await getKlines(ticker.symbol, '1d', 30);
-            const priceHistory = klines.map((k: any) => parseFloat(k[4]));
-
-            return {
-                id: cryptoInfo.id,
-                name: cryptoInfo.name,
-                symbol: cryptoInfo.symbol,
-                currentPrice: parseFloat(ticker.lastPrice),
-                priceHistory: priceHistory,
-                volume24h: parseFloat(ticker.quoteVolume),
-                marketCap: parseFloat(ticker.lastPrice) * parseFloat(ticker.totalTradedBaseAssetVolume),
-                priceChange24h: parseFloat(ticker.priceChangePercent),
-                rsi: calculateRSI(priceHistory),
-            };
-        }));
+      const fetchedCryptos = result.data.map((item: any): Crypto => {
+        const cryptoInfo = cryptoNames.find(c => c.symbol === item.symbol) || {
+            id: item.symbol.toLowerCase(),
+            name: item.symbol,
+            symbol: item.symbol,
+        };
         
-        setCryptos(fetchedCryptos.filter(Boolean) as Crypto[]);
+        // Generate mock price history for RSI calculation
+        const priceHistory = Array.from({ length: 30 }, (_, i) => {
+             // Simulate some variance, not just a flat line
+            const variance = (Math.random() - 0.5) * (item.currentPrice * 0.1); 
+            return item.currentPrice + variance;
+        });
+
+        return {
+          id: cryptoInfo.id,
+          name: cryptoInfo.name,
+          symbol: cryptoInfo.symbol,
+          currentPrice: parseFloat(item.currentPrice),
+          priceHistory: priceHistory,
+          volume24h: parseFloat(item.volume),
+          marketCap: 0, // Not provided by the new API
+          priceChange24h: parseFloat(item.volatility), // Using volatility as 24h change
+          rsi: calculateRSI(priceHistory),
+        };
+      });
+
+      setCryptos(fetchedCryptos);
 
     } catch (error) {
-        console.error("Failed to fetch Binance data:", error);
-        if (error instanceof Error) {
-            setBinanceConnectionError(`Failed to fetch live data: ${error.message}.`);
-        }
-        setCryptos([]); // Clear data on error
-    } finally {
-        if (!initialized) {
-            setInitialized(true);
-        }
-        setLoading(false);
-    }
-  }, [binanceConnected, dynamicCryptoList, initialized]);
-
-  useEffect(() => {
-    async function checkConnection() {
-      const { connected, error } = await getBinanceConnectionStatus();
-      setBinanceConnected(connected);
-      if (error) {
-        setBinanceConnectionError(error);
-        setInitialized(true); // If connection fails, we are "initialized" to an error state
-        setLoading(false);
+      console.error("Failed to fetch crypto data:", error);
+      if (error instanceof Error) {
+        setApiConnectionError(`Failed to fetch live data: ${error.message}. Please check your connection and the API status.`);
       }
+      setApiConnected(false);
+      setCryptos([]);
+    } finally {
+      if (!initialized) {
+        setInitialized(true);
+      }
+      setLoading(false);
     }
-    checkConnection();
-  }, []);
+  }, [initialized]);
 
   useEffect(() => {
-    if (binanceConnected) {
-      fetchBinanceData(); // Initial fetch
-    }
-  }, [binanceConnected, fetchBinanceData]);
+    fetchCryptoData();
+  }, [fetchCryptoData]);
 
 
   useEffect(() => {
@@ -231,9 +205,9 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
     currency,
     setCurrency,
     exchangeRate,
-    binanceConnected,
-    binanceConnectionError,
-    fetchBinanceData
+    apiConnected: apiConnected,
+    apiConnectionError: apiConnectionError,
+    fetchCryptoData: fetchCryptoData
   };
 
   return (

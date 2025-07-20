@@ -47,7 +47,7 @@ export default function Header() {
     currency, 
     setCurrency, 
     exchangeRate,
-    binanceConnected,
+    apiConnected,
   } = useCrypto();
   const { t, setLocale, locale } = useI18n();
   const { theme, setTheme } = useTheme();
@@ -82,9 +82,9 @@ export default function Header() {
           <div className="flex flex-1 items-center justify-end space-x-2">
             
             <div className="flex items-center gap-2 text-sm font-medium">
-               <div className={cn("h-2.5 w-2.5 rounded-full", binanceConnected ? 'bg-green-500' : 'bg-red-500')} />
+               <div className={cn("h-2.5 w-2.5 rounded-full", apiConnected ? 'bg-green-500' : 'bg-red-500')} />
                <span className="text-muted-foreground hidden sm:inline">
-                 {binanceConnected ? t('header.binanceConnected') : t('header.binanceDisconnected')}
+                 {apiConnected ? t('header.apiConnected') : t('header.apiDisconnected')}
                </span>
             </div>
             
