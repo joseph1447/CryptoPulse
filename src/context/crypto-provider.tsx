@@ -3,14 +3,13 @@
 
 import { createContext, useState, useEffect, useMemo, useCallback } from "react";
 import type { ReactNode } from "react";
-import { cryptoNames, calculateRSI } from "@/lib/crypto-data";
 import type { Crypto, Holding, CryptoContextType, Currency } from "@/lib/types";
 import { getExchangeRate } from "@/services/exchange-rate-service";
+import { getCryptoDataAction } from "@/app/actions";
 
 export const CryptoContext = createContext<CryptoContextType | null>(null);
 
 const INITIAL_GUSD_BALANCE = 10000;
-const CUSTOM_API_URL = "https://docmanagerapi-1.onrender.com/api/top20-volatile";
 
 export function CryptoProvider({ children }: { children: ReactNode }) {
   const [initialized, setInitialized] = useState(false);
@@ -27,57 +26,22 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
     setLoading(true);
     setApiConnectionError(null);
 
-    try {
-      const response = await fetch(CUSTOM_API_URL, { cache: 'no-store' });
-      if (!response.ok) {
-        throw new Error(`Failed to fetch from custom API. Status: ${response.status}`);
-      }
-      
-      const result = await response.json();
-      setApiConnected(true);
+    const result = await getCryptoDataAction();
 
-      const fetchedCryptos = result.data.map((item: any): Crypto => {
-        const cryptoInfo = cryptoNames.find(c => c.symbol === item.symbol) || {
-            id: item.symbol.toLowerCase(),
-            name: item.symbol,
-            symbol: item.symbol,
-        };
-        
-        // Generate mock price history for RSI calculation
-        const priceHistory = Array.from({ length: 30 }, (_, i) => {
-             // Simulate some variance, not just a flat line
-            const variance = (Math.random() - 0.5) * (item.currentPrice * 0.1); 
-            return item.currentPrice + variance;
-        });
-
-        return {
-          id: cryptoInfo.id,
-          name: cryptoInfo.name,
-          symbol: cryptoInfo.symbol,
-          currentPrice: parseFloat(item.currentPrice),
-          priceHistory: priceHistory,
-          volume24h: parseFloat(item.volume),
-          marketCap: 0, // Not provided by the new API
-          priceChange24h: parseFloat(item.volatility), // Using volatility as 24h change
-          rsi: calculateRSI(priceHistory),
-        };
-      });
-
-      setCryptos(fetchedCryptos);
-
-    } catch (error) {
-      console.error("Failed to fetch crypto data:", error);
-      if (error instanceof Error) {
-        setApiConnectionError(`Failed to fetch live data: ${error.message}. Please check your connection and the API status.`);
-      }
-      setApiConnected(false);
-      setCryptos([]);
-    } finally {
-      if (!initialized) {
-        setInitialized(true);
-      }
-      setLoading(false);
+    if (result.success && result.data) {
+        setApiConnected(true);
+        setCryptos(result.data);
+    } else {
+        console.error("Failed to fetch crypto data:", result.error);
+        setApiConnected(false);
+        setApiConnectionError(result.error || "An unknown error occurred.");
+        setCryptos([]);
     }
+
+    if (!initialized) {
+        setInitialized(true);
+    }
+    setLoading(false);
   }, [initialized]);
 
   useEffect(() => {
