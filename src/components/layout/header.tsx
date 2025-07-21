@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "@/hooks/use-theme";
 import { Separator } from "../ui/separator";
+import { MobileNav } from "./mobile-nav";
 
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   const pathname = usePathname();
@@ -78,6 +79,8 @@ export default function Header() {
               <NavLink href="/docs">{t('header.docs')}</NavLink>
             </nav>
           </div>
+          
+          <MobileNav />
 
           <div className="flex flex-1 items-center justify-end space-x-2">
             
