@@ -102,6 +102,7 @@ export function CryptoTable({ cryptos: initialCryptos, viewMode }: { cryptos: Cr
                         <Button
                            size="sm" 
                            variant={viewMode === 'sell' ? 'destructive' : 'default'}
+                           className={viewMode === 'buy' ? 'bg-green-600 hover:bg-green-700' : ''}
                            onClick={(e) => { e.stopPropagation(); handleTradeClick(crypto); }}>
                           {viewMode === 'buy' ? t('tradeDialog.buy') : t('tradeDialog.sell')}
                         </Button>
@@ -119,7 +120,14 @@ export function CryptoTable({ cryptos: initialCryptos, viewMode }: { cryptos: Cr
             ) : (
                 <TableRow>
                     <TableCell colSpan={6} className="text-center h-48 text-muted-foreground">
-                       {loading ? t('cryptoTable.loading') : t('cryptoTable.noData')}
+                       {loading ? (
+                           <div className="flex items-center justify-center gap-2">
+                             <Loader2 className="h-6 w-6 animate-spin" />
+                             <span>{t('cryptoTable.loading')}</span>
+                           </div>
+                       ) : (
+                           t('cryptoTable.noData')
+                       )}
                     </TableCell>
                 </TableRow>
             )}

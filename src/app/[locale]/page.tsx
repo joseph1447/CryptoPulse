@@ -116,7 +116,7 @@ export default function DashboardPage() {
             {t('dashboard.refreshButton')}
           </Button>
           <div className="flex items-center space-x-2">
-            <Label htmlFor="view-mode" className={viewMode === 'buy' ? 'text-primary' : ''}>{t('dashboard.top50BuyLabel')}</Label>
+            <Label htmlFor="view-mode" className={viewMode === 'buy' ? 'text-green-500' : ''}>{t('dashboard.top50BuyLabel')}</Label>
             <Switch
                 id="view-mode"
                 checked={viewMode === 'sell'}
@@ -125,13 +125,13 @@ export default function DashboardPage() {
                   setCurrentPage(1);
                 }}
             />
-            <Label htmlFor="view-mode" className={viewMode === 'sell' ? 'text-primary' : ''}>{t('dashboard.top50SellLabel')}</Label>
+            <Label htmlFor="view-mode" className={viewMode === 'sell' ? 'text-destructive' : ''}>{t('dashboard.top50SellLabel')}</Label>
           </div>
         </div>
       </div>
 
       <div className="relative">
-        {loading && !isRefreshing && (
+        {loading && (
           <div className="absolute inset-0 bg-background/80 flex items-center justify-center z-10 rounded-lg">
             <div className="flex items-center gap-2">
               <Loader2 className="h-8 w-8 animate-spin text-primary" />

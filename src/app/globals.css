@@ -24,6 +24,8 @@ body {
     --accent-foreground: 200 15% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
+    --buy: 142.1 76.2% 36.3%;
+    --buy-foreground: 0 0% 98%;
     --border: 200 15% 88%;
     --input: 200 15% 88%;
     --ring: 181 100% 34%;
@@ -51,6 +53,8 @@ body {
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
+    --buy: 142.1 76.2% 36.3%;
+    --buy-foreground: 0 0% 98%;
     --border: 217.2 32.6% 22.5%;
     --input: 217.2 32.6% 22.5%;
     --ring: 181 100% 74%;
