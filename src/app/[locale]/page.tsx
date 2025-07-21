@@ -133,7 +133,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="relative">
-        {loading && !isRefreshing && (
+        {loading && (
           <div className="absolute inset-0 bg-background/80 flex items-center justify-center z-10 rounded-lg">
             <div className="flex items-center gap-2">
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -141,11 +141,7 @@ export default function DashboardPage() {
             </div>
           </div>
         )}
-        <Card>
-          <CardContent className="pt-6">
-            <CryptoTable cryptos={paginatedCryptos} viewMode={viewMode} />
-          </CardContent>
-        </Card>
+        <CryptoTable cryptos={paginatedCryptos} viewMode={viewMode} />
       </div>
 
 
