@@ -1,129 +1,130 @@
 
 {
-    "header": {
-        "appName": "CryptoPulse",
-        "dashboard": "Dashboard",
-        "simulator": "Simulator",
-        "docs": "Docs",
-        "settings": "Settings",
-        "theme": "Theme",
-        "light": "Light",
-        "dark": "Dark",
-        "language": "Language",
-        "currency": "Currency",
-        "apiConnected": "API Connected",
-        "apiDisconnected": "API Disconnected"
+  "header": {
+    "appName": "CryptoPulse",
+    "dashboard": "Dashboard",
+    "simulator": "Simulator",
+    "docs": "Documentation",
+    "settings": "Settings",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "language": "Language",
+    "currency": "Currency",
+    "apiConnected": "API Connected",
+    "apiDisconnected": "API Disconnected"
+  },
+  "footer": {
+    "policies": "Policies"
+  },
+  "dashboard": {
+    "top50ShortTermBuy": "Top 50 Short-Term Buy Opportunities",
+    "top50ShortTermSell": "Top 50 Short-Term Sell Opportunities",
+    "refreshButton": "Refresh Data",
+    "top50BuyLabel": "Buy View",
+    "top50SellLabel": "Sell View",
+    "warning": {
+      "title": "API Key Not Set",
+      "description": "The GOOGLE_API_KEY is not set. AI features will be disabled. Please add it to your .env.local file.",
+      "dismiss": "Dismiss"
     },
-    "dashboard": {
-        "title": "Crypto Dashboard",
-        "top50ShortTermBuy": "Top 50 Short-Term Buy Opportunities",
-        "top50ShortTermSell": "Top 50 Short-Term Sell Opportunities",
-        "refreshButton": "Refresh Data",
-        "top50BuyLabel": "Buy",
-        "top50SellLabel": "Sell",
-        "error": {
-            "title": "API Connection Error",
-            "description": "Could not connect to the cryptocurrency data service. Your network may be down, or the service might be experiencing issues. You can continue to use the simulator with cached data, but live prices will not be available."
-        },
-        "warning": {
-            "dismiss": "Dismiss"
-        },
-        "pagination": {
-            "page": "Page",
-            "of": "of",
-            "previous": "Previous",
-            "next": "Next"
-        }
+    "error": {
+      "title": "API Connection Error",
+      "description": "Could not fetch live cryptocurrency data. The API may be down or there might be a network issue. Displaying cached or no data."
     },
-    "cryptoTable": {
-        "name": "Name",
-        "price": "Price",
-        "volume24h": "Volume (24h)",
-        "rsi": "RSI (6d)",
-        "action": "Action",
-        "expandRow": "Expand row",
-        "noData": "No cryptocurrency data available.",
-        "loading": "Loading crypto data..."
-    },
-    "cryptoDetail": {
-        "priceChartTitle": "{{name}} Price History (30d)",
-        "aiAnalysis": "AI Analysis",
-        "aiAnalysisDescription": "Get AI-powered trade signals.",
-        "analyzeButton": "Analyze Now",
-        "analysisFailed": "Analysis Failed",
-        "analysisError": "An error occurred while generating analysis.",
-        "shortTermSignal": "Short-Term Signal",
-        "longTermSignal": "Long-Term Signal",
-        "explanation": "Explanation"
-    },
-    "rsi": {
-        "label": "RSI: {{value}}",
-        "oversold": "Oversold (<30)",
-        "overbought": "Overbought (>70)"
-    },
-    "tradeDialog": {
-        "buy": "Buy",
-        "sell": "Sell",
-        "title": "Trade {{name}} ({{symbol}})",
-        "currentPrice": "Current Price",
-        "balance": "Balance",
-        "amountToSpend": "Amount to Spend ({{stablecoin}})",
-        "amountToReceive": "Amount to Receive",
-        "amountToReceiveIn": "Amount to Receive ({{stablecoin}})",
-        "amountToSell": "Amount to Sell",
-        "purchaseSuccessTitle": "Purchase Successful",
-        "purchaseSuccessDescription": "You purchased {{amount}} {{symbol}}.",
-        "purchaseFailTitle": "Purchase Failed",
-        "purchaseFailDescription": "The transaction could not be completed.",
-        "saleSuccessTitle": "Sale Successful",
-        "saleSuccessDescription": "You sold {{amount}} {{symbol}}.",
-        "saleFailTitle": "Sale Failed",
-        "saleFailDescription": "The transaction could not be completed.",
-        "validation": {
-            "positive": "Amount must be positive.",
-            "insufficientGUSD": "Insufficient {{stablecoin}} balance.",
-            "insufficientCrypto": "Insufficient crypto balance."
-        }
-    },
-    "simulator": {
-        "title": "Trading Simulator"
-    },
-    "walletSummary": {
-        "title": "Wallet Summary",
-        "cashBalance": "Cash Balance ({{stablecoin}})",
-        "cryptoHoldings": "Crypto Holdings Value",
-        "totalPL": "Total P&L"
-    },
-    "holdingsTable": {
-        "title": "My Holdings",
-        "asset": "Asset",
-        "quantity": "Quantity",
-        "avgBuyPrice": "Avg. Buy Price",
-        "currentValue": "Current Value",
-        "pl": "P&L",
-        "action": "Action",
-        "noHoldings": "You do not have any holdings yet."
-    },
-    "resetWallet": {
-        "button": "Reset Wallet",
-        "title": "Are you sure you want to reset your wallet?",
-        "description": "This action is irreversible. All your current holdings will be sold at market price and your cash balance will be reset to the initial 10,000 GUSD. To confirm, please type ",
-        "descriptionCont": " in the box below.",
-        "inputLabel": "Confirmation Text",
-        "inputPlaceholder": "Type 'default' to confirm",
-        "cancel": "Cancel",
-        "confirm": "Reset Wallet",
-        "successTitle": "Wallet Reset",
-        "successDescription": "Your wallet has been successfully reset to its initial state."
-    },
-    "policies": {
-        "title": "Our Policies",
-        "subtitle": "Privacy & Data Handling",
-        "p1": "Your privacy is paramount. This application is designed to function without a backend server for storing user data. All your information, including your portfolio and transaction history, is stored exclusively in your browser's local storage.",
-        "p2": "We do not collect, store, or transmit any personal data. Your virtual wallet and trading activities are completely private to your session and your device.",
-        "p3": "If you provide an API key for AI features, it is also stored only in your local environment and is never sent to or stored on any server associated with this application. It is used directly by your browser to communicate with the AI service provider."
-    },
-    "footer": {
-        "policies": "Policies"
+    "pagination": {
+      "page": "Page",
+      "of": "of",
+      "previous": "Previous",
+      "next": "Next"
     }
+  },
+  "cryptoTable": {
+    "name": "Name",
+    "price": "Price",
+    "volume24h": "Volume (24h)",
+    "rsi": "RSI (6d)",
+    "action": "Action",
+    "noData": "No cryptocurrency data available.",
+    "loading": "Fetching live data...",
+    "expandRow": "Expand Row"
+  },
+  "cryptoDetail": {
+    "priceChartTitle": "{{name}} Price History (30d)",
+    "aiAnalysis": "AI Analysis",
+    "aiAnalysisDescription": "Get AI-powered trade signals.",
+    "analyzeButton": "Analyze Now",
+    "analysisFailed": "Analysis Failed",
+    "analysisError": "An unexpected error occurred while generating the analysis.",
+    "shortTermSignal": "Short-Term Signal",
+    "longTermSignal": "Long-Term Signal",
+    "explanation": "Explanation"
+  },
+  "rsi": {
+    "label": "RSI: {{value}}",
+    "oversold": "Oversold (<30)",
+    "overbought": "Overbought (>70)"
+  },
+  "tradeDialog": {
+    "buy": "Buy",
+    "sell": "Sell",
+    "title": "Trade {{name}} ({{symbol}})",
+    "currentPrice": "Current Price",
+    "balance": "Balance",
+    "amountToSpend": "Amount to spend ({{stablecoin}})",
+    "amountToReceive": "Amount to receive",
+    "amountToReceiveIn": "Amount to receive in {{stablecoin}}",
+    "amountToSell": "Amount to sell",
+    "validation": {
+      "positive": "Amount must be positive.",
+      "insufficientGUSD": "Insufficient {{stablecoin}} balance.",
+      "insufficientCrypto": "Insufficient crypto balance."
+    },
+    "purchaseSuccessTitle": "Purchase Successful",
+    "purchaseSuccessDescription": "Successfully bought {{amount}} {{symbol}}.",
+    "purchaseFailTitle": "Purchase Failed",
+    "purchaseFailDescription": "The transaction could not be completed.",
+    "saleSuccessTitle": "Sale Successful",
+    "saleSuccessDescription": "Successfully sold {{amount}} {{symbol}}.",
+    "saleFailTitle": "Sale Failed",
+    "saleFailDescription": "The transaction could not be completed."
+  },
+  "simulator": {
+    "title": "Trading Simulator"
+  },
+  "walletSummary": {
+    "title": "Wallet Summary",
+    "cashBalance": "Cash Balance ({{stablecoin}})",
+    "cryptoHoldings": "Crypto Holdings Value",
+    "totalPL": "Total P&L"
+  },
+  "holdingsTable": {
+    "title": "My Holdings",
+    "asset": "Asset",
+    "quantity": "Quantity",
+    "avgBuyPrice": "Avg. Buy Price",
+    "currentValue": "Current Value",
+    "pl": "P&L",
+    "action": "Action",
+    "noHoldings": "You do not have any crypto holdings yet."
+  },
+  "resetWallet": {
+    "button": "Reset Wallet",
+    "title": "Are you absolutely sure?",
+    "description": "This action cannot be undone. This will permanently delete your transaction history and reset your virtual balance to 10,000 GUSD. To confirm, please type '",
+    "descriptionCont": "' in the box below.",
+    "inputLabel": "Confirmation text",
+    "inputPlaceholder": "Type 'default' to confirm",
+    "cancel": "Cancel",
+    "confirm": "Reset Wallet",
+    "successTitle": "Wallet Reset",
+    "successDescription": "Your virtual wallet has been successfully reset."
+  },
+  "policies": {
+    "title": "Privacy Policies",
+    "subtitle": "Our Commitment to Your Privacy",
+    "p1": "This is a demo application. No real data is stored on any server. All your trading data, including your virtual wallet and transaction history, is stored exclusively in your browser's local storage. This means your data remains on your computer and is not accessible by us or any third party.",
+    "p2": "Your API keys for services like Google AI are also stored only in your local environment variables and are never transmitted to our servers. They are used directly from your browser to communicate with the respective API provider, ensuring maximum security and privacy.",
+    "p3": "Since we do not collect or store any personal data, there is no risk of your information being sold or shared. If you clear your browser's cache or local storage, all your simulation data will be permanently deleted."
+  }
 }

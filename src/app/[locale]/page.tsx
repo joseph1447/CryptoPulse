@@ -4,7 +4,6 @@
 import { useMemo, useState } from "react";
 import { useCrypto } from "@/hooks/use-crypto";
 import { CryptoTable } from "@/components/dashboard/crypto-table";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useI18n } from "@/hooks/use-i18n";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle, X, RefreshCw, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
