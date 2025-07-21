@@ -34,6 +34,7 @@ export interface CryptoContextType {
   apiConnected: boolean;
   apiConnectionError: string | null;
   fetchCryptoData: () => Promise<void>;
+  resetWallet: () => void;
 }
 
 // i18n Types

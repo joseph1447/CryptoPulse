@@ -157,6 +157,11 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
     setCurrencyState(newCurrency);
   }, []);
 
+  const resetWallet = useCallback(() => {
+    setGusdBalance(INITIAL_GUSD_BALANCE);
+    setHoldings([]);
+  }, []);
+
   const contextValue = {
     cryptos,
     gusdBalance,
@@ -171,7 +176,8 @@ export function CryptoProvider({ children }: { children: ReactNode }) {
     exchangeRate,
     apiConnected: apiConnected,
     apiConnectionError: apiConnectionError,
-    fetchCryptoData: fetchCryptoData
+    fetchCryptoData: fetchCryptoData,
+    resetWallet
   };
 
   return (
