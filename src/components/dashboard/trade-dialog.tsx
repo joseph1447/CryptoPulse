@@ -138,13 +138,14 @@ export function TradeDialog({ crypto, isOpen, onClose, defaultTab = 'buy' }: Tra
             {t('tradeDialog.currentPrice')}: <span className="font-mono text-primary">{formatCurrency(livePriceInSelectedCurrency)}</span>
         </p>
 
-        <Tabs value={activeTab} onValueChange={(tab) => setActiveTab(tab as 'buy' | 'sell')} className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="buy">{t('tradeDialog.buy')}</TabsTrigger>
-            <TabsTrigger value="sell">{t('tradeDialog.sell')}</TabsTrigger>
-          </TabsList>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <Tabs value={activeTab} onValueChange={(tab) => setActiveTab(tab as 'buy' | 'sell')} className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="buy">{t('tradeDialog.buy')}</TabsTrigger>
+                <TabsTrigger value="sell">{t('tradeDialog.sell')}</TabsTrigger>
+              </TabsList>
+              
               <TabsContent value="buy">
                 <div className="space-y-4 py-4">
                   <div className="text-sm text-right">{t('tradeDialog.balance')}: <span className="font-mono text-primary">{stablecoinBalance.toFixed(2)} {stablecoinName}</span></div>
@@ -175,9 +176,6 @@ export function TradeDialog({ crypto, isOpen, onClose, defaultTab = 'buy' }: Tra
                       )}
                     />
                 </div>
-                 <DialogFooter>
-                    <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>{t('tradeDialog.buy')} {crypto.symbol}</Button>
-                </DialogFooter>
               </TabsContent>
               <TabsContent value="sell">
                 <div className="space-y-4 py-4">
@@ -209,13 +207,16 @@ export function TradeDialog({ crypto, isOpen, onClose, defaultTab = 'buy' }: Tra
                       )}
                     />
                 </div>
-                 <DialogFooter>
-                    <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>{t('tradeDialog.sell')} {crypto.symbol}</Button>
-                </DialogFooter>
               </TabsContent>
-            </form>
-          </Form>
-        </Tabs>
+            </Tabs>
+            
+            <DialogFooter>
+              <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
+                {activeTab === 'buy' ? t('tradeDialog.buy') : t('tradeDialog.sell')} {crypto.symbol}
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );
