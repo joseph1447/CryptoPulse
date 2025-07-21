@@ -1,114 +1,111 @@
 
 {
-    "header": {
-        "appName": "CryptoPulse",
-        "dashboard": "Dashboard",
-        "simulator": "Simulador",
-        "docs": "Documentación",
-        "settings": "Configuración",
-        "theme": "Tema",
-        "light": "Claro",
-        "dark": "Oscuro",
-        "language": "Idioma",
-        "currency": "Moneda",
-        "binanceConnected": "Binance Conectado",
-        "binanceDisconnected": "Binance Desconectado"
+  "header": {
+    "appName": "CryptoPulse",
+    "dashboard": "Dashboard",
+    "simulator": "Simulador",
+    "docs": "Documentación",
+    "apiConnected": "API Conectada",
+    "apiDisconnected": "API Desconectada",
+    "settings": "Configuración",
+    "theme": "Tema",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "language": "Idioma",
+    "currency": "Moneda"
+  },
+  "footer": {
+    "policies": "Políticas"
+  },
+  "dashboard": {
+    "title": "Dashboard de Criptomonedas",
+    "top10BuyLabel": "Top para Comprar",
+    "top10SellLabel": "Top para Vender",
+    "top10ShortTermBuy": "Top 10 Oportunidades de Compra a Corto Plazo",
+    "top10ShortTermSell": "Top 10 Oportunidades de Venta a Corto Plazo",
+    "refreshButton": "Actualizar",
+    "error": {
+      "title": "Error de Conexión de API",
+      "description": "No se pudieron obtener los datos en tiempo real. Por favor, verifica tu conexión y la clave de API."
     },
-    "footer": {
-        "policies": "Políticas"
-    },
-    "dashboard": {
-        "title": "Dashboard de Criptomonedas",
-        "top10ShortTerm": "Top 10 Oportunidades a Corto Plazo (por RSI)",
-        "top10ShortTermBuy": "Top 10 Oportunidades de Compra",
-        "top10ShortTermSell": "Top 10 Oportunidades de Venta",
-        "top10BuyLabel": "Top para Comprar",
-        "top10SellLabel": "Top para Vender",
-        "refreshButton": "Actualizar",
-        "error": {
-            "title": "Error de Conexión con Binance",
-            "description": "No se pudo conectar a la API de Binance. Asegúrese de que sus claves de API estén configuradas correctamente en el archivo .env.local y tengan los permisos necesarios. La aplicación utilizará datos simulados hasta que la conexión sea exitosa."
-        },
-        "warning": {
-            "dismiss": "Descartar"
-        }
-    },
-    "cryptoTable": {
-        "name": "Nombre",
-        "price": "Precio",
-        "change24h": "Cambio 24h",
-        "volume24h": "Volumen 24h",
-        "marketCap": "Cap. de Mercado",
-        "rsi": "RSI",
-        "action": "Acción",
-        "expandRow": "Expandir fila",
-        "noData": "No hay datos disponibles.",
-        "loading": "Cargando datos de criptomonedas en tiempo real..."
-    },
-    "rsi": {
-        "label": "RSI: {value}",
-        "oversold": "Sobrevendido (<30)",
-        "overbought": "Sobrecomprado (>70)"
-    },
-    "cryptoDetail": {
-        "priceChartTitle": "Historial de Precios de {name} (30d)",
-        "aiAnalysis": "Análisis IA",
-        "aiAnalysisDescription": "Genera señales de trading basadas en datos en tiempo real.",
-        "analyzeButton": "Analizar Ahora",
-        "analysisFailed": "Análisis Fallido",
-        "analysisError": "Ocurrió un error inesperado al generar el análisis.",
-        "shortTermSignal": "Señal a Corto Plazo",
-        "longTermSignal": "Señal a Largo Plazo",
-        "explanation": "Explicación"
-    },
-    "tradeDialog": {
-        "title": "Operar {name} ({symbol})",
-        "buy": "Comprar",
-        "sell": "Vender",
-        "currentPrice": "Precio Actual",
-        "balance": "Saldo",
-        "amountToSpend": "Monto a gastar ({stablecoin})",
-        "amountToReceive": "Monto a recibir",
-        "amountToSell": "Monto a vender",
-        "amountToReceiveIn": "Monto a recibir ({stablecoin})",
-        "purchaseSuccessTitle": "Compra Exitosa",
-        "purchaseSuccessDescription": "Compraste {amount} {symbol}.",
-        "purchaseFailTitle": "Compra Fallida",
-        "purchaseFailDescription": "La transacción no pudo ser completada.",
-        "saleSuccessTitle": "Venta Exitosa",
-        "saleSuccessDescription": "Vendiste {amount} {symbol}.",
-        "saleFailTitle": "Venta Fallida",
-        "saleFailDescription": "La transacción no pudo ser completada.",
-        "validation": {
-            "positive": "El monto debe ser positivo.",
-            "insufficientGUSD": "Saldo insuficiente de {stablecoin}.",
-            "insufficientCrypto": "Saldo insuficiente de criptomoneda."
-        }
-    },
-    "simulator": {
-        "title": "Simulador de Trading"
-    },
-    "walletSummary": {
-        "title": "Resumen de Billetera",
-        "cashBalance": "Saldo en Efectivo ({stablecoin})",
-        "cryptoHoldings": "Valor de Criptoactivos",
-        "totalPL": "Ganancia/Pérdida Total"
-    },
-    "holdingsTable": {
-        "title": "Mis Activos",
-        "asset": "Activo",
-        "quantity": "Cantidad",
-        "avgBuyPrice": "Precio Prom. Compra",
-        "currentValue": "Valor Actual",
-        "pl": "G/P",
-        "action": "Acción",
-        "noHoldings": "No tienes activos. ¡Compra alguna criptomoneda desde el dashboard!"
-    },
-    "policies": {
-        "title": "Políticas de Privacidad",
-        "subtitle": "Tus Datos, Tu Control",
-        "p1": "Esta aplicación está diseñada con tu privacidad y seguridad como máxima prioridad. No recopilamos, almacenamos ni transmitimos ninguno de tus datos personales, incluidas tus claves de API.",
-        "p2": "Tus claves de API de Binance se almacenan exclusivamente en el entorno local de tu navegador. Nunca se envían a ningún servidor, incluido el nuestro. Esto significa que solo tú tienes acceso a ellas, directamente desde tu propia máquina. Las claves se utilizan únicamente para realizar solicitudes directas de solo lectura a la API de Binance desde tu navegador para obtener datos de mercado.",
-        "p3": "Todos los datos de simulación de trading, como tu saldo virtual y tus activos, también se almacenan localmente en tu navegador. Limpiar el almacenamiento de tu navegador restablecerá la simulación."
+    "warning": {
+      "dismiss": "Descartar"
     }
+  },
+  "cryptoTable": {
+    "name": "Nombre",
+    "price": "Precio",
+    "volume24h": "Volumen 24h",
+    "rsi": "RSI",
+    "action": "Acción",
+    "expandRow": "Expandir fila",
+    "loading": "Cargando datos de criptomonedas...",
+    "noData": "No se encontraron datos de criptomonedas."
+  },
+  "cryptoDetail": {
+    "priceChartTitle": "Historial de Precios de {{name}} (30d)",
+    "aiAnalysis": "Análisis IA",
+    "aiAnalysisDescription": "Genera señales de trading basadas en datos en tiempo real.",
+    "shortTermSignal": "Señal a Corto Plazo",
+    "longTermSignal": "Señal a Largo Plazo",
+    "explanation": "Explicación",
+    "analyzeButton": "Analizar Ahora",
+    "analysisFailed": "Falló el Análisis",
+    "analysisError": "Ocurrió un error al generar las señales."
+  },
+  "rsi": {
+    "label": "RSI (14): {{value}}",
+    "oversold": "Sobreventa (Potencial de Compra)",
+    "overbought": "Sobrecompra (Potencial de Venta)"
+  },
+  "tradeDialog": {
+    "buy": "Comprar",
+    "sell": "Vender",
+    "title": "Operar {{name}} ({{symbol}})",
+    "currentPrice": "Precio Actual",
+    "balance": "Saldo",
+    "amountToSpend": "Cantidad a gastar ({{stablecoin}})",
+    "amountToReceive": "Cantidad a recibir",
+    "amountToSell": "Cantidad a vender",
+    "amountToReceiveIn": "Cantidad a recibir en {{stablecoin}}",
+    "validation": {
+      "positive": "La cantidad debe ser positiva.",
+      "insufficientGUSD": "Saldo de {{stablecoin}} insuficiente.",
+      "insufficientCrypto": "Saldo de criptomoneda insuficiente."
+    },
+    "purchaseSuccessTitle": "Compra Exitosa",
+    "purchaseSuccessDescription": "Compraste {{amount}} {{symbol}}.",
+    "purchaseFailTitle": "Falló la Compra",
+    "purchaseFailDescription": "No se pudo completar la transacción.",
+    "saleSuccessTitle": "Venta Exitosa",
+    "saleSuccessDescription": "Vendiste {{amount}} {{symbol}}.",
+    "saleFailTitle": "Falló la Venta",
+    "saleFailDescription": "No se pudo completar la transacción."
+  },
+  "simulator": {
+    "title": "Simulador de Billetera"
+  },
+  "walletSummary": {
+    "title": "Resumen de Billetera",
+    "cashBalance": "Saldo en Efectivo ({{stablecoin}})",
+    "cryptoHoldings": "Valor de Cripto Tenencias",
+    "totalPL": "G/P Total"
+  },
+  "holdingsTable": {
+    "title": "Mis Tenencias",
+    "asset": "Activo",
+    "quantity": "Cantidad",
+    "avgBuyPrice": "Precio Prom. Compra",
+    "currentValue": "Valor Actual",
+    "pl": "G/P",
+    "action": "Acción",
+    "noHoldings": "No tienes ninguna criptomoneda. ¡Ve al dashboard para empezar a operar!"
+  },
+  "policies": {
+    "title": "Políticas",
+    "subtitle": "Políticas de la Aplicación y Descargo de Responsabilidad",
+    "p1": "CryptoPulse es una herramienta de simulación y no proporciona asesoramiento financiero real. Todas las operaciones se realizan con fondos virtuales y no tienen valor en el mundo real.",
+    "p2": "Los datos de mercado son proporcionados por una API externa y pueden no ser siempre precisos. No nos hacemos responsables de las decisiones tomadas en base a los datos presentados.",
+    "p3": "El uso de esta aplicación es bajo su propio riesgo. Invertir en criptomonedas es arriesgado y puede resultar en pérdidas financieras."
+  }
 }
