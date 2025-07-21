@@ -105,7 +105,9 @@ export default function DashboardPage() {
       )}
 
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <h1 className="text-3xl font-bold font-headline">{t('dashboard.title')}</h1>
+        <h1 className="text-3xl font-bold font-headline">
+          {viewMode === 'buy' ? t('dashboard.top50ShortTermBuy') : t('dashboard.top50ShortTermSell')}
+        </h1>
         <div className="flex items-center space-x-4">
           <Button onClick={handleRefresh} disabled={isRefreshing || loading} variant="outline" size="sm">
             {isRefreshing || loading ? (
@@ -131,7 +133,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="relative">
-        {loading && (
+        {loading && !isRefreshing && (
           <div className="absolute inset-0 bg-background/80 flex items-center justify-center z-10 rounded-lg">
             <div className="flex items-center gap-2">
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -140,12 +142,7 @@ export default function DashboardPage() {
           </div>
         )}
         <Card>
-          <CardHeader>
-            <CardTitle>
-              {viewMode === 'buy' ? t('dashboard.top50ShortTermBuy') : t('dashboard.top50ShortTermSell')}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+          <CardContent className="pt-6">
             <CryptoTable cryptos={paginatedCryptos} viewMode={viewMode} />
           </CardContent>
         </Card>
