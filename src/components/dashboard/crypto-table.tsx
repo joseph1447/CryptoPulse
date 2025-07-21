@@ -21,13 +21,13 @@ import { useI18n } from "@/hooks/use-i18n";
 import { useCrypto } from "@/hooks/use-crypto";
 import FallbackImage from "../common/fallback-image";
 
-export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) {
+export function CryptoTable({ cryptos: initialCryptos, viewMode }: { cryptos: Crypto[], viewMode: 'buy' | 'sell' }) {
   const [selectedCrypto, setSelectedCrypto] = useState<Crypto | null>(null);
   const [openCollapsible, setOpenCollapsible] = useState<string | null>(null);
   const { t, locale } = useI18n();
   const { currency, exchangeRate, loading } = useCrypto();
 
-  const handleBuyClick = (crypto: Crypto) => {
+  const handleTradeClick = (crypto: Crypto) => {
     setSelectedCrypto(crypto);
   };
 
@@ -62,7 +62,15 @@ export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) 
 
   return (
     <>
-      <div className="rounded-md border">
+      <div className="rounded-md border relative">
+        {loading && (
+          <div className="absolute inset-0 bg-background/80 flex items-center justify-center z-10">
+            <div className="flex items-center gap-2">
+              <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              <p className="text-muted-foreground">{t('cryptoTable.loading')}</p>
+            </div>
+          </div>
+        )}
         <Table>
           <TableHeader>
             <TableRow>
@@ -75,16 +83,7 @@ export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) 
             </TableRow>
           </TableHeader>
           <TableBody>
-            {loading && initialCryptos.length === 0 ? (
-                 <TableRow>
-                    <TableCell colSpan={6} className="h-48 text-center">
-                        <div className="flex justify-center items-center gap-2">
-                            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                            <p className="text-muted-foreground">{t('cryptoTable.loading')}</p>
-                        </div>
-                    </TableCell>
-                </TableRow>
-            ) : initialCryptos.length > 0 ? (
+            {initialCryptos.length > 0 ? (
               initialCryptos.map((crypto) => (
                 <Fragment key={crypto.id}>
                     <TableRow className="cursor-pointer" onClick={() => toggleCollapsible(crypto.id)}>
@@ -108,8 +107,11 @@ export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) 
                         <RSIIndicator value={crypto.rsi} />
                       </TableCell>
                       <TableCell className="text-right">
-                        <Button size="sm" onClick={(e) => { e.stopPropagation(); handleBuyClick(crypto); }}>
-                          {t('tradeDialog.buy')}
+                        <Button
+                           size="sm" 
+                           variant={viewMode === 'sell' ? 'destructive' : 'default'}
+                           onClick={(e) => { e.stopPropagation(); handleTradeClick(crypto); }}>
+                          {viewMode === 'buy' ? t('tradeDialog.buy') : t('tradeDialog.sell')}
                         </Button>
                       </TableCell>
                     </TableRow>
@@ -125,7 +127,7 @@ export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) 
             ) : (
                 <TableRow>
                     <TableCell colSpan={6} className="text-center h-48 text-muted-foreground">
-                       {t('cryptoTable.noData')}
+                       {loading ? t('cryptoTable.loading') : t('cryptoTable.noData')}
                     </TableCell>
                 </TableRow>
             )}
@@ -137,6 +139,7 @@ export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) 
           crypto={selectedCrypto}
           isOpen={!!selectedCrypto}
           onClose={handleTradeDialogClose}
+          defaultTab={viewMode}
         />
       )}
     </>

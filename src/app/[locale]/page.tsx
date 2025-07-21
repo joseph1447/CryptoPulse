@@ -137,7 +137,7 @@ export default function DashboardPage() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <CryptoTable cryptos={paginatedCryptos} />
+          <CryptoTable cryptos={paginatedCryptos} viewMode={viewMode} />
         </CardContent>
       </Card>
 
