@@ -1,19 +1,20 @@
 
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useMemo, useState } from "react";
 import { useCrypto } from "@/hooks/use-crypto";
 import { CryptoTable } from "@/components/dashboard/crypto-table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useI18n } from "@/hooks/use-i18n";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle, X, RefreshCw, Loader2 } from "lucide-react";
+import { AlertCircle, X, RefreshCw, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 
 type ViewMode = "buy" | "sell";
+const ITEMS_PER_PAGE = 15;
 
 export default function DashboardPage() {
   const { 
@@ -27,14 +28,16 @@ export default function DashboardPage() {
   const [showWarning, setShowWarning] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>("buy");
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   
   const handleRefresh = async () => {
     setIsRefreshing(true);
+    setCurrentPage(1);
     await fetchCryptoData();
     setIsRefreshing(false);
   };
 
-  const rankedCryptos = useMemo(() => {
+  const top50Cryptos = useMemo(() => {
     if (!cryptos || cryptos.length === 0) return [];
     
     const sorted = [...cryptos].sort((a, b) => {
@@ -45,8 +48,16 @@ export default function DashboardPage() {
         }
     });
 
-    return sorted.slice(0, 10);
+    return sorted.slice(0, 50);
   }, [cryptos, viewMode]);
+
+  const paginatedCryptos = useMemo(() => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    return top50Cryptos.slice(startIndex, endIndex);
+  }, [top50Cryptos, currentPage]);
+
+  const totalPages = Math.ceil(top50Cryptos.length / ITEMS_PER_PAGE);
 
   if (!initialized) {
     return (
@@ -105,13 +116,16 @@ export default function DashboardPage() {
             {t('dashboard.refreshButton')}
           </Button>
           <div className="flex items-center space-x-2">
-            <Label htmlFor="view-mode" className={viewMode === 'buy' ? 'text-primary' : ''}>{t('dashboard.top10BuyLabel')}</Label>
+            <Label htmlFor="view-mode" className={viewMode === 'buy' ? 'text-primary' : ''}>{t('dashboard.top50BuyLabel')}</Label>
             <Switch
                 id="view-mode"
                 checked={viewMode === 'sell'}
-                onCheckedChange={(checked) => setViewMode(checked ? 'sell' : 'buy')}
+                onCheckedChange={(checked) => {
+                  setViewMode(checked ? 'sell' : 'buy');
+                  setCurrentPage(1);
+                }}
             />
-            <Label htmlFor="view-mode" className={viewMode === 'sell' ? 'text-primary' : ''}>{t('dashboard.top10SellLabel')}</Label>
+            <Label htmlFor="view-mode" className={viewMode === 'sell' ? 'text-primary' : ''}>{t('dashboard.top50SellLabel')}</Label>
           </div>
         </div>
       </div>
@@ -119,13 +133,39 @@ export default function DashboardPage() {
       <Card>
         <CardHeader>
           <CardTitle>
-             {viewMode === 'buy' ? t('dashboard.top10ShortTermBuy') : t('dashboard.top10ShortTermSell')}
+             {viewMode === 'buy' ? t('dashboard.top50ShortTermBuy') : t('dashboard.top50ShortTermSell')}
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <CryptoTable cryptos={rankedCryptos} />
+          <CryptoTable cryptos={paginatedCryptos} />
         </CardContent>
       </Card>
+
+      {totalPages > 1 && (
+        <div className="flex items-center justify-end space-x-4">
+            <span className="text-sm text-muted-foreground">
+                {t('dashboard.pagination.page')} {currentPage} {t('dashboard.pagination.of')} {totalPages}
+            </span>
+            <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+            >
+                <ChevronLeft className="h-4 w-4 mr-1" />
+                {t('dashboard.pagination.previous')}
+            </Button>
+            <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+            >
+                {t('dashboard.pagination.next')}
+                <ChevronRight className="h-4 w-4 ml-1" />
+            </Button>
+        </div>
+      )}
     </div>
   );
 }

@@ -11,52 +11,51 @@
         "dark": "Dark",
         "language": "Language",
         "currency": "Currency",
-        "binanceConnected": "Binance Connected",
-        "binanceDisconnected": "Binance Disconnected"
+        "apiConnected": "API Connected",
+        "apiDisconnected": "API Disconnected"
     },
     "footer": {
         "policies": "Policies"
     },
     "dashboard": {
-        "title": "Cryptocurrency Dashboard",
-        "top10ShortTerm": "Top 10 Short-Term Opportunities (by RSI)",
-        "top10ShortTermBuy": "Top 10 Buy Opportunities",
-        "top10ShortTermSell": "Top 10 Sell Opportunities",
-        "top10BuyLabel": "Top to Buy",
-        "top10SellLabel": "Top to Sell",
+        "title": "Crypto Dashboard",
+        "top50ShortTermBuy": "Top 50 Short-Term Buy Opportunities",
+        "top50ShortTermSell": "Top 50 Short-Term Sell Opportunities",
+        "top50BuyLabel": "Top 50 Buy",
+        "top50SellLabel": "Top 50 Sell",
         "refreshButton": "Refresh",
         "error": {
-            "title": "Binance Connection Error",
-            "description": "Could not connect to the Binance API. Please ensure your API keys are correctly set in the .env.local file and have the required permissions. The application will use simulated data until the connection is successful."
+            "title": "API Connection Error",
+            "description": "Could not fetch live data from the API. The service might be down or there could be a network issue. Please try again later. Error details:"
         },
         "warning": {
             "dismiss": "Dismiss"
+        },
+        "pagination": {
+            "page": "Page",
+            "of": "of",
+            "previous": "Previous",
+            "next": "Next"
         }
     },
     "cryptoTable": {
         "name": "Name",
         "price": "Price",
-        "change24h": "24h Change",
         "volume24h": "24h Volume",
-        "marketCap": "Market Cap",
-        "rsi": "RSI",
+        "priceChange24h": "24h Change",
+        "rsi": "RSI (14d)",
         "action": "Action",
         "expandRow": "Expand row",
-        "noData": "No data available.",
-        "loading": "Loading real-time crypto data..."
-    },
-    "rsi": {
-        "label": "RSI: {value}",
-        "oversold": "Oversold (<30)",
-        "overbought": "Overbought (>70)"
+        "loading": "Fetching latest data...",
+        "noData": "No cryptocurrency data available."
     },
     "cryptoDetail": {
         "priceChartTitle": "{name} Price History (30d)",
         "aiAnalysis": "AI Analysis",
-        "aiAnalysisDescription": "Generate trade signals based on real-time data.",
+        "aiAnalysisDescription": "Get AI-powered trade signals.",
         "analyzeButton": "Analyze Now",
         "analysisFailed": "Analysis Failed",
-        "analysisError": "An unexpected error occurred while generating the analysis.",
+        "analysisError": "Could not generate AI analysis.",
         "shortTermSignal": "Short-Term Signal",
         "longTermSignal": "Long-Term Signal",
         "explanation": "Explanation"
@@ -69,21 +68,26 @@
         "balance": "Balance",
         "amountToSpend": "Amount to spend ({stablecoin})",
         "amountToReceive": "Amount to receive",
+        "amountToReceiveIn": "Amount to receive in ({stablecoin})",
         "amountToSell": "Amount to sell",
-        "amountToReceiveIn": "Amount to receive ({stablecoin})",
+        "validation": {
+            "positive": "Amount must be positive.",
+            "insufficientGUSD": "Insufficient {stablecoin} balance.",
+            "insufficientCrypto": "Insufficient crypto balance."
+        },
         "purchaseSuccessTitle": "Purchase Successful",
-        "purchaseSuccessDescription": "You purchased {amount} {symbol}.",
+        "purchaseSuccessDescription": "You bought {amount} {symbol}.",
         "purchaseFailTitle": "Purchase Failed",
         "purchaseFailDescription": "The transaction could not be completed.",
         "saleSuccessTitle": "Sale Successful",
         "saleSuccessDescription": "You sold {amount} {symbol}.",
         "saleFailTitle": "Sale Failed",
-        "saleFailDescription": "The transaction could not be completed.",
-        "validation": {
-            "positive": "Amount must be positive.",
-            "insufficientGUSD": "Insufficient {stablecoin} balance.",
-            "insufficientCrypto": "Insufficient crypto balance."
-        }
+        "saleFailDescription": "The transaction could not be completed."
+    },
+    "rsi": {
+        "label": "RSI: {value}",
+        "oversold": "Oversold (<30)",
+        "overbought": "Overbought (>70)"
     },
     "simulator": {
         "title": "Trading Simulator"
@@ -92,7 +96,7 @@
         "title": "Wallet Summary",
         "cashBalance": "Cash Balance ({stablecoin})",
         "cryptoHoldings": "Crypto Holdings Value",
-        "totalPL": "Total Profit/Loss"
+        "totalPL": "Total P&L"
     },
     "holdingsTable": {
         "title": "My Holdings",
@@ -100,15 +104,15 @@
         "quantity": "Quantity",
         "avgBuyPrice": "Avg. Buy Price",
         "currentValue": "Current Value",
-        "pl": "P/L",
+        "pl": "P&L",
         "action": "Action",
-        "noHoldings": "You have no holdings. Buy some crypto from the dashboard!"
+        "noHoldings": "You have no holdings yet. Buy some crypto from the dashboard!"
     },
     "policies": {
-        "title": "Privacy Policies",
-        "subtitle": "Your Data, Your Control",
-        "p1": "This application is designed with your privacy and security as a top priority. We do not collect, store, or transmit any of your personal data, including your API keys.",
-        "p2": "Your Binance API keys are stored exclusively in your browser's local environment. They are never sent to any server, including ours. This means only you have access to them, directly from your own machine. The keys are used solely for making direct, read-only requests to the Binance API from your browser to fetch market data.",
-        "p3": "All trading simulation data, such as your virtual balance and holdings, is also stored locally in your browser. Clearing your browser's storage will reset the simulation."
+        "title": "Our Policies",
+        "subtitle": "Data & Privacy",
+        "p1": "This application is for demonstration and educational purposes only. It is not intended for real financial trading.",
+        "p2": "All trading data, including your balance and holdings, is stored locally in your browser and is not transmitted to any server.",
+        "p3": "API keys are stored in your local environment and are only used to communicate directly with the respective API services from your browser or through secure server actions. They are never stored by us."
     }
 }
