@@ -1,118 +1,116 @@
-
 {
-    "header": {
-        "appName": "CryptoPulse",
-        "dashboard": "Dashboard",
-        "simulator": "Simulator",
-        "docs": "Docs",
-        "settings": "Settings",
-        "theme": "Theme",
-        "light": "Light",
-        "dark": "Dark",
-        "language": "Language",
-        "currency": "Currency",
-        "apiConnected": "API Connected",
-        "apiDisconnected": "API Disconnected"
+  "header": {
+    "appName": "CryptoPulse",
+    "dashboard": "Dashboard",
+    "simulator": "Simulator",
+    "docs": "Docs",
+    "settings": "Settings",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "language": "Language",
+    "currency": "Currency",
+    "apiConnected": "API Connected",
+    "apiDisconnected": "API Disconnected"
+  },
+  "footer": {
+    "policies": "Policies"
+  },
+  "dashboard": {
+    "title": "Crypto Dashboard",
+    "top50BuyLabel": "Top 50 Buy",
+    "top50SellLabel": "Top 50 Sell",
+    "top50ShortTermBuy": "Top 50 Short-Term Buy Opportunities",
+    "top50ShortTermSell": "Top 50 Short-Term Sell Opportunities",
+    "refreshButton": "Refresh Data",
+    "error": {
+        "title": "API Connection Error",
+        "description": "Could not connect to the data source. The data displayed might be stale or incomplete. Please check your network connection or the API service status."
     },
-    "footer": {
-        "policies": "Policies"
+    "warning": {
+      "dismiss": "Dismiss"
     },
-    "dashboard": {
-        "title": "Crypto Dashboard",
-        "top50ShortTermBuy": "Top 50 Short-Term Buy Opportunities",
-        "top50ShortTermSell": "Top 50 Short-Term Sell Opportunities",
-        "top50BuyLabel": "Top 50 Buy",
-        "top50SellLabel": "Top 50 Sell",
-        "refreshButton": "Refresh",
-        "error": {
-            "title": "API Connection Error",
-            "description": "Could not fetch live data from the API. The service might be down or there could be a network issue. Please try again later. Error details:"
-        },
-        "warning": {
-            "dismiss": "Dismiss"
-        },
-        "pagination": {
-            "page": "Page",
-            "of": "of",
-            "previous": "Previous",
-            "next": "Next"
-        }
-    },
-    "cryptoTable": {
-        "name": "Name",
-        "price": "Price",
-        "volume24h": "24h Volume",
-        "priceChange24h": "24h Change",
-        "rsi": "RSI (14d)",
-        "action": "Action",
-        "expandRow": "Expand row",
-        "loading": "Fetching latest data...",
-        "noData": "No cryptocurrency data available."
-    },
-    "cryptoDetail": {
-        "priceChartTitle": "{name} Price History (30d)",
-        "aiAnalysis": "AI Analysis",
-        "aiAnalysisDescription": "Get AI-powered trade signals.",
-        "analyzeButton": "Analyze Now",
-        "analysisFailed": "Analysis Failed",
-        "analysisError": "Could not generate AI analysis.",
-        "shortTermSignal": "Short-Term Signal",
-        "longTermSignal": "Long-Term Signal",
-        "explanation": "Explanation"
-    },
-    "tradeDialog": {
-        "title": "Trade {name} ({symbol})",
-        "buy": "Buy",
-        "sell": "Sell",
-        "currentPrice": "Current Price",
-        "balance": "Balance",
-        "amountToSpend": "Amount to spend ({stablecoin})",
-        "amountToReceive": "Amount to receive",
-        "amountToReceiveIn": "Amount to receive in ({stablecoin})",
-        "amountToSell": "Amount to sell",
-        "validation": {
-            "positive": "Amount must be positive.",
-            "insufficientGUSD": "Insufficient {stablecoin} balance.",
-            "insufficientCrypto": "Insufficient crypto balance."
-        },
-        "purchaseSuccessTitle": "Purchase Successful",
-        "purchaseSuccessDescription": "You bought {amount} {symbol}.",
-        "purchaseFailTitle": "Purchase Failed",
-        "purchaseFailDescription": "The transaction could not be completed.",
-        "saleSuccessTitle": "Sale Successful",
-        "saleSuccessDescription": "You sold {amount} {symbol}.",
-        "saleFailTitle": "Sale Failed",
-        "saleFailDescription": "The transaction could not be completed."
-    },
-    "rsi": {
-        "label": "RSI: {value}",
-        "oversold": "Oversold (<30)",
-        "overbought": "Overbought (>70)"
-    },
-    "simulator": {
-        "title": "Trading Simulator"
-    },
-    "walletSummary": {
-        "title": "Wallet Summary",
-        "cashBalance": "Cash Balance ({stablecoin})",
-        "cryptoHoldings": "Crypto Holdings Value",
-        "totalPL": "Total P&L"
-    },
-    "holdingsTable": {
-        "title": "My Holdings",
-        "asset": "Asset",
-        "quantity": "Quantity",
-        "avgBuyPrice": "Avg. Buy Price",
-        "currentValue": "Current Value",
-        "pl": "P&L",
-        "action": "Action",
-        "noHoldings": "You have no holdings yet. Buy some crypto from the dashboard!"
-    },
-    "policies": {
-        "title": "Our Policies",
-        "subtitle": "Data & Privacy",
-        "p1": "This application is for demonstration and educational purposes only. It is not intended for real financial trading.",
-        "p2": "All trading data, including your balance and holdings, is stored locally in your browser and is not transmitted to any server.",
-        "p3": "API keys are stored in your local environment and are only used to communicate directly with the respective API services from your browser or through secure server actions. They are never stored by us."
+    "pagination": {
+      "page": "Page",
+      "of": "of",
+      "previous": "Previous",
+      "next": "Next"
     }
+  },
+  "cryptoTable": {
+    "name": "Name",
+    "price": "Price",
+    "volume24h": "Volume (24h)",
+    "rsi": "RSI (6d)",
+    "action": "Action",
+    "expandRow": "Expand row",
+    "loading": "Fetching live data...",
+    "noData": "No cryptocurrency data available to display."
+  },
+  "cryptoDetail": {
+    "priceChartTitle": "{name} Price History (30d)",
+    "aiAnalysis": "AI Analysis",
+    "aiAnalysisDescription": "Generate trade signals based on current data.",
+    "analyzeButton": "Analyze Now",
+    "analysisFailed": "Analysis Failed",
+    "analysisError": "An error occurred while generating the AI analysis.",
+    "shortTermSignal": "Short-Term Signal",
+    "longTermSignal": "Long-Term Signal",
+    "explanation": "Explanation"
+  },
+  "rsi": {
+    "label": "RSI: {value}",
+    "oversold": "Potential Buy Signal (Oversold)",
+    "overbought": "Potential Sell Signal (Overbought)"
+  },
+  "tradeDialog": {
+    "title": "Trade {name} ({symbol})",
+    "currentPrice": "Current Price",
+    "buy": "Buy",
+    "sell": "Sell",
+    "balance": "Balance",
+    "amountToSpend": "Amount to spend ({stablecoin})",
+    "amountToReceive": "Amount to receive",
+    "amountToSell": "Amount to sell",
+    "amountToReceiveIn": "Amount to receive in {stablecoin}",
+    "purchaseSuccessTitle": "Purchase Successful",
+    "purchaseSuccessDescription": "You purchased {amount} {symbol}.",
+    "purchaseFailTitle": "Purchase Failed",
+    "purchaseFailDescription": "The transaction could not be completed. Please check your balance.",
+    "saleSuccessTitle": "Sale Successful",
+    "saleSuccessDescription": "You sold {amount} {symbol}.",
+    "saleFailTitle": "Sale Failed",
+    "saleFailDescription": "The transaction could not be completed. Please check your holdings.",
+    "validation": {
+      "positive": "Amount must be positive.",
+      "insufficientGUSD": "Insufficient {stablecoin} balance.",
+      "insufficientCrypto": "Insufficient crypto balance."
+    }
+  },
+  "simulator": {
+    "title": "Trading Simulator"
+  },
+  "walletSummary": {
+    "title": "Wallet Summary",
+    "cashBalance": "Cash Balance ({stablecoin})",
+    "cryptoHoldings": "Crypto Holdings Value",
+    "totalPL": "Total P&L"
+  },
+  "holdingsTable": {
+    "title": "My Holdings",
+    "asset": "Asset",
+    "quantity": "Quantity",
+    "avgBuyPrice": "Avg. Buy Price",
+    "currentValue": "Current Value",
+    "pl": "P&L",
+    "action": "Action",
+    "noHoldings": "You do not have any holdings yet. Buy some from the dashboard!"
+  },
+  "policies": {
+    "title": "Our Policies",
+    "subtitle": "Privacy & Data Usage",
+    "p1": "This application is for educational and demonstration purposes only. It is not intended for real financial transactions or advice.",
+    "p2": "All trading data, including your virtual balance and holdings, is stored exclusively in your browser's local storage. This data is not sent to any server and is private to your session.",
+    "p3": "If you provide a Google API Key for AI features, it is also stored only in your local environment and is used directly by your browser to communicate with the Google AI API. It is never transmitted to our servers."
+  }
 }

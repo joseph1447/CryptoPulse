@@ -1,118 +1,117 @@
-
 {
     "header": {
-        "appName": "CryptoPulso",
-        "dashboard": "Tablero",
-        "simulator": "Simulador",
-        "docs": "Docs",
-        "settings": "Ajustes",
-        "theme": "Tema",
-        "light": "Claro",
-        "dark": "Oscuro",
-        "language": "Idioma",
-        "currency": "Moneda",
-        "apiConnected": "API Conectada",
-        "apiDisconnected": "API Desconectada"
+      "appName": "CryptoPulso",
+      "dashboard": "Tablero",
+      "simulator": "Simulador",
+      "docs": "Docs",
+      "settings": "Ajustes",
+      "theme": "Tema",
+      "light": "Claro",
+      "dark": "Oscuro",
+      "language": "Idioma",
+      "currency": "Moneda",
+      "apiConnected": "API Conectada",
+      "apiDisconnected": "API Desconectada"
     },
     "footer": {
-        "policies": "Políticas"
+      "policies": "Políticas"
     },
     "dashboard": {
-        "title": "Tablero de Criptos",
-        "top50ShortTermBuy": "Top 50 Oportunidades de Compra a Corto Plazo",
-        "top50ShortTermSell": "Top 50 Oportunidades de Venta a Corto Plazo",
-        "top50BuyLabel": "Top 50 Compra",
-        "top50SellLabel": "Top 50 Venta",
-        "refreshButton": "Actualizar",
-        "error": {
-            "title": "Error de Conexión con la API",
-            "description": "No se pudieron cargar los datos en vivo de la API. El servicio podría estar inactivo o podría haber un problema de red. Por favor, inténtelo de nuevo más tarde. Detalles del error:"
-        },
-        "warning": {
-            "dismiss": "Descartar"
-        },
-        "pagination": {
-            "page": "Página",
-            "of": "de",
-            "previous": "Anterior",
-            "next": "Siguiente"
-        }
+      "title": "Tablero de Criptomonedas",
+      "top50BuyLabel": "Top 50 Compra",
+      "top50SellLabel": "Top 50 Venta",
+      "top50ShortTermBuy": "Top 50 Oportunidades de Compra a Corto Plazo",
+      "top50ShortTermSell": "Top 50 Oportunidades de Venta a Corto Plazo",
+      "refreshButton": "Actualizar Datos",
+      "error": {
+        "title": "Error de Conexión API",
+        "description": "No se pudo conectar a la fuente de datos. La data mostrada puede ser antigua o estar incompleta. Por favor, verifique su conexión a internet o el estado del servicio API."
+      },
+      "warning": {
+        "dismiss": "Descartar"
+      },
+      "pagination": {
+        "page": "Página",
+        "of": "de",
+        "previous": "Anterior",
+        "next": "Siguiente"
+      }
     },
     "cryptoTable": {
-        "name": "Nombre",
-        "price": "Precio",
-        "volume24h": "Volumen 24h",
-        "priceChange24h": "Cambio 24h",
-        "rsi": "RSI (14d)",
-        "action": "Acción",
-        "expandRow": "Expandir fila",
-        "loading": "Cargando últimos datos...",
-        "noData": "No hay datos de criptomonedas disponibles."
+      "name": "Nombre",
+      "price": "Precio",
+      "volume24h": "Volumen (24h)",
+      "rsi": "RSI (6d)",
+      "action": "Acción",
+      "expandRow": "Expandir fila",
+      "loading": "Obteniendo datos en vivo...",
+      "noData": "No hay datos de criptomonedas para mostrar."
     },
     "cryptoDetail": {
-        "priceChartTitle": "Historial de Precios de {{name}} (30d)",
-        "aiAnalysis": "Análisis con IA",
-        "aiAnalysisDescription": "Obtén señales de trading con IA.",
-        "analyzeButton": "Analizar Ahora",
-        "analysisFailed": "Análisis Fallido",
-        "analysisError": "No se pudo generar el análisis de IA.",
-        "shortTermSignal": "Señal a Corto Plazo",
-        "longTermSignal": "Señal a Largo Plazo",
-        "explanation": "Explicación"
-    },
-    "tradeDialog": {
-        "title": "Transaccionar {name} ({symbol})",
-        "buy": "Comprar",
-        "sell": "Vender",
-        "currentPrice": "Precio Actual",
-        "balance": "Balance",
-        "amountToSpend": "Monto a gastar ({stablecoin})",
-        "amountToReceive": "Monto a recibir",
-        "amountToReceiveIn": "Monto a recibir en ({stablecoin})",
-        "amountToSell": "Monto a vender",
-        "validation": {
-            "positive": "El monto debe ser positivo.",
-            "insufficientGUSD": "Balance de {stablecoin} insuficiente.",
-            "insufficientCrypto": "Balance de cripto insuficiente."
-        },
-        "purchaseSuccessTitle": "Compra Exitosa",
-        "purchaseSuccessDescription": "Compraste {amount} {symbol}.",
-        "purchaseFailTitle": "Falló la Compra",
-        "purchaseFailDescription": "La transacción no pudo ser completada.",
-        "saleSuccessTitle": "Venta Exitosa",
-        "saleSuccessDescription": "Vendiste {amount} {symbol}.",
-        "saleFailTitle": "Falló la Venta",
-        "saleFailDescription": "La transacción no pudo ser completada."
+      "priceChartTitle": "Historial de Precios de {{name}} (30d)",
+      "aiAnalysis": "Análisis IA",
+      "aiAnalysisDescription": "Generar señales de trading basadas en datos actuales.",
+      "analyzeButton": "Analizar Ahora",
+      "analysisFailed": "Análisis Fallido",
+      "analysisError": "Ocurrió un error al generar el análisis de IA.",
+      "shortTermSignal": "Señal a Corto Plazo",
+      "longTermSignal": "Señal a Largo Plazo",
+      "explanation": "Explicación"
     },
     "rsi": {
-        "label": "RSI: {value}",
-        "oversold": "Sobrevendido (<30)",
-        "overbought": "Sobrecomprado (>70)"
+      "label": "RSI: {value}",
+      "oversold": "Posible Señal de Compra (Sobreventa)",
+      "overbought": "Posible Señal de Venta (Sobrecompra)"
+    },
+    "tradeDialog": {
+      "title": "Transaccionar {name} ({symbol})",
+      "currentPrice": "Precio Actual",
+      "buy": "Comprar",
+      "sell": "Vender",
+      "balance": "Saldo",
+      "amountToSpend": "Monto a gastar ({stablecoin})",
+      "amountToReceive": "Monto a recibir",
+      "amountToSell": "Monto a vender",
+      "amountToReceiveIn": "Monto a recibir en {stablecoin}",
+      "purchaseSuccessTitle": "Compra Exitosa",
+      "purchaseSuccessDescription": "Compraste {amount} {symbol}.",
+      "purchaseFailTitle": "Compra Fallida",
+      "purchaseFailDescription": "La transacción no pudo ser completada. Por favor, verifica tu saldo.",
+      "saleSuccessTitle": "Venta Exitosa",
+      "saleSuccessDescription": "Vendiste {amount} {symbol}.",
+      "saleFailTitle": "Venta Fallida",
+      "saleFailDescription": "La transacción no pudo ser completada. Por favor, verifica tus tenencias.",
+      "validation": {
+        "positive": "El monto debe ser positivo.",
+        "insufficientGUSD": "Saldo insuficiente de {stablecoin}.",
+        "insufficientCrypto": "Saldo insuficiente de la criptomoneda."
+      }
     },
     "simulator": {
-        "title": "Simulador de Trading"
+      "title": "Simulador de Trading"
     },
     "walletSummary": {
-        "title": "Resumen de Billetera",
-        "cashBalance": "Balance en Efectivo ({stablecoin})",
-        "cryptoHoldings": "Valor de Criptoactivos",
-        "totalPL": "G/P Total"
+      "title": "Resumen de Billetera",
+      "cashBalance": "Saldo en Efectivo ({stablecoin})",
+      "cryptoHoldings": "Valor de Tenencias Cripto",
+      "totalPL": "P&G Total"
     },
     "holdingsTable": {
-        "title": "Mis Activos",
-        "asset": "Activo",
-        "quantity": "Cantidad",
-        "avgBuyPrice": "Precio Prom. Compra",
-        "currentValue": "Valor Actual",
-        "pl": "G/P",
-        "action": "Acción",
-        "noHoldings": "Aún no tienes activos. ¡Compra alguna cripto desde el tablero!"
+      "title": "Mis Tenencias",
+      "asset": "Activo",
+      "quantity": "Cantidad",
+      "avgBuyPrice": "Precio Prom. Compra",
+      "currentValue": "Valor Actual",
+      "pl": "P&G",
+      "action": "Acción",
+      "noHoldings": "Aún no tienes tenencias. ¡Compra algunas en el tablero!"
     },
     "policies": {
-        "title": "Nuestras Políticas",
-        "subtitle": "Datos y Privacidad",
-        "p1": "Esta aplicación es solo para fines demostrativos y educativos. No está destinada para el comercio financiero real.",
-        "p2": "Todos los datos de trading, incluido su saldo y activos, se almacenan localmente en su navegador y no se transmiten a ningún servidor.",
-        "p3": "Las claves de API se almacenan en su entorno local y solo se utilizan para comunicarse directamente con los servicios de API respectivos desde su navegador o a través de acciones seguras del servidor. Nunca son almacenadas por nosotros."
+      "title": "Nuestras Políticas",
+      "subtitle": "Privacidad y Uso de Datos",
+      "p1": "Esta aplicación es solo para fines educativos y de demostración. No está destinada para transacciones financieras reales o asesoramiento.",
+      "p2": "Todos los datos de trading, incluyendo tu saldo virtual y tenencias, se almacenan exclusivamente en el almacenamiento local de tu navegador. Estos datos no se envían a ningún servidor y son privados para tu sesión.",
+      "p3": "Si proporcionas una Clave API de Google para las funciones de IA, también se almacena solo en tu entorno local y es utilizada directamente por tu navegador para comunicarse con la API de Google AI. Nunca se transmite a nuestros servidores."
     }
-}
+  }
+  
