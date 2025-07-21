@@ -62,15 +62,7 @@ export function CryptoTable({ cryptos: initialCryptos, viewMode }: { cryptos: Cr
 
   return (
     <>
-      <div className="rounded-md border relative">
-        {loading && (
-          <div className="absolute inset-0 bg-background/80 flex items-center justify-center z-10">
-            <div className="flex items-center gap-2">
-              <Loader2 className="h-8 w-8 animate-spin text-primary" />
-              <p className="text-muted-foreground">{t('cryptoTable.loading')}</p>
-            </div>
-          </div>
-        )}
+      <div className="rounded-md border">
         <Table>
           <TableHeader>
             <TableRow>

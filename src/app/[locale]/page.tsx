@@ -130,16 +130,27 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>
-             {viewMode === 'buy' ? t('dashboard.top50ShortTermBuy') : t('dashboard.top50ShortTermSell')}
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CryptoTable cryptos={paginatedCryptos} viewMode={viewMode} />
-        </CardContent>
-      </Card>
+      <div className="relative">
+        {loading && !isRefreshing && (
+          <div className="absolute inset-0 bg-background/80 flex items-center justify-center z-10 rounded-lg">
+            <div className="flex items-center gap-2">
+              <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              <p className="text-muted-foreground">{t('cryptoTable.loading')}</p>
+            </div>
+          </div>
+        )}
+        <Card>
+          <CardHeader>
+            <CardTitle>
+              {viewMode === 'buy' ? t('dashboard.top50ShortTermBuy') : t('dashboard.top50ShortTermSell')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CryptoTable cryptos={paginatedCryptos} viewMode={viewMode} />
+          </CardContent>
+        </Card>
+      </div>
+
 
       {totalPages > 1 && (
         <div className="flex items-center justify-end space-x-4">
