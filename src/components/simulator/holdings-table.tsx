@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { TradeDialog } from "../dashboard/trade-dialog";
 import { useI18n } from "@/hooks/use-i18n";
-import Image from "next/image";
+import FallbackImage from "../common/fallback-image";
 
 export function HoldingsTable() {
   const { holdings, cryptos, currency, exchangeRate } = useCrypto();
@@ -88,7 +88,7 @@ export function HoldingsTable() {
                         <TableRow key={holding.cryptoId}>
                         <TableCell>
                           <div className="flex items-center gap-3">
-                             <Image src={holding.crypto.imageUrl} alt={`${holding.crypto.name} logo`} width={32} height={32} className="h-8 w-8 rounded-full" />
+                             <FallbackImage src={holding.crypto.imageUrl} alt={`${holding.crypto.name} logo`} width={32} height={32} className="h-8 w-8 rounded-full" />
                             <div>
                               <div className="font-medium">{holding.crypto.name}</div>
                               <div className="text-muted-foreground text-xs">{holding.crypto.symbol}</div>

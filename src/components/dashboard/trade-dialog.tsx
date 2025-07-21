@@ -27,7 +27,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useI18n } from "@/hooks/use-i18n";
-import Image from "next/image";
+import FallbackImage from "../common/fallback-image";
 
 interface TradeDialogProps {
   crypto: Crypto;
@@ -130,7 +130,7 @@ export function TradeDialog({ crypto, isOpen, onClose, defaultTab = 'buy' }: Tra
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Image src={crypto.imageUrl} alt={`${crypto.name} logo`} width={24} height={24} className="h-6 w-6 rounded-full" />
+            <FallbackImage src={crypto.imageUrl} alt={`${crypto.name} logo`} width={24} height={24} className="h-6 w-6 rounded-full" />
             {t('tradeDialog.title', { name: crypto.name, symbol: crypto.symbol })}
           </DialogTitle>
         </DialogHeader>

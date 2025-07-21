@@ -19,7 +19,7 @@ import { ChevronDown, Loader2 } from "lucide-react";
 import { CryptoDetailView } from "./crypto-detail-view";
 import { useI18n } from "@/hooks/use-i18n";
 import { useCrypto } from "@/hooks/use-crypto";
-import Image from "next/image";
+import FallbackImage from "../common/fallback-image";
 
 export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) {
   const [selectedCrypto, setSelectedCrypto] = useState<Crypto | null>(null);
@@ -95,7 +95,7 @@ export function CryptoTable({ cryptos: initialCryptos }: { cryptos: Crypto[] }) 
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-3">
-                          <Image src={crypto.imageUrl} alt={`${crypto.name} logo`} width={32} height={32} className="h-8 w-8 rounded-full" />
+                          <FallbackImage src={crypto.imageUrl} alt={`${crypto.name} logo`} width={32} height={32} className="h-8 w-8 rounded-full" />
                           <div>
                             <div className="font-medium">{crypto.name}</div>
                             <div className="text-muted-foreground text-xs">{crypto.symbol}</div>
