@@ -4,7 +4,6 @@
 import { useMemo, useState } from "react";
 import { useCrypto } from "@/hooks/use-crypto";
 import { CryptoTable } from "@/components/dashboard/crypto-table";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useI18n } from "@/hooks/use-i18n";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -19,7 +18,6 @@ const ITEMS_PER_PAGE = 15;
 export default function DashboardPage() {
   const { 
     cryptos, 
-    initialized, 
     loading,
     apiConnectionError,
     fetchCryptoData 
@@ -58,29 +56,6 @@ export default function DashboardPage() {
   }, [top50Cryptos, currentPage]);
 
   const totalPages = Math.ceil(top50Cryptos.length / ITEMS_PER_PAGE);
-
-  if (!initialized) {
-    return (
-      <div className="space-y-8">
-        <div className="flex justify-between items-center">
-            <h1 className="text-3xl font-bold font-headline">{t('dashboard.title')}</h1>
-            <Skeleton className="h-8 w-48" />
-        </div>
-        <Card>
-          <CardHeader>
-            <Skeleton className="h-8 w-64" />
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {[...Array(10)].map((_, i) => (
-                <Skeleton key={i} className="h-12 w-full" />
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
 
   return (
     <div className="space-y-8">
@@ -132,7 +107,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <div className="relative">
+      <div className="relative min-h-[400px]">
         {loading && (
           <div className="absolute inset-0 bg-background/80 flex items-center justify-center z-10 rounded-lg">
             <div className="flex items-center gap-2">
@@ -141,9 +116,10 @@ export default function DashboardPage() {
             </div>
           </div>
         )}
-        <CryptoTable cryptos={paginatedCryptos} viewMode={viewMode} />
+        <div className={loading ? 'invisible' : 'visible'}>
+          <CryptoTable cryptos={paginatedCryptos} viewMode={viewMode} />
+        </div>
       </div>
-
 
       {totalPages > 1 && (
         <div className="flex items-center justify-end space-x-4">
